@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $classes = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard', 'artificer', 'blood_hunter'];
+        $classes = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Artificer', 'Blood Hunter'];
         foreach ($classes as $class) {
             CharacterClass::factory()->create([
                 'name' => $class

@@ -14,9 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->foreignId('class_id');
-            $table->string('link');
-            $table->foreignId('user_id')->constrained('users');
+            $table->string('start_tier');
+            $table->string('external_link');
+            $table->foreignId('user_id')->constrained();
         });
     }
 

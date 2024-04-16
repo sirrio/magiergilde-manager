@@ -27,7 +27,7 @@ class StoreCharacterRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'class' => 'required|string',
+            'class' => 'required|integer',
         ];
     }
 }

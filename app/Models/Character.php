@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $name
- * @property string $class
+ * @property string $external_link
+ * @property string $start_tier
  * @property integer $user_id
  */
 class Character extends Model
@@ -19,10 +20,15 @@ class Character extends Model
      *
      * @var array
      */
-    protected $with = ['adventures'];
+    protected $with = ['adventures', 'characterClasses'];
 
     public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Adventure::class);
+    }
+
+    public function characterClasses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(CharacterClass::class);
     }
 }

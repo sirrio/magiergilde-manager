@@ -25,7 +25,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/character', [CharacterController::class, 'create'])->name('character.create');
     Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
     Route::put('/character', [CharacterController::class, 'store'])->name('character.store');
 });

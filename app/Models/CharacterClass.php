@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CharacterClass extends Model
 {
     use HasFactory;
+
+    public function characters(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Character::class);
+    }
 }

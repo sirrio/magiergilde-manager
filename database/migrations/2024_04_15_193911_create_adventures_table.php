@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->date('start_date');
             $table->boolean('has_additional_bubble')->default(false);
             $table->longText('notes')->nullable();
-            $table->foreignId('character_id')->constrained('characters');
+            $table->foreignId('character_id')->constrained();
         });
     }
 

@@ -23,10 +23,8 @@ class CharacterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): \Inertia\Response
+    public function create()
     {
-        return Inertia::render('Character/Create', [
-        ]);
     }
 
     /**
@@ -36,9 +34,11 @@ class CharacterController extends Controller
     {
         $character = new Character();
         $character->name = $request->name;
-        $character->class = $request->class;
         $character->user_id = Auth::user()->getAuthIdentifier();
+        $character->start_tier = '';
+        $character->external_link = '';
         $character->save();
+        $character->characterClasses()->attach($request->class);
 
         return to_route('dashboard');
     }
