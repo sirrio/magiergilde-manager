@@ -7,10 +7,12 @@ const props = defineProps<{
     characters: Character
 }>()
 
-console.log(props.characters)
-
 const clickCreateNewCharacter = () => {
     router.visit(route('character.create'))
+}
+
+const clickShowCharacter = (id: Number) => {
+    router.visit(route('character.show', {character: id}))
 }
 </script>
 
@@ -18,22 +20,30 @@ const clickCreateNewCharacter = () => {
     <Head title="Dashboard"/>
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
+
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                <div class="prose mb-12">
+                    <h2 class="">Your character</h2>
+                    <p>You can manager your character here</p>
+                </div>
+
+                <div class="grid grid-cols-4">
+                    <div class="card bg-base-100" v-for="(character , key) of characters" :key="key">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ character.name }}</h3>
+                            <p>{{ character.class }}</p>
+                            <button class="btn btn-neutral " @click="clickShowCharacter(character.id)">Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <button @click="clickCreateNewCharacter" class="btn btn-neutral">Create new character</button>
                 </div>
             </div>
         </div>
-
-        <div>
-            <button @click="clickCreateNewCharacter" class="btn">Create new character</button>
-        </div>
-
-        <div v-for="(character, key) of characters" :key="key">1{{ character}}</div>
     </AuthenticatedLayout>
 </template>

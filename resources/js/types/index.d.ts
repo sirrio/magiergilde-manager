@@ -15,3 +15,8 @@ export interface Character {
     name: string;
     class: string;
 }
+
+export interface Adventure {
+    id: number;
+    duration: number;
+}

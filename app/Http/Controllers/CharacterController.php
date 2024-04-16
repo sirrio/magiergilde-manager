@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adventure;
 use App\Models\Character;
 use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
@@ -45,9 +46,11 @@ class CharacterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Character $character)
+    public function show(Character $character): \Inertia\Response
     {
-        //
+        return Inertia::render('Character/Show', [
+            'character' => $character
+        ]);
     }
 
     /**

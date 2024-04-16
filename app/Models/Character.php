@@ -13,4 +13,16 @@ use Illuminate\Database\Eloquent\Model;
 class Character extends Model
 {
     use HasFactory;
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['adventures'];
+
+    public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Adventure::class);
+    }
 }

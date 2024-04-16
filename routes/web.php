@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,7 +26,12 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/character', [CharacterController::class, 'create'])->name('character.create');
+    Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
     Route::put('/character', [CharacterController::class, 'store'])->name('character.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::put('/adventure', [AdventureController::class, 'store'])->name('adventure.store');
 });
 
 Route::middleware('auth')->group(function () {

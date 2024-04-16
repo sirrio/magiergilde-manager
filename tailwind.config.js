@@ -19,5 +19,8 @@ export default {
     },
 
 
-    plugins: [forms, require("daisyui")],
+    plugins: [forms, require('@tailwindcss/typography'), require("daisyui")],
+    daisyui: {
+        themes: ["light", "dark", "dracula"],
+    },
 };

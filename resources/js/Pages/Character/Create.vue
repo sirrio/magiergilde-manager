@@ -8,7 +8,7 @@ const form = useForm({
 });
 
 const clickCreateNewCharacter = () => {
-    form.put(route('character.create'))
+    form.put(route('character.store'))
 }
 </script>
 

@@ -10,13 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('characters', function (Blueprint $table) {
+        Schema::create('adventures', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->foreignId('class_id');
-            $table->string('link');
-            $table->foreignId('user_id')->constrained('users');
+            $table->bigInteger('duration');
+            $table->date('start_date');
+            $table->boolean('has_additional_bubble')->default(false);
+            $table->longText('notes')->nullable();
+            $table->foreignId('character_id')->constrained('characters');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('characters');
+        Schema::dropIfExists('adventures');
     }
 };
