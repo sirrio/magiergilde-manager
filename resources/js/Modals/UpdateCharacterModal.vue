@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import {useForm} from "@inertiajs/vue3"
-import {ref} from "vue"
-import {Character} from "@/types";
+import { InertiaForm, useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import { Character } from '@/types'
 
 const props = defineProps<{
   character: Character
 }>()
 
-const form = useForm({
+const form: InertiaForm<{
+  name: string
+  class: number
+  external_link: string
+  avatar: File | null
+}> = useForm({
   name: props.character.name,
   class: props.character.character_classes[0].id,
   external_link: props.character.external_link,
-  avatar: ''
+  avatar: null,
 })
 
 const modalCharacterCreate = ref()
@@ -21,12 +26,18 @@ const showModal = () => {
 }
 
 const clickUpdateCharacter = () => {
-  form.post(route('character.update', {character: props.character.id}), {onSuccess: params => modalCharacterCreate.value.close()})
+  form.post(route('character.update', { character: props.character.id }), { onSuccess: () => modalCharacterCreate.value.close() })
 }
 
 defineExpose({
-  showModal
+  showModal,
 })
+
+function inputFile(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (target?.files)
+    form.avatar = target?.files[0]
+}
 </script>
 
 <template>
@@ -100,7 +111,7 @@ defineExpose({
           type="file"
           class="file-input file-input-bordered w-full"
           accept=".jpeg,.png,.jpg,.gif,.webp"
-          @input="form.avatar = $event?.target?.files[0]"
+          @input="inputFile($event)"
         >
       </label>
 

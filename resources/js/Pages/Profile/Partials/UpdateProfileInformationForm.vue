@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import {Link, useForm, usePage} from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3'
 
 defineProps<{
-  mustVerifyEmail?: Boolean;
-  status?: String;
-}>();
+  mustVerifyEmail?: boolean;
+  status?: string;
+}>()
 
-const user = usePage().props.auth.user;
+const user = usePage().props.auth.user
 
 const form = useForm({
   name: user.name,
   email: user.email,
-});
+})
 </script>
 
 <template>
@@ -26,30 +22,37 @@ const form = useForm({
           <h2>Update your account's profile information and email address.</h2>
         </div>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="flex flex-col gap-3 max-w-md">
+        <form
+          class="flex flex-col gap-3 max-w-md"
+          @submit.prevent="form.patch(route('profile.update'))"
+        >
           <label class="form-control w-full ">
             <div class="label">
               <span class="label-text">Name</span>
             </div>
-            <input type="text"
-                   v-model="form.name"
-                   placeholder="Peter"
-                   required
-                   autofocus
-                   autocomplete="name"
-                   class="input input-bordered w-full"/>
+            <input
+              v-model="form.name"
+              type="text"
+              placeholder="Peter"
+              required
+              autofocus
+              autocomplete="name"
+              class="input input-bordered w-full"
+            >
           </label>
 
           <label class="form-control w-full ">
             <div class="label">
               <span class="label-text">Email</span>
             </div>
-            <input type="text"
-                   v-model="form.email"
-                   placeholder="someone@mail.com"
-                   required
-                   autocomplete="username"
-                   class="input input-bordered w-full"/>
+            <input
+              v-model="form.email"
+              type="text"
+              placeholder="someone@mail.com"
+              required
+              autocomplete="username"
+              class="input input-bordered w-full"
+            >
           </label>
 
           <!--          <div v-if="mustVerifyEmail && user.email_verified_at === null">-->
@@ -73,7 +76,12 @@ const form = useForm({
           <!--            </div>-->
           <!--          </div>-->
 
-          <button class="btn btn-neutral" :disabled="form.processing">Save</button>
+          <button
+            class="btn btn-neutral"
+            :disabled="form.processing"
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import {Head} from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import DeleteUserForm from './Partials/DeleteUserForm.vue'
+import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue'
+import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue'
+import { Head } from '@inertiajs/vue3'
 
 defineProps<{
   mustVerifyEmail?: boolean;
   status?: string;
-}>();
+}>()
 </script>
 
 <template>
-  <Head title="Profile"/>
+  <Head title="Profile" />
 
   <AuthenticatedLayout>
     <div class="py-12 px-6">
@@ -28,9 +28,9 @@ defineProps<{
             :status="status"
           />
 
-          <UpdatePasswordForm/>
+          <UpdatePasswordForm />
 
-          <DeleteUserForm/>
+          <DeleteUserForm />
         </div>
       </div>
     </div>

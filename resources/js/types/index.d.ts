@@ -19,6 +19,7 @@ export interface CharacterClass {
 
 export interface Character {
   character_classes: CharacterClass[];
+  adventures: Adventure[];
   id: number;
   name: string;
   class: string;

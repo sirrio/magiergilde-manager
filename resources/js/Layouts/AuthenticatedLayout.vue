@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/vue3'
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
-import ApplicationLogo from "@/Components/ApplicationLogo.vue"
+import { Link } from '@inertiajs/vue3'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ApplicationLogo from '@/Components/ApplicationLogo.vue'
 </script>
 
 <template>

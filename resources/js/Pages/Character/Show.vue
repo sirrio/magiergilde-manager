@@ -1,50 +1,65 @@
 <script setup lang="ts">
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Character} from "@/types";
-import {ref} from "vue";
-import {calculateBubble} from "@/helpers/calculateBubble";
-import {calculateLevel} from "@/helpers/calculateLevel";
-import CreateAdventureModal from "@/Modals/CreateAdventureModal.vue";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { Character } from '@/types'
+import { ref } from 'vue'
+import { calculateBubble } from '@/helpers/calculateBubble'
+import { calculateLevel } from '@/helpers/calculateLevel'
+import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
 
-const props = defineProps<{
+defineProps<{
   character: Character
 }>()
 
 const createAdventureModal = ref()
+
+function onImgError(event: Event) {
+  const target = event.target as HTMLImageElement
+  target.src = '/images/placeholder.jpg'
+}
 </script>
 
 <template>
   <AuthenticatedLayout>
     <div class="py-12 px-6">
       <div class="max-w-7xl mx-auto">
-
         <div class="flex flex-col items-center">
           <div class="prose mb-12 text-center">
             <h2>{{ character.name }}</h2>
             <div class="avatar my-0">
               <div class="aspect-square rounded-full h-24">
-                <img class="my-0" :src="'/storage/' + character.avatar" alt=""
-                     @error="$event.target.src = '/images/placeholder.jpg'">
+                <img
+                  class="my-0"
+                  :src="'/storage/' + character.avatar"
+                  alt=""
+                  @error="onImgError($event)"
+                >
               </div>
             </div>
-            <p class="text-xs">Level {{ calculateLevel(calculateBubble(character.adventures), character.start_tier) }}
-              {{ character.character_classes[0].name }}</p>
+            <p class="text-xs">
+              Level {{ calculateLevel(calculateBubble(character.adventures), character.start_tier) }}
+              {{ character.character_classes[0].name }}
+            </p>
           </div>
-
         </div>
 
         <div class="flex justify-between">
           <h2 class="card-title">
             Adventures
           </h2>
-          <button @click="createAdventureModal.showModal()" class="btn btn-neutral">
-            <font-awesome-icon :icon="['fas', 'plus']"/>
+          <button
+            class="btn btn-neutral"
+            @click="createAdventureModal.showModal()"
+          >
+            <font-awesome-icon :icon="['fas', 'plus']" />
             Add adventure
           </button>
         </div>
         <div class="grid grid-cols-2 gap-3 mt-3">
-          <div class="card card-compact bg-neutral text-neutral-content"
-               v-for="(adventure, key) of character.adventures" :key="key">
+          <div
+            v-for="(adventure, key) of character.adventures"
+            :key="key"
+            class="card card-compact bg-neutral text-neutral-content"
+          >
             <div class="card-body">
               <div class="card-title">
                 <h3>Adventure {{ key + 1 }}</h3>
@@ -60,17 +75,24 @@ const createAdventureModal = ref()
                   {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
                 </p>
               </div>
-              <p v-if="adventure.notes" class="whitespace-pre-wrap">
+              <p
+                v-if="adventure.notes"
+                class="whitespace-pre-wrap"
+              >
                 {{ adventure.notes }}
               </p>
-              <p v-else>There are no notes for this adventure</p>
+              <p v-else>
+                There are no notes for this adventure
+              </p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
-    <create-adventure-modal :character-id="character.id" ref="createAdventureModal"></create-adventure-modal>
+    <CreateAdventureModal
+      ref="createAdventureModal"
+      :character-id="character.id"
+    />
   </AuthenticatedLayout>
 </template>

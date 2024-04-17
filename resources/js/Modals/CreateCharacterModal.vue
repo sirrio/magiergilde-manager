@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import {InertiaForm, useForm} from "@inertiajs/vue3"
-import {ref} from "vue"
+import { InertiaForm, useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
-const form = useForm({
+const form: InertiaForm<{
+  name: string
+  class: number
+  external_link: string
+  start_tier: number
+  avatar: null | File
+}> = useForm({
   name: '',
   class: 0,
   external_link: '',
   start_tier: 0,
-  avatar: null
+  avatar: null,
 })
 
 const modalCharacterCreate = ref()
 
 const tiers = [
-  {id: 'bt', name: 'Beginner Tier'},
-  {id: 'lt', name: 'Low Tier'},
-  {id: 'ht', name: 'High Tier'},
+  { id: 'bt', name: 'Beginner Tier' },
+  { id: 'lt', name: 'Low Tier' },
+  { id: 'ht', name: 'High Tier' },
 ]
 
 const showModal = () => {
@@ -23,16 +29,16 @@ const showModal = () => {
 }
 
 const clickCreateNewCharacter = () => {
-  form.post(route('character.store'), {onSuccess: params => modalCharacterCreate.value.close()})
+  form.post(route('character.store'), { onSuccess: () => modalCharacterCreate.value.close() })
 }
 
 defineExpose({
-  showModal
+  showModal,
 })
 
 const inputFile = (event: Event) => {
   const target = event.target as HTMLInputElement
-  form.avatar = target?.files[0]
+  if (target?.files) form.avatar = target?.files[0]
 }
 </script>
 
@@ -123,7 +129,6 @@ const inputFile = (event: Event) => {
         >
       </label>
 
-
       <label class="form-control w-full mb-2">
         <div class="label">
           <span class="label-text">Pick a file</span>
@@ -132,7 +137,7 @@ const inputFile = (event: Event) => {
           type="file"
           class="file-input file-input-bordered w-full"
           accept=".jpeg,.png,.jpg,.gif,.webp"
-          @input="inputFile($event);"
+          @input="inputFile($event)"
         >
       </label>
 
