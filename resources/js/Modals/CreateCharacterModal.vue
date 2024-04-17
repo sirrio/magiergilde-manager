@@ -6,18 +6,24 @@ const form = useForm({
   name: '',
   class: 0,
   external_link: '',
-  start_tier: 'bt',
+  start_tier: 0,
   avatar: ''
 })
 
 const modalCharacterCreate = ref()
+
+const tiers = [
+  {id: 'bt', name: 'Beginner Tier'},
+  {id: 'lt', name: 'Low Tier'},
+  {id: 'ht', name: 'High Tier'},
+]
 
 const showModal = () => {
   modalCharacterCreate.value.showModal()
 }
 
 const clickCreateNewCharacter = () => {
-  form.post(route('character.store'))
+  form.post(route('character.store'), {onSuccess: params => modalCharacterCreate.value.close()})
 }
 
 defineExpose({
@@ -50,6 +56,30 @@ defineExpose({
           placeholder="Peter"
           class="input input-bordered w-full"
         >
+      </label>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">What is your starting tier?</span>
+        </div>
+        <select
+          v-model="form.start_tier"
+          class="select select-bordered w-full"
+        >
+          <option
+            value="0"
+            disabled
+            selected
+          >Pick one
+          </option>
+          <option
+            v-for="(tier, key) in tiers"
+            :key="key"
+            :value="tier.id"
+          >
+            {{ tier.name }}
+          </option>
+        </select>
       </label>
 
       <label class="form-control w-full mb-2">
@@ -96,11 +126,10 @@ defineExpose({
         <input
           type="file"
           class="file-input file-input-bordered w-full"
+          accept=".jpeg,.png,.jpg,.gif,.webp"
           @input="form.avatar = $event?.target?.files[0]"
         >
       </label>
-
-      {{ form }}
 
       <button
         class="btn btn-neutral mt-6"

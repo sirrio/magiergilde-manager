@@ -15,7 +15,7 @@ defineProps<{
   <Head title="Profile"/>
 
   <AuthenticatedLayout>
-    <div class="py-12">
+    <div class="py-12 px-6">
       <div class="max-w-7xl mx-auto">
         <div class="prose mb-12">
           <h2>Profile</h2>

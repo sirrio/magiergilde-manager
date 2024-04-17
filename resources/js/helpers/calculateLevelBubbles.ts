@@ -1,4 +1,4 @@
-const calculateLevel = (bubbles: number, start_tier: string): number => {
+const calculateLevelBubbles = (level: number, start_tier: string): number => {
   let additional_bubbles: number = 0
 
   switch (start_tier) {
@@ -15,7 +15,7 @@ const calculateLevel = (bubbles: number, start_tier: string): number => {
       additional_bubbles = 0
   }
 
-  return Math.floor(1 + (Math.sqrt(((8 * (bubbles + additional_bubbles)) + 1)) - 1) / 2)
+  return (level * (level + 1) / 2) - additional_bubbles
 }
 
-export {calculateLevel}
+export {calculateLevelBubbles}

@@ -47,21 +47,22 @@ defineExpose({
       <form @submit.prevent="clickCreateNewAdventure()" class="flex flex-col gap-3">
         <h3 class="font-bold text-lg">Add new adventure</h3>
 
-        <label class="form-control w-full">
+        <div class="flex gap-3"><label class="form-control w-1/2">
           <div class="label">
             <span class="label-text">How many hours did you play?</span>
           </div>
-          <input type="text" v-model="form.hours" placeholder="Peter"
+          <input type="number" min="0" max="24" v-model="form.hours" placeholder="Peter"
                  class="input input-bordered w-full"/>
         </label>
 
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">How many minutes did you play?</span>
-          </div>
-          <input type="text" v-model="form.minutes" placeholder="Peter"
-                 class="input input-bordered w-full"/>
-        </label>
+          <label class="form-control w-1/2">
+            <div class="label">
+              <span class="label-text">How many minutes did you play?</span>
+            </div>
+            <input type="number" :min="0" max="59" v-model="form.minutes" placeholder="Peter"
+                   class="input input-bordered w-full"/>
+          </label>
+        </div>
 
         <label class="form-control w-full">
           <div class="label">
