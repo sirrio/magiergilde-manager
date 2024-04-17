@@ -2,6 +2,7 @@ import {PageProps as InertiaPageProps} from '@inertiajs/core'
 import {AxiosInstance} from 'axios'
 import {route as ziggyRoute} from 'ziggy-js'
 import {PageProps as AppPageProps} from './'
+import {CharacterClass} from "@/types/index"
 
 declare global {
   interface Window {
@@ -19,5 +20,6 @@ declare module 'vue' {
 
 declare module '@inertiajs/core' {
   interface PageProps extends InertiaPageProps, AppPageProps {
+    classes: CharacterClass[]
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useForm} from "@inertiajs/vue3"
+import {InertiaForm, useForm} from "@inertiajs/vue3"
 import {ref} from "vue"
 
 const form = useForm({
@@ -7,7 +7,7 @@ const form = useForm({
   class: 0,
   external_link: '',
   start_tier: 0,
-  avatar: ''
+  avatar: null
 })
 
 const modalCharacterCreate = ref()
@@ -29,6 +29,11 @@ const clickCreateNewCharacter = () => {
 defineExpose({
   showModal
 })
+
+const inputFile = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  form.avatar = target?.files[0]
+}
 </script>
 
 <template>
@@ -127,7 +132,7 @@ defineExpose({
           type="file"
           class="file-input file-input-bordered w-full"
           accept=".jpeg,.png,.jpg,.gif,.webp"
-          @input="form.avatar = $event?.target?.files[0]"
+          @input="inputFile($event);"
         >
       </label>
 
