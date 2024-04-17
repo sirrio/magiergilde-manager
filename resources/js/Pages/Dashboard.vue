@@ -89,9 +89,6 @@ function onImgError(event: Event) {
             :key="key"
             class="card max-w-sm bg-neutral text-neutral-content"
           >
-            {{ (bubbles = calculateBubble(character.adventures), null) }}
-            {{ (level = calculateLevel(bubbles, character.start_tier), null) }}
-
             <div class="card-body group">
               <div class="group-hover:absolute group-hover:block hidden top-2 right-2">
                 <button
@@ -106,7 +103,7 @@ function onImgError(event: Event) {
               </h3>
               <div class="flex justify-between">
                 <p class="text-xs">
-                  Level {{ level }}
+                  Level {{ calculateLevel(calculateBubble(character.adventures), character.start_tier) }}
                   {{ character.character_classes[0].name }}
                 </p>
                 <!--                <div>-->
@@ -125,14 +122,15 @@ function onImgError(event: Event) {
               <div>
                 <progress
                   class="progress w-full"
-                  :value="bubbles - calculateLevelBubbles(level - 1, character.start_tier)"
-                  :max="calculateLevelBubbles(level, character.start_tier) - calculateLevelBubbles(level - 1, character.start_tier)"
+                  :value="calculateBubble(character.adventures) - calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier) - 1, character.start_tier)"
+                  :max="calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier), character.start_tier) - calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier) - 1, character.start_tier)"
                 />
                 <div class="text-xs text-right -mt-1.5">
                   Bubbles to next level
-                  {{ bubbles - calculateLevelBubbles(level - 1, character.start_tier) }} /
+                  {{ calculateBubble(character.adventures) - calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier) - 1, character.start_tier)
+                  }} /
                   {{
-                    calculateLevelBubbles(level, character.start_tier) - calculateLevelBubbles(level - 1, character.start_tier)
+                    calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier), character.start_tier) - calculateLevelBubbles(calculateLevel(calculateBubble(character.adventures), character.start_tier) - 1, character.start_tier)
                   }}
                 </div>
               </div>
