@@ -4,8 +4,6 @@ import {ref} from "vue";
 
 const props = defineProps<{ characterId: number }>()
 
-console.log(props.characterId)
-
 const form = useForm({
   hours: 3,
   minutes: 0,

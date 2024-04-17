@@ -3,22 +3,32 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, router} from '@inertiajs/vue3';
 import {Character} from "@/types";
 import CreateCharacterModal from "@/Modals/CreateCharacterModal.vue";
-import {ref} from "vue";
+import {nextTick, Ref, ref} from "vue";
 import {calculateBubble} from "@/helpers/calculateBubble";
 import {calculateLevel} from "@/helpers/calculateLevel";
 import {calculateLevelBubbles} from "@/helpers/calculateLevelBubbles";
 import CreateAdventureModal from "@/Modals/CreateAdventureModal.vue";
+import UpdateCharacterModal from "@/Modals/UpdateCharacterModal.vue";
 
 const props = defineProps<{
   characters: Character
 }>()
 
 const createCharacterModal = ref()
+const updateCharacterModal = ref()
 const createAdventureModal = ref()
 const currentCharacterId = ref(0)
+const currentCharacter: Ref<Character | null> = ref(null)
+const updateModalKey = ref('Key-1')
 
 const clickShowCharacter = (id: Number) => {
   router.visit(route('character.show', {character: id}))
+}
+const clickUpdateCharacterModal = async (character: Character) => {
+  currentCharacter.value = character
+  updateModalKey.value = 'Key-' + Math.random()
+  await nextTick()
+  updateCharacterModal.value.showModal()
 }
 
 const clickCreateAdventureModal = (id) => {
@@ -54,7 +64,7 @@ const clickCreateAdventureModal = (id) => {
           </div>
         </div>
 
-        <div v-else class="grid sm:grid-cols-2 md:grid-cols-4 gap-2">
+        <div v-else class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="card max-w-sm bg-neutral text-neutral-content" v-for="(character, key) of characters"
                :key="key">
             {{ (bubbles = calculateBubble(character.adventures), null) }}
@@ -62,7 +72,7 @@ const clickCreateAdventureModal = (id) => {
 
             <div class="card-body group">
               <div class="group-hover:absolute group-hover:block hidden top-2 right-2">
-                <button class="btn btn-sm btn-ghost btn-square" @click="clickShowCharacter(character.id)">
+                <button class="btn btn-sm btn-ghost btn-square" @click="clickUpdateCharacterModal(character)">
                   <font-awesome-icon :icon="['fas', 'gear']"/>
                 </button>
               </div>
@@ -87,12 +97,14 @@ const clickCreateAdventureModal = (id) => {
                 </progress>
                 <div class="text-xs text-right -mt-1.5">Bubbles to next level
                   {{ bubbles - calculateLevelBubbles(level - 1, character.start_tier) }} /
-                  {{ calculateLevelBubbles(level, character.start_tier) - calculateLevelBubbles(level - 1, character.start_tier) }}
+                  {{
+                    calculateLevelBubbles(level, character.start_tier) - calculateLevelBubbles(level - 1, character.start_tier)
+                  }}
                 </div>
               </div>
               <div class="mt-3 flex justify-end gap-3">
                 <p class="grow-0 uppercase tooltip tooltip-accent" data-tip="Started his adventure here">
-                  <font-awesome-icon :icon="['fas', 'flag-checkered']" />
+                  <font-awesome-icon :icon="['fas', 'flag-checkered']"/>
                   {{ character.start_tier }}
                 </p>
                 <p class="grow-0 uppercase tooltip tooltip-accent" data-tip="Adventures played">
@@ -121,6 +133,8 @@ const clickCreateAdventureModal = (id) => {
         </div>
       </div>
     </div>
+    <update-character-modal ref="updateCharacterModal" :key="updateModalKey" v-if="currentCharacter"
+                            :character="currentCharacter"></update-character-modal>
     <create-character-modal ref="createCharacterModal"></create-character-modal>
     <create-adventure-modal :character-id="currentCharacterId" ref="createAdventureModal"></create-adventure-modal>
   </AuthenticatedLayout>

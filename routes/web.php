@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
     Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
+    Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
 });
 
 Route::middleware('auth')->group(function () {

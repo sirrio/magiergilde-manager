@@ -15,27 +15,55 @@ const createAdventureModal = ref()
 
 <template>
   <AuthenticatedLayout>
-    <div class="py-12">
+    <div class="py-12 px-6">
       <div class="max-w-7xl mx-auto">
-        <div class="prose mb-12">
-          <h2>{{ character.name }}</h2>
-          <p>Lorem ipsum</p>
-          <p>{{ character.character_classes[0].name }}</p>
-          <p>Level {{ calculateLevel(calculateBubble(character.adventures)) }}</p>
-          <p>{{ character.adventures.length }} played adventures </p>
-          <p>Bubbles gained {{ calculateBubble(character.adventures) }} </p>
+
+        <div class="flex flex-col items-center">
+          <div class="prose mb-12 text-center">
+            <h2>{{ character.name }}</h2>
+            <div class="avatar my-0">
+              <div class="aspect-square rounded-full h-24">
+                <img class="my-0" :src="'/storage/' + character.avatar" alt=""
+                     @error="$event.target.src = '/images/placeholder.jpg'">
+              </div>
+            </div>
+            <p class="text-xs">Level {{ calculateLevel(calculateBubble(character.adventures), character.start_tier) }}
+              {{ character.character_classes[0].name }}</p>
+          </div>
+
         </div>
 
-        <div class="card bg-neutral text-neutral-content">
-          <div class="card-body">
-            <h2 class="card-title">
-              Adventures
-            </h2>
-            <button @click="createAdventureModal.showModal()" class="btn w-40">Add adventure</button>
-            <div v-for="(adventure, key) of character.adventures" :key="key">
-              <div>{{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min</div>
-              <div>Bubble {{ calculateBubble([adventure]) }}</div>
-              <div>Has addtional Bubble {{ adventure.has_additional_bubble }}</div>
+        <div class="flex justify-between">
+          <h2 class="card-title">
+            Adventures
+          </h2>
+          <button @click="createAdventureModal.showModal()" class="btn btn-neutral">
+            <font-awesome-icon :icon="['fas', 'plus']"/>
+            Add adventure
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mt-3">
+          <div class="card card-compact bg-neutral text-neutral-content"
+               v-for="(adventure, key) of character.adventures" :key="key">
+            <div class="card-body">
+              <div class="card-title">
+                <h3>Adventure {{ key + 1 }}</h3>
+              </div>
+              <div class="flex justify-between text-xs">
+                <p>
+                  You gained {{ calculateBubble([adventure]) }}
+                  <span v-if="adventure.has_additional_bubble">+ {{ adventure.has_additional_bubble }}</span>
+                  bubbles
+                </p>
+                <p class="italic text-right">
+                  {{ new Date(adventure.start_date).toLocaleDateString() }}
+                  {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
+                </p>
+              </div>
+              <p v-if="adventure.notes" class="whitespace-pre-wrap">
+                {{ adventure.notes }}
+              </p>
+              <p v-else>There are no notes for this adventure</p>
             </div>
           </div>
         </div>
@@ -43,6 +71,6 @@ const createAdventureModal = ref()
 
     </div>
 
-    <create-adventure-modal :character="character" ref="createAdventureModal"></create-adventure-modal>
+    <create-adventure-modal :character-id="character.id" ref="createAdventureModal"></create-adventure-modal>
   </AuthenticatedLayout>
 </template>

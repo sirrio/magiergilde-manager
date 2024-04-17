@@ -67,9 +67,16 @@ class CharacterController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateCharacterRequest $request, Character $character)
+  public function update(UpdateCharacterRequest $request, Character $character): \Illuminate\Http\RedirectResponse
   {
-    //
+    $character->name = $request->name;
+    $character->external_link = $request->external_link;
+    if ($request->file('avatar'))
+      $character->avatar = $request->file('avatar')->store('avatars', 'public');
+    $character->save();
+    $character->characterClasses()->sync($request->class);
+
+    return to_route('dashboard');
   }
 
   /**

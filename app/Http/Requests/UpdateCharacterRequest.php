@@ -22,8 +22,10 @@ class UpdateCharacterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'class' => 'required|string',
+          'name' => 'required|string',
+          'class' => 'required|exists:character_classes,id',
+          'external_link' => 'required|url',
+          'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ];
     }
 }

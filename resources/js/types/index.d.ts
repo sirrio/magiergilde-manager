@@ -11,14 +11,28 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
   };
 };
 
+export interface CharacterClass {
+  id: number;
+  name: string;
+  src: string;
+}
+
 export interface Character {
+  character_classes: CharacterClass[];
   id: number;
   name: string;
   class: string;
+  start_tier: string;
+  external_link: string;
+  avatar: string;
+  user_id: number;
 }
 
 export interface Adventure {
   id: number;
   duration: number;
+  start_date: string;
   has_additional_bubble: number;
+  notes: string;
+  character_id: number;
 }
