@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('start_tier');
             $table->string('external_link');
+            $table->string('avatar')->nullable();
             $table->foreignId('user_id')->constrained();
         });
     }

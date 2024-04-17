@@ -1,20 +1,33 @@
 <script setup lang="ts">
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { Link } from '@inertiajs/vue3';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import {Link} from '@inertiajs/vue3'
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="w-20 h-20" />
-            </Link>
-        </div>
-
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-        >
-            <slot />
-        </div>
+  <div class="min-h-screen bg-base-300 flex flex-col items-center justify-center">
+    <div
+      v-if="Object.keys($page.props.errors).length > 0"
+      class="toast z-50"
+    >
+      <div
+        v-for="(error, key) in $page.props.errors"
+        :key="key"
+        class="alert alert-error"
+      >
+        <p>
+          {{ error }}
+        </p>
+      </div>
     </div>
+
+    <div>
+      <Link href="/">
+        <ApplicationLogo class="text-base-content fill-current w-40 h-40" />
+      </Link>
+    </div>
+
+    <div>
+      <slot />
+    </div>
+  </div>
 </template>

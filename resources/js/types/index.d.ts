@@ -1,22 +1,24 @@
 export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string;
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User;
-    };
+  auth: {
+    user: User;
+  };
 };
+
 export interface Character {
-    id: number;
-    name: string;
-    class: string;
+  id: number;
+  name: string;
+  class: string;
 }
 
 export interface Adventure {
-    id: number;
-    duration: number;
+  id: number;
+  duration: number;
+  has_additional_bubble: number;
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateCharacterRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use function Termwind\renderUsing;
 
 class CharacterController extends Controller
 {
@@ -37,6 +38,7 @@ class CharacterController extends Controller
         $character->user_id = Auth::user()->getAuthIdentifier();
         $character->start_tier = '';
         $character->external_link = '';
+        $character->avatar = $request->file('avatar')->store('avatars','public');
         $character->save();
         $character->characterClasses()->attach($request->class);
 

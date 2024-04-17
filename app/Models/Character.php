@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $external_link
  * @property string $start_tier
  * @property integer $user_id
+ * @property string $avatar
  */
 class Character extends Model
 {

@@ -32,6 +32,9 @@ class AdventureController extends Controller
         $adventure = new Adventure();
         $adventure->duration = $request->duration;
         $adventure->character_id = $request->character_id;
+        $adventure->start_date = $request->start_date;
+        $adventure->has_additional_bubble = $request->has_additional_bubble;
+        $adventure->notes = $request->notes;
         $adventure->save();
     }
 

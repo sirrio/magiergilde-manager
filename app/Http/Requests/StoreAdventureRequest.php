@@ -7,6 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @property integer $duration
  * @property integer $character_id
+ * @property mixed $start_date
+ * @property mixed $has_additional_bubble
+ * @property mixed $notes
  */
 class StoreAdventureRequest extends FormRequest
 {
@@ -28,6 +31,9 @@ class StoreAdventureRequest extends FormRequest
         return [
             'duration' => 'required|integer',
             'character_id' => 'required|integer',
+            'start_date' => 'required|date',
+            'has_additional_bubble' => 'required|boolean',
+            'notes' => 'nullable|string',
         ];
     }
 }

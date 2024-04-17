@@ -28,6 +28,9 @@ class StoreCharacterRequest extends FormRequest
         return [
             'name' => 'required|string',
             'class' => 'required|integer',
+            'external_link' => 'required|string',
+            'start_tier' => 'required|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ];
     }
 }
