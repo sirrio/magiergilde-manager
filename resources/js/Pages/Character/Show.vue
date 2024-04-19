@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Adventure, Character } from '@/types'
+import { Adventure, Character, Downtime } from '@/types'
 import { nextTick, Ref, ref } from 'vue'
 import { calculateBubbleByAdventure } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
 import DestroyAdventureModal from '@/Modals/DestroyAdventureModal.vue'
 import UpdateAdventureModal from '@/Modals/UpdateAdventureModal.vue'
+import CreateDowntimeModal from '@/Modals/CreateDowntimeModal.vue'
+import DestroyDowntimeModal from '@/Modals/DestroyDowntimeModal.vue'
+import UpdateDowntimeModal from '@/Modals/UpdateDowntimeModal.vue'
 
 defineProps<{
   character: Character
@@ -18,6 +21,12 @@ const updateAdventureModalKey = ref('updateAdventureModalKey-1')
 const destroyAdventureModal = ref()
 const destroyAdventureModalKey = ref('destroyAdventureModalKey-1')
 const currentAdventure: Ref<Adventure | null> = ref(null)
+const createDowntimeModal = ref()
+const updateDowntimeModal = ref()
+const updateDowntimeModalKey = ref('updateDowntimeModalKey-1')
+const destroyDowntimeModal = ref()
+const destroyDowntimeModalKey = ref('destroyDowntimeModalKey-1')
+const currentDowntime: Ref<Downtime | null> = ref(null)
 
 const clickUpdateAdventureModal = async (adventure: Adventure) => {
   currentAdventure.value = adventure
@@ -31,6 +40,20 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
   destroyAdventureModalKey.value = 'destroyAdventureModalKey-' + Math.random()
   await nextTick()
   destroyAdventureModal.value.showModal()
+}
+
+const clickUpdateDowntimeModal = async (downtime: Downtime) => {
+  currentDowntime.value = downtime
+  updateDowntimeModalKey.value = 'updateDowntimeModalKey-' + Math.random()
+  await nextTick()
+  updateDowntimeModal.value.showModal()
+}
+
+const clickDestroyDowntimeModal = async (downtime: Downtime) => {
+  currentDowntime.value = downtime
+  destroyDowntimeModalKey.value = 'destroyDowntimeModalKey-' + Math.random()
+  await nextTick()
+  destroyDowntimeModal.value.showModal()
 }
 
 function onImgError(event: Event) {
@@ -63,62 +86,149 @@ function onImgError(event: Event) {
           </div>
         </div>
 
-        <div class="flex justify-between">
-          <h2 class="card-title">
-            Adventures
-          </h2>
-          <button
-            class="btn btn-neutral"
-            @click="createAdventureModal.showModal()"
-          >
-            <font-awesome-icon :icon="['fas', 'plus']" />
-            Add adventure
-          </button>
-        </div>
-        <div class="grid grid-cols-2 gap-3 mt-3">
-          <div
-            v-for="(adventure, key) of character.adventures"
-            :key="key"
-            class="card card-compact bg-neutral text-neutral-content group"
-          >
-            <div class="card-body">
-              <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
-                <button
-                  class="btn btn-xs btn-square"
-                  @click="clickUpdateAdventureModal(adventure)"
-                >
-                  <font-awesome-icon :icon="['fas', 'gear']" />
-                </button>
-                <button
-                  class="btn btn-xs btn-error btn-square"
-                  @click="clickDestroyAdventureModal(adventure)"
-                >
-                  <font-awesome-icon :icon="['fas', 'x']" />
-                </button>
-              </div>
-              <div class="card-title">
-                <h3>Adventure {{ key + 1 }}</h3>
-              </div>
-              <div class="flex justify-between text-xs">
-                <p>
-                  You gained {{ calculateBubbleByAdventure([adventure]) }}
-                  <span v-if="adventure.has_additional_bubble">+ {{ adventure.has_additional_bubble }}</span>
-                  bubbles
-                </p>
-                <p class="italic text-right">
-                  {{ new Date(adventure.start_date).toLocaleDateString() }}
-                  {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
-                </p>
-              </div>
-              <p
-                v-if="adventure.notes"
-                class="whitespace-pre-wrap"
+        <div class="grid grid-cols-2 gap-12 mt-3">
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between">
+              <h2 class="card-title">
+                Adventures
+              </h2>
+              <button
+                class="btn btn-ghost"
+                @click="createAdventureModal.showModal()"
               >
-                {{ adventure.notes }}
-              </p>
-              <p v-else>
-                There are no notes for this adventure
-              </p>
+                <font-awesome-icon :icon="['fas', 'plus']" />
+                Add adventure
+              </button>
+            </div>
+            <div
+              v-if="character.adventures.length === 0"
+              class="card bg-neutral text-neutral-content"
+            >
+              <div class="card-body text-center">
+                <font-awesome-icon
+                  :icon="['fas', 'circle-exclamation']"
+                  size="7x"
+                />
+                <h3 class="font-semibold text-xl">
+                  No adventures yet
+                </h3>
+              </div>
+            </div>
+            <div
+              v-for="(adventure, key) of character.adventures"
+              v-else
+              :key="key"
+              class="card card-compact bg-neutral text-neutral-content group"
+            >
+              <div class="card-body">
+                <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+                  <button
+                    class="btn btn-xs btn-square"
+                    @click="clickUpdateAdventureModal(adventure)"
+                  >
+                    <font-awesome-icon :icon="['fas', 'gear']" />
+                  </button>
+                  <button
+                    class="btn btn-xs btn-error btn-square"
+                    @click="clickDestroyAdventureModal(adventure)"
+                  >
+                    <font-awesome-icon :icon="['fas', 'x']" />
+                  </button>
+                </div>
+                <div class="card-title">
+                  <h3>Adventure {{ key + 1 }}</h3>
+                </div>
+                <div class="flex justify-between text-xs">
+                  <p>
+                    You gained {{ calculateBubbleByAdventure([adventure]) }}
+                    <span v-if="adventure.has_additional_bubble">+ {{ adventure.has_additional_bubble }}</span>
+                    bubbles in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
+                  </p>
+                  <p class="italic text-right">
+                    {{ new Date(adventure.start_date).toLocaleDateString() }}
+                  </p>
+                </div>
+                <p
+                  v-if="adventure.notes"
+                  class="whitespace-pre-wrap"
+                >
+                  {{ adventure.notes }}
+                </p>
+                <p v-else>
+                  There are no notes for this adventure
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between">
+              <h2 class="card-title">
+                Downtimes
+              </h2>
+              <button
+                class="btn btn-ghost"
+                @click="createDowntimeModal.showModal()"
+              >
+                <font-awesome-icon :icon="['fas', 'plus']" />
+                Add downtime
+              </button>
+            </div>
+            <div
+              v-if="character.downtimes.length === 0"
+              class="card bg-neutral text-neutral-content"
+            >
+              <div class="card-body text-center">
+                <font-awesome-icon
+                  :icon="['fas', 'circle-exclamation']"
+                  size="7x"
+                />
+                <h3 class="font-semibold text-xl">
+                  No downtimes yet
+                </h3>
+              </div>
+            </div>
+            <div
+              v-for="(downtime, key) of character.downtimes"
+              v-else
+              :key="key"
+              class="card card-compact bg-neutral text-neutral-content group"
+            >
+              <div class="card-body">
+                <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+                  <button
+                    class="btn btn-xs btn-square"
+                    @click="clickUpdateDowntimeModal(downtime)"
+                  >
+                    <font-awesome-icon :icon="['fas', 'gear']" />
+                  </button>
+                  <button
+                    class="btn btn-xs btn-error btn-square"
+                    @click="clickDestroyDowntimeModal(downtime)"
+                  >
+                    <font-awesome-icon :icon="['fas', 'x']" />
+                  </button>
+                </div>
+                <div class="card-title">
+                  <h3>Downtime {{ key + 1 }}</h3>
+                </div>
+                <div class="flex justify-between text-xs">
+                  <p>
+                    {{ Math.floor(downtime.duration / 3600) }}h {{ (downtime.duration / 60) % 60 }}min
+                  </p>
+                  <p class="italic text-right">
+                    {{ new Date(downtime.start_date).toLocaleDateString() }}
+                  </p>
+                </div>
+                <p
+                  v-if="downtime.notes"
+                  class="whitespace-pre-wrap"
+                >
+                  {{ downtime.notes }}
+                </p>
+                <p v-else>
+                  There are no notes for this downtime
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -139,6 +249,22 @@ function onImgError(event: Event) {
       ref="destroyAdventureModal"
       :key="destroyAdventureModalKey"
       :adventure="currentAdventure"
+    />
+    <CreateDowntimeModal
+      ref="createDowntimeModal"
+      :character-id="character.id"
+    />
+    <UpdateDowntimeModal
+      v-if="currentDowntime"
+      ref="updateDowntimeModal"
+      :key="updateDowntimeModalKey"
+      :downtime="currentDowntime"
+    />
+    <DestroyDowntimeModal
+      v-if="currentDowntime"
+      ref="destroyDowntimeModal"
+      :key="destroyDowntimeModalKey"
+      :downtime="currentDowntime"
     />
   </AuthenticatedLayout>
 </template>

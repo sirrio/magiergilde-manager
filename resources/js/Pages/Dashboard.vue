@@ -5,15 +5,15 @@ import { Character } from '@/types'
 import { nextTick, Ref, ref } from 'vue'
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
+import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
+import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
+import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
+import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
 import CreateCharacterModal from '@/Modals/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/CreateDowntimeModal.vue'
-import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
-import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
-import { calculateRemainingDowntime } from '../helpers/calculateRemainingDowntime'
-import { secondsToHourMinuteString } from '../helpers/secondsToHourMinuteString'
 
 defineProps<{
   characters: Character[]
@@ -83,7 +83,6 @@ function onImgError(event: Event) {
             </button>
           </div>
         </div>
-
 
         <div
           v-if="characters.length === 0"
