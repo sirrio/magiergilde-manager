@@ -5,8 +5,6 @@ import { Downtime } from '@/types'
 
 const props = defineProps<{ downtime: Downtime }>()
 
-console.log(props.downtime)
-
 const form = useForm({
   hours: Math.floor(props.downtime.duration / 3600),
   minutes: (props.downtime.duration / 60) % 60,

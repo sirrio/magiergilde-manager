@@ -5,8 +5,6 @@ import { Adventure } from '@/types'
 
 const props = defineProps<{ adventure: Adventure }>()
 
-console.log(props.adventure)
-
 const form = useForm({
   hours: Math.floor(props.adventure.duration / 3600),
   minutes: (props.adventure.duration / 60) % 60,
