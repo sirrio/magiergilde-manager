@@ -28,7 +28,12 @@ const clickCreateNewAdventure = () => {
         character_id: props.characterId,
       }
     },
-  ).put(route('adventure.store'), { onSuccess: () => modalAdventureCreate.value.close() })
+  ).put(route('adventure.store'), {
+    onSuccess: () => {
+      modalAdventureCreate.value.close()
+      form.reset()
+    },
+  })
 }
 
 defineExpose({

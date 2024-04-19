@@ -26,7 +26,12 @@ const showModal = () => {
 }
 
 const clickUpdateCharacter = () => {
-  form.post(route('character.update', { character: props.character.id }), { onSuccess: () => modalCharacterCreate.value.close() })
+  form.post(route('character.update', { character: props.character.id }), {
+    onSuccess: () => {
+      modalCharacterCreate.value.close()
+      form.reset()
+    },
+  })
 }
 
 defineExpose({

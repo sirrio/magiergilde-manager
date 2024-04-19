@@ -30,7 +30,12 @@ const clickUpdateNewAdventure = () => {
         notes: data.notes,
       }
     },
-  ).patch(route('adventure.update', { adventure: props.adventure.id }), { onSuccess: () => modalAdventureUpdate.value.close() })
+  ).patch(route('adventure.update', { adventure: props.adventure.id }), {
+    onSuccess: () => {
+      modalAdventureUpdate.value.close()
+      form.reset()
+    },
+  })
 }
 
 defineExpose({

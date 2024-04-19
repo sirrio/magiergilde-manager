@@ -29,7 +29,12 @@ const showModal = () => {
 }
 
 const clickCreateNewCharacter = () => {
-  form.post(route('character.store'), { onSuccess: () => modalCharacterCreate.value.close() })
+  form.post(route('character.store'), {
+    onSuccess: () => {
+      modalCharacterCreate.value.close()
+      form.reset()
+    },
+  })
 }
 
 defineExpose({
