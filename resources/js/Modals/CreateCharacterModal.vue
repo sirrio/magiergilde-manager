@@ -5,12 +5,18 @@ import { ref } from 'vue'
 const form: InertiaForm<{
   name: string
   class: number
+  dm_bubbles: number
+  dm_coins: number
+  bubble_shop_spend: number
   external_link: string
   start_tier: number
   avatar: null | File
 }> = useForm({
   name: '',
   class: 0,
+  dm_bubbles: 0,
+  dm_coins: 0,
+  bubble_shop_spend: 0,
   external_link: '',
   start_tier: 0,
   avatar: null,
@@ -120,6 +126,44 @@ const inputFile = (event: Event) => {
             {{ characterClass.name }}
           </option>
         </select>
+      </label>
+
+      <div class="flex gap-2">
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">How many DM bubbles you assign this character?</span>
+          </div>
+          <input
+            v-model="form.dm_bubbles"
+            type="number"
+            placeholder="0"
+            class="input input-bordered w-full"
+          >
+        </label>
+
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">How many DM coins did you assign this character?</span>
+          </div>
+          <input
+            v-model="form.dm_coins"
+            type="number"
+            placeholder="0"
+            class="input input-bordered w-full"
+          >
+        </label>
+      </div>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">How many bubbles did you spend on the Bubble Shop?</span>
+        </div>
+        <input
+          v-model="form.bubble_shop_spend"
+          type="number"
+          placeholder="0"
+          class="input input-bordered w-full"
+        >
       </label>
 
       <label class="form-control w-full mb-2">

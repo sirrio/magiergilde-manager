@@ -32,6 +32,9 @@ class CharacterController extends Controller
   {
     $character = new Character();
     $character->name = $request->name;
+    $character->dm_bubbles = $request->dm_bubbles;
+    $character->dm_coins = $request->dm_coins;
+    $character->bubble_shop_spend = $request->bubble_shop_spend;
     $character->user_id = Auth::user()->getAuthIdentifier();
     $character->start_tier = $request->start_tier;
     $character->external_link = $request->external_link;

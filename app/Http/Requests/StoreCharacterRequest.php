@@ -9,6 +9,9 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $class
  * @property mixed $start_tier
  * @property mixed $external_link
+ * @property mixed $dm_bubbles
+ * @property mixed $dm_coins
+ * @property mixed $bubble_shop_spend
  */
 class StoreCharacterRequest extends FormRequest
 {
