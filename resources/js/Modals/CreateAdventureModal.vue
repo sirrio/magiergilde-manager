@@ -82,7 +82,7 @@ defineExpose({
             <input
               v-model="form.minutes"
               type="number"
-              :min="0"
+              min="0"
               max="59"
               placeholder="Peter"
               class="input input-bordered w-full"
