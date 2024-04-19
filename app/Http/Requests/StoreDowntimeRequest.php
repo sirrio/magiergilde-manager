@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $duration
+ * @property mixed $character_id
+ * @property mixed $start_date
+ * @property mixed $notes
+ */
 class StoreDowntimeRequest extends FormRequest
 {
     /**
@@ -11,7 +17,7 @@ class StoreDowntimeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

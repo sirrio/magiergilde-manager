@@ -18,22 +18,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Character extends Model
 {
-    use HasFactory, SoftDeletes;
+  use HasFactory, SoftDeletes;
 
-    /**
-     * The relationships that should always be loaded.
-     *
-     * @var array
-     */
-    protected $with = ['adventures', 'characterClasses'];
+  /**
+   * The relationships that should always be loaded.
+   *
+   * @var array
+   */
+  protected $with = ['adventures', 'downtimes', 'characterClasses'];
 
-    public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Adventure::class);
-    }
+  public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
+  {
+    return $this->hasMany(Adventure::class);
+  }
 
-    public function characterClasses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(CharacterClass::class);
-    }
+  public function downtimes(): \Illuminate\Database\Eloquent\Relations\HasMany
+  {
+    return $this->hasMany(Downtime::class);
+  }
+
+  public function characterClasses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+  {
+    return $this->belongsToMany(CharacterClass::class);
+  }
 }

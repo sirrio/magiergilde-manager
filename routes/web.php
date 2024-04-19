@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,12 @@ Route::middleware('auth')->group(function () {
   Route::put('/adventure', [AdventureController::class, 'store'])->name('adventure.store');
   Route::patch('/adventure/{adventure}', [AdventureController::class, 'update'])->name('adventure.update');
   Route::delete('/adventure/{adventure}', [AdventureController::class, 'destroy'])->name('adventure.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+  Route::put('/downtime', [DowntimeController::class, 'store'])->name('downtime.store');
+  Route::patch('/downtime/{downtime}', [DowntimeController::class, 'update'])->name('downtime.update');
+  Route::delete('/downtime/{downtime}', [DowntimeController::class, 'destroy'])->name('downtime.destroy');
 });
 
 Route::middleware('auth')->group(function () {

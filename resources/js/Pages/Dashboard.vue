@@ -9,8 +9,11 @@ import CreateCharacterModal from '@/Modals/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
+import CreateDowntimeModal from '@/Modals/CreateDowntimeModal.vue'
 import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
 import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
+import { calculateRemainingDowntime } from '../helpers/calculateRemainingDowntime'
+import { secondsToHourMinuteString } from '../helpers/secondsToHourMinuteString'
 
 defineProps<{
   characters: Character[]
@@ -22,6 +25,7 @@ const updateCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyCharacterModal = ref()
 const destroyCharacterModalKey = ref('destroyCharacterModalKey-1')
 const createAdventureModal = ref()
+const createDowntimeModal = ref()
 const currentCharacterId = ref(0)
 const currentCharacter: Ref<Character | null> = ref(null)
 
@@ -45,6 +49,11 @@ const clickDestroyCharacterModal = async (character: Character) => {
 const clickCreateAdventureModal = (id: number) => {
   currentCharacterId.value = id
   createAdventureModal.value.showModal()
+}
+
+const clickCreateDowntimeModal = (id: number) => {
+  currentCharacterId.value = id
+  createDowntimeModal.value.showModal()
 }
 
 function onImgError(event: Event) {
@@ -230,12 +239,12 @@ function onImgError(event: Event) {
                       :icon="['fas', 'hourglass']"
                       fixed-width
                     />
-                    DT Total: {{ calculateBubble(character) * 8 }}
+                    DT Total: {{ calculateBubble(character) * 8 }}h
                   </p>
                 </div>
                 <div>
                   <p>
-                    DT Remaining: 20
+                    DT Remaining: {{ secondsToHourMinuteString(calculateRemainingDowntime(character)) }}
                     <font-awesome-icon
                       :icon="['far', 'moon']"
                       fixed-width
@@ -260,7 +269,7 @@ function onImgError(event: Event) {
                 </button>
                 <button
                   class="btn btn-sm grow"
-                  @click="clickCreateAdventureModal(character.id)"
+                  @click="clickCreateDowntimeModal(character.id)"
                 >
                   <font-awesome-icon :icon="['fas', 'hourglass']" />
                   Add
@@ -286,6 +295,10 @@ function onImgError(event: Event) {
     />
     <CreateAdventureModal
       ref="createAdventureModal"
+      :character-id="currentCharacterId"
+    />
+    <CreateDowntimeModal
+      ref="createDowntimeModal"
       :character-id="currentCharacterId"
     />
   </AuthenticatedLayout>

@@ -89,6 +89,7 @@ class CharacterController extends Controller
   public function destroy(Character $character): \Illuminate\Http\RedirectResponse
   {
     $character->adventures()->delete();
+    $character->downtimes()->delete();
     $character->delete();
 
     return redirect()->back();

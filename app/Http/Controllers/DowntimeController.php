@@ -29,7 +29,14 @@ class DowntimeController extends Controller
      */
     public function store(StoreDowntimeRequest $request)
     {
-        //
+      $downtime = new Downtime();
+      $downtime->duration = $request->duration;
+      $downtime->character_id = $request->character_id;
+      $downtime->start_date = $request->start_date;
+      $downtime->notes = $request->notes;
+      $downtime->save();
+
+      return redirect()->back();
     }
 
     /**

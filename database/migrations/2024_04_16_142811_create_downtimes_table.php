@@ -14,7 +14,9 @@ return new class extends Migration {
       $table->id();
       $table->timestamps();
       $table->bigInteger('duration');
-      $table->string('reason')->nullable();
+      $table->date('start_date');
+      $table->string('notes')->nullable();
+      $table->foreignId('character_id')->constrained()->cascadeOnDelete();
     });
   }
 

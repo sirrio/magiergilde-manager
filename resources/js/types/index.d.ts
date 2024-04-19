@@ -20,6 +20,7 @@ export interface CharacterClass {
 export interface Character {
   character_classes: CharacterClass[];
   adventures: Adventure[];
+  downtimes: Downtime[];
   id: number;
   name: string;
   class: string;
@@ -37,6 +38,14 @@ export interface Adventure {
   duration: number;
   start_date: string;
   has_additional_bubble: number;
+  notes: string;
+  character_id: number;
+}
+
+export interface Downtime {
+  id: number;
+  duration: number;
+  start_date: string;
   notes: string;
   character_id: number;
 }
