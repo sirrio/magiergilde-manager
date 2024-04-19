@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property integer $duration
@@ -14,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Adventure extends Model
 {
-    use HasFactory;
+  use HasFactory, SoftDeletes;
 
+  protected $casts = [
+    'has_additional_bubble' => 'boolean'
+  ];
 }

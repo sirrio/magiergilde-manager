@@ -82,8 +82,12 @@ class CharacterController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Character $character)
+  public function destroy(Character $character): \Illuminate\Http\RedirectResponse
   {
-    //
+    $character->adventures()->delete();
+    $character->characterClasses()->detach();
+    $character->delete();
+
+    return redirect()->back();
   }
 }

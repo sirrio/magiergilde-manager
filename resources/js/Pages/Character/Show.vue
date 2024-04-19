@@ -1,16 +1,37 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Character } from '@/types'
-import { ref } from 'vue'
+import { Adventure, Character } from '@/types'
+import { nextTick, Ref, ref } from 'vue'
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
+import DestroyAdventureModal from '@/Modals/DestroyAdventureModal.vue'
+import UpdateAdventureModal from '@/Modals/UpdateAdventureModal.vue'
 
 defineProps<{
   character: Character
 }>()
 
 const createAdventureModal = ref()
+const updateAdventureModal = ref()
+const updateAdventureModalKey = ref('updateAdventureModalKey-1')
+const destroyAdventureModal = ref()
+const destroyAdventureModalKey = ref('destroyAdventureModalKey-1')
+const currentAdventure: Ref<Adventure | null> = ref(null)
+
+const clickUpdateAdventureModal = async (adventure: Adventure) => {
+  currentAdventure.value = adventure
+  updateAdventureModalKey.value = 'updateAdventureModalKey-' + Math.random()
+  await nextTick()
+  updateAdventureModal.value.showModal()
+}
+
+const clickDestroyAdventureModal = async (adventure: Adventure) => {
+  currentAdventure.value = adventure
+  destroyAdventureModalKey.value = 'destroyAdventureModalKey-' + Math.random()
+  await nextTick()
+  destroyAdventureModal.value.showModal()
+}
 
 function onImgError(event: Event) {
   const target = event.target as HTMLImageElement
@@ -58,9 +79,23 @@ function onImgError(event: Event) {
           <div
             v-for="(adventure, key) of character.adventures"
             :key="key"
-            class="card card-compact bg-neutral text-neutral-content"
+            class="card card-compact bg-neutral text-neutral-content group"
           >
             <div class="card-body">
+              <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+                <button
+                  class="btn btn-xs btn-square"
+                  @click="clickUpdateAdventureModal(adventure)"
+                >
+                  <font-awesome-icon :icon="['fas', 'gear']" />
+                </button>
+                <button
+                  class="btn btn-xs btn-error btn-square"
+                  @click="clickDestroyAdventureModal(adventure)"
+                >
+                  <font-awesome-icon :icon="['fas', 'x']" />
+                </button>
+              </div>
               <div class="card-title">
                 <h3>Adventure {{ key + 1 }}</h3>
               </div>
@@ -89,10 +124,21 @@ function onImgError(event: Event) {
         </div>
       </div>
     </div>
-
     <CreateAdventureModal
       ref="createAdventureModal"
       :character-id="character.id"
+    />
+    <UpdateAdventureModal
+      v-if="currentAdventure"
+      ref="updateAdventureModal"
+      :key="updateAdventureModalKey"
+      :adventure="currentAdventure"
+    />
+    <DestroyAdventureModal
+      v-if="currentAdventure"
+      ref="destroyAdventureModal"
+      :key="destroyAdventureModalKey"
+      :adventure="currentAdventure"
     />
   </AuthenticatedLayout>
 </template>

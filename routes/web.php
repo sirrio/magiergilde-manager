@@ -9,36 +9,39 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+  return Inertia::render('Welcome', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+    'laravelVersion' => Application::VERSION,
+    'phpVersion' => PHP_VERSION,
+  ]);
 });
 
 Route::get('/dashboard', function () {
-    $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->get();
+  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->get();
 
-    return Inertia::render('Dashboard', [
-        'characters' => $characters,
-    ]);
+  return Inertia::render('Dashboard', [
+    'characters' => $characters,
+  ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
-    Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
-    Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
+  Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
+  Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
+  Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
+  Route::delete('/character/{character}', [CharacterController::class, 'destroy'])->name('character.destroy');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::put('/adventure', [AdventureController::class, 'store'])->name('adventure.store');
+  Route::put('/adventure', [AdventureController::class, 'store'])->name('adventure.store');
+  Route::patch('/adventure/{adventure}', [AdventureController::class, 'update'])->name('adventure.update');
+  Route::delete('/adventure/{adventure}', [AdventureController::class, 'destroy'])->name('adventure.destroy');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

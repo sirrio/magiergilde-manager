@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $notes
+ * @property mixed $has_additional_bubble
+ * @property mixed $start_date
+ * @property mixed $duration
+ */
 class UpdateAdventureRequest extends FormRequest
 {
     /**

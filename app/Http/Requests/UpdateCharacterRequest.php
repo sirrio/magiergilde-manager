@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $class
+ * @property mixed $external_link
+ * @property mixed $name
+ */
 class UpdateCharacterRequest extends FormRequest
 {
     /**

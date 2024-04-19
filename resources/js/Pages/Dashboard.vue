@@ -6,8 +6,9 @@ import { nextTick, Ref, ref } from 'vue'
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import { calculateLevelBubbles } from '@/helpers/calculateLevelBubbles'
-import UpdateCharacterModal from '@/Modals/UpdateCharacterModal.vue'
 import CreateCharacterModal from '@/Modals/CreateCharacterModal.vue'
+import UpdateCharacterModal from '@/Modals/UpdateCharacterModal.vue'
+import DestroyCharacterModal from '@/Modals/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
 
 defineProps<{
@@ -16,19 +17,28 @@ defineProps<{
 
 const createCharacterModal = ref()
 const updateCharacterModal = ref()
+const updateCharacterModalKey = ref('updateCharacterModalKey-1')
+const destroyCharacterModal = ref()
+const destroyCharacterModalKey = ref('destroyCharacterModalKey-1')
 const createAdventureModal = ref()
 const currentCharacterId = ref(0)
 const currentCharacter: Ref<Character | null> = ref(null)
-const updateModalKey = ref('Key-1')
 
 const clickShowCharacter = (id: number) => {
   router.visit(route('character.show', { character: id }))
 }
 const clickUpdateCharacterModal = async (character: Character) => {
   currentCharacter.value = character
-  updateModalKey.value = 'Key-' + Math.random()
+  updateCharacterModalKey.value = 'updateCharacterModalKey-' + Math.random()
   await nextTick()
   updateCharacterModal.value.showModal()
+}
+
+const clickDestroyCharacterModal = async (character: Character) => {
+  currentCharacter.value = character
+  destroyCharacterModalKey.value = 'destroyCharacterModalKey-' + Math.random()
+  await nextTick()
+  destroyCharacterModal.value.showModal()
 }
 
 const clickCreateAdventureModal = (id: number) => {
@@ -90,12 +100,18 @@ function onImgError(event: Event) {
             class="card max-w-sm bg-neutral text-neutral-content"
           >
             <div class="card-body group">
-              <div class="group-hover:absolute group-hover:block hidden top-2 right-2">
+              <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
                 <button
-                  class="btn btn-sm btn-ghost btn-square"
+                  class="btn btn-xs btn-square"
                   @click="clickUpdateCharacterModal(character)"
                 >
                   <font-awesome-icon :icon="['fas', 'gear']" />
+                </button>
+                <button
+                  class="btn btn-xs btn-error btn-square"
+                  @click="clickDestroyCharacterModal(character)"
+                >
+                  <font-awesome-icon :icon="['fas', 'x']" />
                 </button>
               </div>
               <h3 class="card-title capitalize">
@@ -183,13 +199,19 @@ function onImgError(event: Event) {
         </div>
       </div>
     </div>
+    <CreateCharacterModal ref="createCharacterModal" />
     <UpdateCharacterModal
       v-if="currentCharacter"
       ref="updateCharacterModal"
-      :key="updateModalKey"
+      :key="updateCharacterModalKey"
       :character="currentCharacter"
     />
-    <CreateCharacterModal ref="createCharacterModal" />
+    <DestroyCharacterModal
+      v-if="currentCharacter"
+      ref="destroyCharacterModal"
+      :key="destroyCharacterModalKey"
+      :character="currentCharacter"
+    />
     <CreateAdventureModal
       ref="createAdventureModal"
       :character-id="currentCharacterId"
