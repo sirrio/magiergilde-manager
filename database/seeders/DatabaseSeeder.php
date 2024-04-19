@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Http\Controllers\CharacterController;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,10 @@ class DatabaseSeeder extends Seeder
       'name' => 'David',
       'email' => 'home@sirrio.de',
       'password' => Hash::make('test')
+    ]);
+
+    $this->call([
+      CharacterClassSeeder::class,
     ]);
   }
 }
