@@ -4,12 +4,12 @@ import { Adventure, Character, Downtime } from '@/types'
 import { nextTick, Ref, ref } from 'vue'
 import { calculateBubbleByAdventure } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
-import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
-import DestroyAdventureModal from '@/Modals/DestroyAdventureModal.vue'
-import UpdateAdventureModal from '@/Modals/UpdateAdventureModal.vue'
-import CreateDowntimeModal from '@/Modals/CreateDowntimeModal.vue'
-import DestroyDowntimeModal from '@/Modals/DestroyDowntimeModal.vue'
-import UpdateDowntimeModal from '@/Modals/UpdateDowntimeModal.vue'
+import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
+import DestroyAdventureModal from '@/Modals/Adventure/DestroyAdventureModal.vue'
+import UpdateAdventureModal from '@/Modals/Adventure/UpdateAdventureModal.vue'
+import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
+import DestroyDowntimeModal from '@/Modals/Downtime/DestroyDowntimeModal.vue'
+import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'
 
 defineProps<{
   character: Character

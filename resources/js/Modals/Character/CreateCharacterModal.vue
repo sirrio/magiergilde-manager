@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Character } from '@/types'
-
-const props = defineProps<{
-  character: Character
-}>()
 
 const form: InertiaForm<{
   name: string
@@ -14,25 +9,33 @@ const form: InertiaForm<{
   dm_coins: number
   bubble_shop_spend: number
   external_link: string
-  avatar: File | null
+  start_tier: number
+  avatar: null | File
 }> = useForm({
-  name: props.character.name,
-  class: props.character.character_classes[0].id,
-  dm_bubbles: props.character.dm_bubbles,
-  dm_coins: props.character.dm_coins,
-  bubble_shop_spend: props.character.bubble_shop_spend,
-  external_link: props.character.external_link,
+  name: '',
+  class: 0,
+  dm_bubbles: 0,
+  dm_coins: 0,
+  bubble_shop_spend: 0,
+  external_link: '',
+  start_tier: 0,
   avatar: null,
 })
 
 const modalCharacterCreate = ref()
 
+const tiers = [
+  { id: 'bt', name: 'Beginner Tier' },
+  { id: 'lt', name: 'Low Tier' },
+  { id: 'ht', name: 'High Tier' },
+]
+
 const showModal = () => {
   modalCharacterCreate.value.showModal()
 }
 
-const clickUpdateCharacter = () => {
-  form.post(route('character.update', { character: props.character.id }), {
+const clickCreateNewCharacter = () => {
+  form.post(route('character.store'), {
     onSuccess: () => {
       modalCharacterCreate.value.close()
       form.reset()
@@ -44,10 +47,9 @@ defineExpose({
   showModal,
 })
 
-function inputFile(event: Event) {
+const inputFile = (event: Event) => {
   const target = event.target as HTMLInputElement
-  if (target?.files)
-    form.avatar = target?.files[0]
+  if (target?.files) form.avatar = target?.files[0]
 }
 </script>
 
@@ -63,12 +65,12 @@ function inputFile(event: Event) {
         </button>
       </form>
       <h3 class="font-bold text-lg mb-6">
-        Update your character
+        Create new character
       </h3>
 
       <label class="form-control w-full mb-2">
         <div class="label">
-          <span class="label-text">What is your name?</span>
+          <span class="label-text">What is your characters name?</span>
         </div>
         <input
           v-model="form.name"
@@ -80,7 +82,31 @@ function inputFile(event: Event) {
 
       <label class="form-control w-full mb-2">
         <div class="label">
-          <span class="label-text">What is your class?</span>
+          <span class="label-text">What is your starting tier?</span>
+        </div>
+        <select
+          v-model="form.start_tier"
+          class="select select-bordered w-full"
+        >
+          <option
+            value="0"
+            disabled
+            selected
+          >Pick one
+          </option>
+          <option
+            v-for="(tier, key) in tiers"
+            :key="key"
+            :value="tier.id"
+          >
+            {{ tier.name }}
+          </option>
+        </select>
+      </label>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">What is your characters class?</span>
         </div>
         <select
           v-model="form.class"
@@ -157,7 +183,7 @@ function inputFile(event: Event) {
 
       <label class="form-control w-full mb-2">
         <div class="label">
-          <span class="label-text">Pick a file</span>
+          <span class="label-text">Choose an avatar</span>
         </div>
         <input
           type="file"
@@ -169,9 +195,9 @@ function inputFile(event: Event) {
 
       <button
         class="btn btn-neutral mt-6"
-        @click="clickUpdateCharacter()"
+        @click="clickCreateNewCharacter()"
       >
-        Update
+        Create
       </button>
     </div>
   </dialog>

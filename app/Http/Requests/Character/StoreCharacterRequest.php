@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Character;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property mixed $class
+ * @property string $name
+ * @property string $class
+ * @property mixed $start_tier
  * @property mixed $external_link
- * @property mixed $name
  * @property mixed $dm_bubbles
  * @property mixed $dm_coins
  * @property mixed $bubble_shop_spend
  */
-class UpdateCharacterRequest extends FormRequest
+class StoreCharacterRequest extends FormRequest
 {
-  /**
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -30,10 +31,11 @@ class UpdateCharacterRequest extends FormRequest
     public function rules(): array
     {
         return [
-          'name' => 'required|string',
-          'class' => 'required|exists:character_classes,id',
-          'external_link' => 'required|url',
-          'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+            'name' => 'required|string',
+            'class' => 'required|exists:character_classes,id',
+            'external_link' => 'required|url',
+            'start_tier' => 'required|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ];
     }
 }

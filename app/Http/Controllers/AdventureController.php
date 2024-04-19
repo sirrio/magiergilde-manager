@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Adventure\StoreAdventureRequest;
+use App\Http\Requests\Adventure\UpdateAdventureRequest;
 use App\Models\Adventure;
-use App\Http\Requests\StoreAdventureRequest;
-use App\Http\Requests\UpdateAdventureRequest;
 
 class AdventureController extends Controller
 {

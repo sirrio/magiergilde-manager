@@ -22,7 +22,7 @@ const clickCreateNewDowntime = () => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         start_date: data.start_date,
-        reason: data.notes,
+        notes: data.notes,
         character_id: props.characterId,
       }
     },

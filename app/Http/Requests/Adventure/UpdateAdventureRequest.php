@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Adventure;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property mixed $duration
- * @property mixed $start_date
  * @property mixed $notes
+ * @property mixed $has_additional_bubble
+ * @property mixed $start_date
+ * @property mixed $duration
  */
-class UpdateDowntimeRequest extends FormRequest
+class UpdateAdventureRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

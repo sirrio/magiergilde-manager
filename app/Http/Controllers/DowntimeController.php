@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Downtime\StoreDowntimeRequest;
+use App\Http\Requests\Downtime\UpdateDowntimeRequest;
 use App\Models\Downtime;
-use App\Http\Requests\StoreDowntimeRequest;
-use App\Http\Requests\UpdateDowntimeRequest;
 use Illuminate\Http\RedirectResponse;
 
 class DowntimeController extends Controller

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Adventure;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property mixed $notes
- * @property mixed $has_additional_bubble
+ * @property integer $duration
+ * @property integer $character_id
  * @property mixed $start_date
- * @property mixed $duration
+ * @property mixed $has_additional_bubble
+ * @property mixed $notes
  */
-class UpdateAdventureRequest extends FormRequest
+class StoreAdventureRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +29,11 @@ class UpdateAdventureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'duration' => 'required|integer',
+            'character_id' => 'required|integer',
+            'start_date' => 'required|date',
+            'has_additional_bubble' => 'required|boolean',
+            'notes' => 'nullable|string',
         ];
     }
 }

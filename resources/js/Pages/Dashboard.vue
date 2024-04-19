@@ -9,11 +9,11 @@ import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurr
 import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
 import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
 import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
-import CreateCharacterModal from '@/Modals/CreateCharacterModal.vue'
-import UpdateCharacterModal from '@/Modals/UpdateCharacterModal.vue'
-import DestroyCharacterModal from '@/Modals/DestroyCharacterModal.vue'
-import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
-import CreateDowntimeModal from '@/Modals/CreateDowntimeModal.vue'
+import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
+import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
+import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
+import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
+import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 
 defineProps<{
   characters: Character[]

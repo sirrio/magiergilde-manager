@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Downtime;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property integer $duration
- * @property integer $character_id
+ * @property mixed $duration
+ * @property mixed $character_id
  * @property mixed $start_date
- * @property mixed $has_additional_bubble
  * @property mixed $notes
  */
-class StoreAdventureRequest extends FormRequest
+class StoreDowntimeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,11 +28,7 @@ class StoreAdventureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'duration' => 'required|integer',
-            'character_id' => 'required|integer',
-            'start_date' => 'required|date',
-            'has_additional_bubble' => 'required|boolean',
-            'notes' => 'nullable|string',
+            //
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCharacterRequest;
-use App\Http\Requests\UpdateCharacterRequest;
+use App\Http\Requests\Character\StoreCharacterRequest;
+use App\Http\Requests\Character\UpdateCharacterRequest;
 use App\Models\Character;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
