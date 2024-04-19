@@ -8,10 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $class
  * @property mixed $external_link
  * @property mixed $name
+ * @property mixed $dm_bubbles
+ * @property mixed $dm_coins
+ * @property mixed $bubble_shop_spend
  */
 class UpdateCharacterRequest extends FormRequest
 {
-    /**
+  /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool

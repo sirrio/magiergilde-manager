@@ -1,8 +1,11 @@
 import { Character } from '@/types'
+import { calculateLevel } from '@/helpers/calculateLevel'
 import { calculateBubble } from '@/helpers/calculateBubble'
 
-const calculateLevel = (character: Character): number => {
+const calculateBubblesInCurrentLevel = (character: Character): number => {
+  const level = calculateLevel(character)
   const bubbles = calculateBubble(character)
+
   let additional_bubbles: number
 
   switch (character.start_tier) {
@@ -19,7 +22,9 @@ const calculateLevel = (character: Character): number => {
       additional_bubbles = 0
   }
 
-  return Math.floor(1 + (Math.sqrt(((8 * (bubbles + additional_bubbles)) + 1)) - 1) / 2)
+  const current_level_bubble_total = ((level - 1) * ((level - 1) + 1) / 2) - additional_bubbles
+
+  return bubbles - current_level_bubble_total - character.bubble_shop_spend
 }
 
-export { calculateLevel }
+export { calculateBubblesInCurrentLevel }

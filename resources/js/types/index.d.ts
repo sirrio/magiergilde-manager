@@ -24,6 +24,9 @@ export interface Character {
   name: string;
   class: string;
   start_tier: string;
+  dm_bubbles: number;
+  dm_coins: number;
+  bubble_shop_spend: number;
   external_link: string;
   avatar: string;
   user_id: number;

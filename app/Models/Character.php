@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $start_tier
  * @property integer $user_id
  * @property string $avatar
+ * @property mixed $dm_bubbles
+ * @property mixed $dm_coins
+ * @property mixed $bubble_shop_spend
  */
 class Character extends Model
 {

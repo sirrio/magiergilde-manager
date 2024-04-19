@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Character;
 use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
+use App\Models\Character;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -67,10 +67,14 @@ class CharacterController extends Controller
   public function update(UpdateCharacterRequest $request, Character $character): \Illuminate\Http\RedirectResponse
   {
     $character->name = $request->name;
+    $character->dm_bubbles = $request->dm_bubbles;
+    $character->dm_coins = $request->dm_coins;
+    $character->bubble_shop_spend = $request->bubble_shop_spend;
     $character->external_link = $request->external_link;
     if ($request->file('avatar'))
       $character->avatar = $request->file('avatar')->store('avatars', 'public');
     $character->save();
+
     $character->characterClasses()->sync($request->class);
 
     return to_route('dashboard');

@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Adventure, Character } from '@/types'
 import { nextTick, Ref, ref } from 'vue'
-import { calculateBubble } from '@/helpers/calculateBubble'
+import { calculateBubbleByAdventure } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import CreateAdventureModal from '@/Modals/CreateAdventureModal.vue'
 import DestroyAdventureModal from '@/Modals/DestroyAdventureModal.vue'
@@ -57,7 +57,7 @@ function onImgError(event: Event) {
               </div>
             </div>
             <p class="text-xs">
-              Level {{ calculateLevel(calculateBubble(character.adventures), character.start_tier) }}
+              Level {{ calculateLevel(character) }}
               {{ character.character_classes[0].name }}
             </p>
           </div>
@@ -101,7 +101,7 @@ function onImgError(event: Event) {
               </div>
               <div class="flex justify-between text-xs">
                 <p>
-                  You gained {{ calculateBubble([adventure]) }}
+                  You gained {{ calculateBubbleByAdventure([adventure]) }}
                   <span v-if="adventure.has_additional_bubble">+ {{ adventure.has_additional_bubble }}</span>
                   bubbles
                 </p>

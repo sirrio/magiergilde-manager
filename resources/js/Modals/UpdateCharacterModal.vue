@@ -10,11 +10,17 @@ const props = defineProps<{
 const form: InertiaForm<{
   name: string
   class: number
+  dm_bubbles: number
+  dm_coins: number
+  bubble_shop_spend: number
   external_link: string
   avatar: File | null
 }> = useForm({
   name: props.character.name,
   class: props.character.character_classes[0].id,
+  dm_bubbles: props.character.dm_bubbles,
+  dm_coins: props.character.dm_coins,
+  bubble_shop_spend: props.character.bubble_shop_spend,
   external_link: props.character.external_link,
   avatar: null,
 })
@@ -94,6 +100,44 @@ function inputFile(event: Event) {
             {{ characterClass.name }}
           </option>
         </select>
+      </label>
+
+      <div class="flex gap-2">
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">How many DM bubbles you assign this character?</span>
+          </div>
+          <input
+            v-model="form.dm_bubbles"
+            type="number"
+            placeholder="0"
+            class="input input-bordered w-full"
+          >
+        </label>
+
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">How many DM coins did you assign this character?</span>
+          </div>
+          <input
+            v-model="form.dm_coins"
+            type="number"
+            placeholder="0"
+            class="input input-bordered w-full"
+          >
+        </label>
+      </div>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">How many bubbles did you spend on the Bubble Shop?</span>
+        </div>
+        <input
+          v-model="form.bubble_shop_spend"
+          type="number"
+          placeholder="0"
+          class="input input-bordered w-full"
+        >
       </label>
 
       <label class="form-control w-full mb-2">
