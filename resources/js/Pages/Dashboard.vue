@@ -146,23 +146,22 @@ function onImgError(event: Event) {
               </div>
               <div>
                 <progress
-                  class="progress w-full"
+                  class="progress w-full "
                   :value="calculateBubblesInCurrentLevel(character)"
                   :max="calculateBubblesToNextLevel(character)"
-                />
+                >
+                  {{ calculateBubblesInCurrentLevel(character) + ' / '+calculateBubblesToNextLevel(character) }}
+                </progress>
                 <div class="text-xs text-right -mt-1">
+                  {{
+                    calculateBubblesToNextLevel(character) - calculateBubblesInCurrentLevel(character)
+                  }}
                   <font-awesome-icon
                     :icon="['fas', 'droplet']"
                     size="sm"
                     fixed-width
                   />
                   to next level
-                  {{
-                    calculateBubblesInCurrentLevel(character)
-                  }} /
-                  {{
-                    calculateBubblesToNextLevel(character)
-                  }}
                 </div>
               </div>
               <div class="mt-3 text-xs grid grid-cols-2 gap-y-1 [&>*:nth-child(even)]:text-right">

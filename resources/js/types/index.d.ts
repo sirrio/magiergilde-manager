@@ -37,7 +37,7 @@ export interface Adventure {
   id: number;
   duration: number;
   start_date: string;
-  has_additional_bubble: number;
+  has_additional_bubble: boolean;
   notes: string;
   character_id: number;
 }

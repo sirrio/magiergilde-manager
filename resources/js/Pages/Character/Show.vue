@@ -10,6 +10,7 @@ import UpdateAdventureModal from '@/Modals/Adventure/UpdateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 import DestroyDowntimeModal from '@/Modals/Downtime/DestroyDowntimeModal.vue'
 import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'
+import { Head } from '@inertiajs/vue3'
 
 defineProps<{
   character: Character
@@ -63,6 +64,8 @@ function onImgError(event: Event) {
 </script>
 
 <template>
+  <Head title="Details" />
+
   <AuthenticatedLayout>
     <div class="py-12 px-6">
       <div class="max-w-7xl mx-auto">
@@ -90,6 +93,9 @@ function onImgError(event: Event) {
           <div class="flex flex-col gap-3">
             <div class="flex justify-between">
               <h2 class="card-title">
+                <font-awesome-icon
+                  :icon="['fas', 'compass']"
+                />
                 Adventures
               </h2>
               <button
@@ -120,7 +126,10 @@ function onImgError(event: Event) {
               :key="key"
               class="card card-compact bg-neutral text-neutral-content group"
             >
-              <div class="card-body">
+              <div
+                tabindex="0"
+                class="card-body collapse cursor-pointer"
+              >
                 <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
                   <button
                     class="btn btn-xs btn-square"
@@ -136,33 +145,53 @@ function onImgError(event: Event) {
                   </button>
                 </div>
                 <div class="card-title">
-                  <h3>Adventure {{ key + 1 }}</h3>
+                  <h3>
+                    Adventure {{ key + 1 }}
+                    <font-awesome-icon
+                      v-if="adventure.notes"
+                      :icon="['fas', 'note-sticky']"
+                    />
+                  </h3>
                 </div>
                 <div class="flex justify-between text-xs">
                   <p>
+                    <font-awesome-icon
+                      :icon="['fas', 'clock']"
+                    />
                     You gained {{ calculateBubbleByAdventure([adventure]) }}
-                    <span v-if="adventure.has_additional_bubble">+ {{ adventure.has_additional_bubble }}</span>
+                    <span v-if="adventure.has_additional_bubble">(Character Quest)</span>
                     bubbles in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
                   </p>
                   <p class="italic text-right">
+                    <font-awesome-icon
+                      :icon="['fas', 'calendar']"
+                    />
                     {{ new Date(adventure.start_date).toLocaleDateString() }}
                   </p>
                 </div>
-                <p
-                  v-if="adventure.notes"
-                  class="whitespace-pre-wrap"
-                >
-                  {{ adventure.notes }}
-                </p>
-                <p v-else>
-                  There are no notes for this adventure
-                </p>
+                <div class="collapse-content">
+                  <p
+                    v-if="adventure.notes"
+                    class="whitespace-pre-wrap "
+                  >
+                    {{ adventure.notes }}
+                  </p>
+                  <p v-else>
+                    <font-awesome-icon
+                      :icon="['fas', 'circle-exclamation']"
+                    />
+                    No notes
+                  </p>
+                </div>
               </div>
             </div>
           </div>
           <div class="flex flex-col gap-3">
             <div class="flex justify-between">
               <h2 class="card-title">
+                <font-awesome-icon
+                  :icon="['fas', 'hourglass']"
+                />
                 Downtimes
               </h2>
               <button
@@ -193,7 +222,10 @@ function onImgError(event: Event) {
               :key="key"
               class="card card-compact bg-neutral text-neutral-content group"
             >
-              <div class="card-body">
+              <div
+                tabindex="0"
+                class="card-body collapse cursor-pointer"
+              >
                 <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
                   <button
                     class="btn btn-xs btn-square"
@@ -209,25 +241,42 @@ function onImgError(event: Event) {
                   </button>
                 </div>
                 <div class="card-title">
-                  <h3>Downtime {{ key + 1 }}</h3>
+                  <h3>
+                    Downtime {{ key + 1 }}
+                    <font-awesome-icon
+                      v-if="downtime.notes"
+                      :icon="['fas', 'note-sticky']"
+                    />
+                  </h3>
                 </div>
                 <div class="flex justify-between text-xs">
                   <p>
+                    <font-awesome-icon
+                      :icon="['fas', 'clock']"
+                    />
                     {{ Math.floor(downtime.duration / 3600) }}h {{ (downtime.duration / 60) % 60 }}min
                   </p>
                   <p class="italic text-right">
+                    <font-awesome-icon
+                      :icon="['fas', 'calendar']"
+                    />
                     {{ new Date(downtime.start_date).toLocaleDateString() }}
                   </p>
                 </div>
-                <p
-                  v-if="downtime.notes"
-                  class="whitespace-pre-wrap"
-                >
-                  {{ downtime.notes }}
-                </p>
-                <p v-else>
-                  There are no notes for this downtime
-                </p>
+                <div class="collapse-content">
+                  <p
+                    v-if="downtime.notes"
+                    class="whitespace-pre-wrap "
+                  >
+                    {{ downtime.notes }}
+                  </p>
+                  <p v-else>
+                    <font-awesome-icon
+                      :icon="['fas', 'circle-exclamation']"
+                    />
+                    No notes
+                  </p>
+                </div>
               </div>
             </div>
           </div>

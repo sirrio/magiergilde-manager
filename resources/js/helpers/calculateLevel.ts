@@ -19,7 +19,7 @@ const calculateLevel = (character: Character): number => {
       additional_bubbles = 0
   }
 
-  return Math.floor(1 + (Math.sqrt(((8 * (bubbles + additional_bubbles)) + 1)) - 1) / 2)
+  return Math.floor(1 + (Math.sqrt(((8 * (bubbles + additional_bubbles - character.bubble_shop_spend)) + 1)) - 1) / 2)
 }
 
 export { calculateLevel }
