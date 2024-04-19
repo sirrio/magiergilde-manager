@@ -68,10 +68,14 @@ function onImgError(event: Event) {
   <AuthenticatedLayout>
     <div class="py-12 px-6">
       <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between">
-          <div class="prose mb-12">
-            <h2>Your characters <span class="text-sm">({{ characters.length }}/8)</span></h2>
-            <p>You can manager your characters here</p>
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-2xl font-bold">
+              Your characters <span class="text-sm">({{ characters.length }}/8)</span>
+            </h2>
+            <p class="text-xs hidden sm:block">
+              Manage your characters here.
+            </p>
           </div>
           <div>
             <button
@@ -80,7 +84,7 @@ function onImgError(event: Event) {
               @click="createCharacterModal.showModal()"
             >
               <font-awesome-icon :icon="['fas', 'plus']" />
-              Create new character
+              <span class="hidden sm:inline">Create new character</span>
             </button>
           </div>
         </div>
@@ -151,7 +155,7 @@ function onImgError(event: Event) {
                   :value="calculateBubblesInCurrentLevel(character)"
                   :max="calculateBubblesToNextLevel(character)"
                 >
-                  {{ calculateBubblesInCurrentLevel(character) + ' / '+calculateBubblesToNextLevel(character) }}
+                  {{ calculateBubblesInCurrentLevel(character) + " / " + calculateBubblesToNextLevel(character) }}
                 </progress>
                 <div class="text-xs text-right -mt-1">
                   {{

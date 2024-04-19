@@ -89,7 +89,7 @@ function onImgError(event: Event) {
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-12 mt-3">
+        <div class="grid sm:grid-cols-2 gap-12 mt-3">
           <div class="flex flex-col gap-3">
             <div class="flex justify-between">
               <h2 class="card-title">

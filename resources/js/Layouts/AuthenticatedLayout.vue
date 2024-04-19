@@ -68,12 +68,14 @@ const themes = [
           class="btn btn-ghost text-xl"
         >
           <ApplicationLogo class="h-10 fill-current" />
-          <span>Character manager</span>
+          <span class="hidden sm:inline">Character manager</span>
         </a>
       </div>
       <div class="flex-none">
         <div class="flex items-center">
-          <p>Theme:</p>
+          <p class="hidden sm:block">
+            Theme:
+          </p>
           <select
             class="select select-bordered select-sm text-xs ml-1 mr-6"
             data-choose-theme
@@ -90,7 +92,7 @@ const themes = [
           </select>
         </div>
         <div class="dropdown dropdown-end">
-          <span class="mr-3">{{ $page.props.auth.user.name }}</span>
+          <span class="mr-3 hidden sm:inline">{{ $page.props.auth.user.name }}</span>
           <div
             tabindex="0"
             role="button"
