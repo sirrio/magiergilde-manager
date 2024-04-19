@@ -2,6 +2,47 @@
 import { Link } from '@inertiajs/vue3'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import { onMounted } from 'vue'
+import { themeChange } from 'theme-change'
+
+onMounted(() => {
+  themeChange(false)
+})
+
+const themes = [
+  'light',
+  'dark',
+  'cupcake',
+  'bumblebee',
+  'emerald',
+  'corporate',
+  'synthwave',
+  'retro',
+  'cyberpunk',
+  'valentine',
+  'halloween',
+  'garden',
+  'forest',
+  'aqua',
+  'lofi',
+  'pastel',
+  'fantasy',
+  'wireframe',
+  'black',
+  'luxury',
+  'dracula',
+  'cmyk',
+  'autumn',
+  'business',
+  'acid',
+  'lemonade',
+  'night',
+  'coffee',
+  'winter',
+  'dim',
+  'nord',
+  'sunset',
+]
 </script>
 
 <template>
@@ -31,6 +72,23 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'
         </a>
       </div>
       <div class="flex-none">
+        <div class="flex items-center">
+          <p>Theme:</p>
+          <select
+            class="select select-bordered select-sm text-xs ml-1 mr-6"
+            data-choose-theme
+          >
+            <option
+              v-for="(theme, key) in themes"
+              :key="key"
+              :data-theme="theme"
+              :value="theme"
+              class="capitalize"
+            >
+              {{ theme }}
+            </option>
+          </select>
+        </div>
         <div class="dropdown dropdown-end">
           <span class="mr-3">{{ $page.props.auth.user.name }}</span>
           <div
@@ -38,7 +96,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'
             role="button"
             class="btn btn-neutral btn-circle"
           >
-            <div class="w-10 rounded-full text-base-content">
+            <div class="w-10 rounded-full text-neutral-content">
               <font-awesome-icon
                 :icon="['far', 'user']"
                 size="xl"
@@ -70,3 +128,4 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'
     </main>
   </div>
 </template>
+

@@ -70,12 +70,13 @@ function onImgError(event: Event) {
       <div class="max-w-7xl mx-auto">
         <div class="flex justify-between">
           <div class="prose mb-12">
-            <h2>Your characters</h2>
+            <h2>Your characters <span class="text-sm">({{ characters.length }}/8)</span></h2>
             <p>You can manager your characters here</p>
           </div>
           <div>
             <button
               class="btn btn-neutral"
+              :disabled="characters.length >= 8"
               @click="createCharacterModal.showModal()"
             >
               <font-awesome-icon :icon="['fas', 'plus']" />
@@ -106,7 +107,7 @@ function onImgError(event: Event) {
           <div
             v-for="(character, key) of characters"
             :key="key"
-            class="card max-w-sm bg-neutral text-neutral-content"
+            class="card max-w-sm bg-base-100 text-base-content"
           >
             <div class="card-body group">
               <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
@@ -129,7 +130,7 @@ function onImgError(event: Event) {
               <div class="flex justify-between">
                 <p class="text-xs">
                   Level {{ calculateLevel(character) }}
-                  {{ character.character_classes[0].name }}
+                  {{ character.character_classes[0]?.name }}
                 </p>
                 <!--                <div>-->
                 <!--                  <img :src="character.character_classes[0].src" height="16" width="16" alt=""/>-->
@@ -146,7 +147,7 @@ function onImgError(event: Event) {
               </div>
               <div>
                 <progress
-                  class="progress w-full "
+                  class="progress progress-accent w-full"
                   :value="calculateBubblesInCurrentLevel(character)"
                   :max="calculateBubblesToNextLevel(character)"
                 >

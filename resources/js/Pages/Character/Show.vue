@@ -108,7 +108,7 @@ function onImgError(event: Event) {
             </div>
             <div
               v-if="character.adventures.length === 0"
-              class="card bg-neutral text-neutral-content"
+              class="card bg-base-100 text-base-content"
             >
               <div class="card-body text-center">
                 <font-awesome-icon
@@ -124,7 +124,7 @@ function onImgError(event: Event) {
               v-for="(adventure, key) of character.adventures"
               v-else
               :key="key"
-              class="card card-compact bg-neutral text-neutral-content group"
+              class="card card-compact bg-base-100 text-base-content group"
             >
               <div
                 tabindex="0"
@@ -204,7 +204,7 @@ function onImgError(event: Event) {
             </div>
             <div
               v-if="character.downtimes.length === 0"
-              class="card bg-neutral text-neutral-content"
+              class="card bg-base-100 text-base-content"
             >
               <div class="card-body text-center">
                 <font-awesome-icon
@@ -220,7 +220,7 @@ function onImgError(event: Event) {
               v-for="(downtime, key) of character.downtimes"
               v-else
               :key="key"
-              class="card card-compact bg-neutral text-neutral-content group"
+              class="card card-compact bg-base-100 text-base-content group"
             >
               <div
                 tabindex="0"
