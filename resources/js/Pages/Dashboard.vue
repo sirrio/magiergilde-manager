@@ -10,19 +10,20 @@ import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLev
 import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
 import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
 import { calculateTier } from '@/helpers/calculateTier'
+import { calculateClassString } from '@/helpers/calculateClassString'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 import TierLogo from '@/Components/TierLogo.vue'
-import { calculateClassString } from '../helpers/calculateClassString'
 
 defineProps<{
   characters: Character[]
 }>()
 
 const createCharacterModal = ref()
+const createCharacterModalKey = ref('createCharacterModalKey-1')
 const updateCharacterModal = ref()
 const updateCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyCharacterModal = ref()
@@ -47,6 +48,12 @@ const clickDestroyCharacterModal = async (character: Character) => {
   destroyCharacterModalKey.value = 'destroyCharacterModalKey-' + Math.random()
   await nextTick()
   destroyCharacterModal.value.showModal()
+}
+
+const clickCreateCharacterModal = async () => {
+  createCharacterModalKey.value = 'createCharacterModalKey-' + Math.random()
+  await nextTick()
+  createCharacterModal.value.showModal()
 }
 
 const clickCreateAdventureModal = (id: number) => {
@@ -84,7 +91,7 @@ function onImgError(event: Event) {
             <button
               class="btn btn-neutral"
               :disabled="characters.length >= 8"
-              @click="createCharacterModal.showModal()"
+              @click="clickCreateCharacterModal()"
             >
               <font-awesome-icon :icon="['fas', 'plus']" />
               <span class="hidden sm:inline">Create new character</span>
@@ -294,7 +301,10 @@ function onImgError(event: Event) {
         </div>
       </div>
     </div>
-    <CreateCharacterModal ref="createCharacterModal" />
+    <CreateCharacterModal
+      ref="createCharacterModal"
+      :key="createCharacterModalKey"
+    />
     <UpdateCharacterModal
       v-if="currentCharacter"
       ref="updateCharacterModal"
