@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import AdventuresPartial from '@/Pages/Character/AdventuresPartial.vue'
 import DowntimePartial from '@/Pages/Character/DowntimePartial.vue'
 import { Character } from '@/types'
+import { calculateClassString } from '@/helpers/calculateClassString'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import { Head } from '@inertiajs/vue3'
 
@@ -37,7 +38,7 @@ function onImgError(event: Event) {
             </div>
             <p class="text-xs">
               Level {{ calculateLevel(character) }}
-              {{ character.character_classes[0].name }}
+              {{ calculateClassString(character) }}
             </p>
           </div>
         </div>
