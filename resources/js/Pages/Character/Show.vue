@@ -146,11 +146,22 @@ function onImgError(event: Event) {
                 </div>
                 <div class="card-title">
                   <h3>
-                    Adventure {{ key + 1 }}
+                    <font-awesome-icon
+                      v-if="adventure.notes"
+                      :icon="['fas', 'hashtag']"
+                      fixed-width
+                      size="xs"
+                    />{{ key + 1 }}
+                    {{ adventure.title ?? 'Adventure' }}
                     <font-awesome-icon
                       v-if="adventure.notes"
                       :icon="['fas', 'note-sticky']"
+                      fixed-width
+                      size="xs"
                     />
+                    <p class="text-xs font-normal">
+                      {{ adventure.game_master ?? 'No game master' }}
+                    </p>
                   </h3>
                 </div>
                 <div class="flex justify-between text-xs">

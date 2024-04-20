@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property integer $duration
  * @property integer $character_id
+ * @property string $game_master
+ * @property string $title
  * @property mixed $start_date
  * @property mixed $has_additional_bubble
  * @property mixed $notes

@@ -10,6 +10,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $start_date
  * @property mixed $has_additional_bubble
  * @property mixed $notes
+ * @property mixed $title
+ * @property mixed $game_master
  */
 class StoreAdventureRequest extends FormRequest
 {

@@ -8,10 +8,14 @@ const props = defineProps<{ adventure: Adventure }>()
 const form = useForm({
   hours: Math.floor(props.adventure.duration / 3600),
   minutes: (props.adventure.duration / 60) % 60,
+  title: props.adventure.title,
+  game_master: props.adventure.game_master,
   start_date: props.adventure.start_date,
   has_additional_bubble: props.adventure.has_additional_bubble,
   notes: props.adventure.notes,
 })
+
+console.log(props)
 
 const modalAdventureUpdate = ref()
 
@@ -24,6 +28,8 @@ const clickUpdateNewAdventure = () => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         start_date: data.start_date,
+        title: data.title,
+        game_master: data.game_master,
         has_additional_bubble: data.has_additional_bubble,
         notes: data.notes,
       }
@@ -57,7 +63,7 @@ defineExpose({
         @submit.prevent="clickUpdateNewAdventure()"
       >
         <h3 class="font-bold text-lg">
-          Add new adventure
+          Update your adventure
         </h3>
 
         <div class="flex gap-3">
@@ -89,6 +95,30 @@ defineExpose({
             >
           </label>
         </div>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text">Do you want to give your game a title?</span>
+          </div>
+          <input
+            v-model="form.title"
+            placeholder="Peters greatest adventure"
+            type="text"
+            class="input input-bordered w-full"
+          >
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text">Who dungeon mastered your game?</span>
+          </div>
+          <input
+            v-model="form.game_master"
+            type="text"
+            placeholder="Patt Percer"
+            class="input input-bordered w-full"
+          >
+        </label>
 
         <label class="form-control w-full">
           <div class="label">

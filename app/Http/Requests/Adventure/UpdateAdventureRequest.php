@@ -10,10 +10,12 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $has_additional_bubble
  * @property mixed $start_date
  * @property mixed $duration
+ * @property mixed $title
+ * @property mixed $game_master;
  */
 class UpdateAdventureRequest extends FormRequest
 {
-    /**
+  /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool

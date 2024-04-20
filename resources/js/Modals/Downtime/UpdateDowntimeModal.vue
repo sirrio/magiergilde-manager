@@ -55,7 +55,7 @@ defineExpose({
         @submit.prevent="clickUpdateNewDowntime()"
       >
         <h3 class="font-bold text-lg">
-          Add new downtime
+          Update your downtime
         </h3>
 
         <div class="flex gap-3">

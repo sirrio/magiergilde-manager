@@ -7,6 +7,8 @@ const props = defineProps<{ characterId: number }>()
 const form = useForm({
   hours: 3,
   minutes: 0,
+  title: '',
+  game_master: '',
   start_date: new Date().toISOString().slice(0, 10),
   has_additional_bubble: false,
   notes: '',
@@ -22,6 +24,8 @@ const clickCreateNewAdventure = () => {
   form.transform(data => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
+        title: data.title,
+        game_master: data.game_master,
         start_date: data.start_date,
         has_additional_bubble: data.has_additional_bubble,
         notes: data.notes,
@@ -89,6 +93,30 @@ defineExpose({
             >
           </label>
         </div>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text">Do you want to give your game a title?</span>
+          </div>
+          <input
+            v-model="form.title"
+            placeholder="Peters greatest adventure"
+            type="text"
+            class="input input-bordered w-full"
+          >
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text">Who dungeon mastered your game?</span>
+          </div>
+          <input
+            v-model="form.game_master"
+            type="text"
+            placeholder="Patt Percer"
+            class="input input-bordered w-full"
+          >
+        </label>
 
         <label class="form-control w-full">
           <div class="label">

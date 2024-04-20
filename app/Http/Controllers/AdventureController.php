@@ -31,6 +31,8 @@ class AdventureController extends Controller
   {
     $adventure = new Adventure();
     $adventure->duration = $request->duration;
+    $adventure->title = $request->title;
+    $adventure->game_master = $request->game_master;
     $adventure->character_id = $request->character_id;
     $adventure->start_date = $request->start_date;
     $adventure->has_additional_bubble = $request->has_additional_bubble;
@@ -63,6 +65,8 @@ class AdventureController extends Controller
   {
     $adventure->duration = $request->duration;
     $adventure->start_date = $request->start_date;
+    $adventure->title = $request->title;
+    $adventure->game_master = $request->game_master;
     $adventure->has_additional_bubble = $request->has_additional_bubble;
     $adventure->notes = $request->notes;
     $adventure->save();
