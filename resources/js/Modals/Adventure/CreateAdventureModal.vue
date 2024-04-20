@@ -73,8 +73,7 @@ defineExpose({
               v-model="form.hours"
               type="number"
               min="0"
-              max="24"
-              placeholder="Peter"
+              placeholder="0"
               class="input input-bordered w-full"
             >
           </label>
@@ -88,7 +87,7 @@ defineExpose({
               type="number"
               min="0"
               max="59"
-              placeholder="Peter"
+              placeholder="0"
               class="input input-bordered w-full"
             >
           </label>
