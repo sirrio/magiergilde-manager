@@ -9,11 +9,14 @@ import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurr
 import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
 import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
 import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
+import { calculateTier } from '@/helpers/calculateTier'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
+import TierLogo from '@/Components/TierLogo.vue'
+import { calculateClassString } from '../helpers/calculateClassString'
 
 defineProps<{
   characters: Character[]
@@ -130,11 +133,15 @@ function onImgError(event: Event) {
               </div>
               <h3 class="card-title capitalize">
                 {{ character.name }}
+                <TierLogo
+                  :size="20"
+                  :tier="calculateTier(character)"
+                />
               </h3>
               <div class="flex justify-between">
                 <p class="text-xs">
                   Level {{ calculateLevel(character) }}
-                  {{ character.character_classes[0]?.name }}
+                  {{ calculateClassString(character) }}
                 </p>
                 <!--                <div>-->
                 <!--                  <img :src="character.character_classes[0].src" height="16" width="16" alt=""/>-->
@@ -179,7 +186,11 @@ function onImgError(event: Event) {
                       :icon="['fas', 'flag-checkered']"
                       fixed-width
                     />
-                    Start Tier: <span class="uppercase">{{ character.start_tier }}</span>
+                    Start Tier
+                    <TierLogo
+                      :size="14"
+                      :tier="character.start_tier"
+                    />
                   </p>
                 </div>
                 <div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Character } from '@/types'
+import { Character, CharacterClass } from '@/types'
 
 const props = defineProps<{
   character: Character
@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const form: InertiaForm<{
   name: string
-  class: number
+  class: Array<number>
   dm_bubbles: number
   dm_coins: number
   bubble_shop_spend: number
@@ -17,7 +17,7 @@ const form: InertiaForm<{
   avatar: File | null
 }> = useForm({
   name: props.character.name,
-  class: props.character.character_classes[0].id,
+  class: props.character.character_classes.map(cc => cc.id),
   dm_bubbles: props.character.dm_bubbles,
   dm_coins: props.character.dm_coins,
   bubble_shop_spend: props.character.bubble_shop_spend,
@@ -78,29 +78,24 @@ function inputFile(event: Event) {
         >
       </label>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">What is your characters class?</span>
-        </div>
-        <select
-          v-model="form.class"
-          class="select select-bordered w-full"
-        >
-          <option
-            value="0"
-            disabled
-            selected
-          >Pick one
-          </option>
-          <option
+      <div class="form-control w-full mb-2">
+        <span class="px-1 py-2 text-sm">What is your characters class?</span>
+        <div class="grid grid-cols-4">
+          <label
             v-for="(characterClass, key) in $page.props.classes"
             :key="key"
-            :value="characterClass.id"
+            class="form-control flex-row gap-1"
           >
-            {{ characterClass.name }}
-          </option>
-        </select>
-      </label>
+            <input
+              :checked="form.class.some(cc => cc === characterClass.id)"
+              type="checkbox"
+              class="checkbox checkbox-xs"
+              @change="form.class.includes(characterClass.id) ? form.class.splice(form.class.indexOf(characterClass.id), 1) : form.class.push(characterClass.id)"
+            >
+            <span class="label-text text-sm">{{ characterClass.name }}</span>
+          </label>
+        </div>
+      </div>
 
       <div class="flex gap-2">
         <label class="form-control w-full mb-2">

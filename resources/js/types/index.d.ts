@@ -23,7 +23,7 @@ export interface Character {
   downtimes: Downtime[];
   id: number;
   name: string;
-  class: string;
+  class: Array<CharacterClass>;
   start_tier: string;
   dm_bubbles: number;
   dm_coins: number;
