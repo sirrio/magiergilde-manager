@@ -9,7 +9,7 @@ const form: InertiaForm<{
   dm_coins: number
   bubble_shop_spend: number
   external_link: string
-  start_tier: number
+  start_tier: string
   avatar: null | File
 }> = useForm({
   name: '',
@@ -18,7 +18,7 @@ const form: InertiaForm<{
   dm_coins: 0,
   bubble_shop_spend: 0,
   external_link: '',
-  start_tier: 0,
+  start_tier: '',
   avatar: null,
 })
 
@@ -89,7 +89,7 @@ const inputFile = (event: Event) => {
           class="select select-bordered w-full"
         >
           <option
-            value="0"
+            :value="''"
             disabled
             selected
           >Pick one
