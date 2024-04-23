@@ -8,6 +8,7 @@ const form = useForm({
   title: '',
   start_date: new Date().toISOString().slice(0, 10),
   has_additional_bubble: false,
+  sessions: 1,
   notes: '',
 })
 
@@ -24,6 +25,7 @@ const clickCreateNewGame = () => {
         title: data.title,
         start_date: data.start_date,
         has_additional_bubble: data.has_additional_bubble,
+        sessions: data.sessions,
         notes: data.notes,
       }
     },
@@ -113,7 +115,7 @@ defineExpose({
 
         <div class="form-control w-full">
           <label class="label cursor-pointer">
-            <span class="label-text">Has an additional bubble?</span>
+            <span class="label-text">Has an additional bubble? <span class="italic text-xs">(Character Quest)</span></span>
             <input
               v-model="form.has_additional_bubble"
               type="checkbox"
@@ -121,6 +123,19 @@ defineExpose({
             >
           </label>
         </div>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">How many sessions did you play? <span class="italic text-xs">(Series)</span></span>
+          </div>
+          <input
+            v-model="form.sessions"
+            type="number"
+            min="0"
+            placeholder="1"
+            class="input input-bordered w-full"
+          >
+        </label>
 
         <label class="form-control w-full">
           <div class="label">

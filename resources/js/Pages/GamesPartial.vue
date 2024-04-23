@@ -227,6 +227,7 @@ const clickDestroyGameModal = async (game: Game) => {
                 fixed-width
               />
               in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
+              and {{ game.sessions }} sessions
             </p>
             <p class="italic text-right">
               <font-awesome-icon

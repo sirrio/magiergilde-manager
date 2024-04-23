@@ -161,9 +161,15 @@ function onImgError(event: Event) {
         <div class="avatar">
           <div class="aspect-square rounded-full w-full">
             <img
+              v-if="character.avatar"
               :src="'storage/' + character.avatar"
-              alt=""
+              alt="Avatar"
               @error="onImgError($event)"
+            >
+            <img
+              v-else
+              src="/images/placeholder.jpg"
+              alt="Avatar missing"
             >
           </div>
         </div>

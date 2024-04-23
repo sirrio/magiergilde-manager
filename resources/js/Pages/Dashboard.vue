@@ -21,7 +21,7 @@ defineProps<{
       <div class="max-w-7xl mx-auto">
         <div
           role="tablist"
-          class="tabs tabs-bordered mx-auto"
+          class="tabs tabs-bordered"
         >
           <input
             type="radio"

@@ -86,7 +86,7 @@ const submit = () => {
           </label>
 
           <button
-            class="btn btn-neutral w-full mt-2"
+            class="btn btn-neutral text-neutral-content w-full mt-2"
             :disabled="form.processing"
           >
             Register

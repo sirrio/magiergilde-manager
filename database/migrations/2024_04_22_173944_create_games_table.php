@@ -16,6 +16,7 @@ return new class extends Migration {
       $table->bigInteger('duration');
       $table->date('start_date');
       $table->boolean('has_additional_bubble')->default(false);
+      $table->integer('sessions')->default(1);
       $table->longText('notes')->nullable();
       $table->string('title')->nullable();
       $table->foreignId('user_id')->constrained()->cascadeOnDelete();

@@ -130,7 +130,7 @@ defineExpose({
 
         <div class="form-control w-full">
           <label class="label cursor-pointer">
-            <span class="label-text">Has an additional bubble?</span>
+            <span class="label-text">Has an additional bubble? <span class="italic text-xs">(Character Quest)</span></span>
             <input
               v-model="form.has_additional_bubble"
               type="checkbox"

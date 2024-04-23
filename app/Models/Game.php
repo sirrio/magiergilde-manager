@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed $user_id
  * @property mixed $start_date
  * @property mixed $has_additional_bubble
+ * @property mixed $sessions
  * @property mixed $notes
  */
 class Game extends Model

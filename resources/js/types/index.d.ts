@@ -59,6 +59,7 @@ export interface Game {
   duration: number;
   start_date: string;
   has_additional_bubble: boolean;
+  sessions: number;
   notes: string;
   user_id: number;
 }

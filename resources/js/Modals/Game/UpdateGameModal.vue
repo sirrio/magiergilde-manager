@@ -11,6 +11,7 @@ const form = useForm({
   title: props.game.title,
   start_date: props.game.start_date,
   has_additional_bubble: props.game.has_additional_bubble,
+  sessions: props.game.sessions,
   notes: props.game.notes,
 })
 
@@ -26,8 +27,8 @@ const clickUpdateNewGame = () => {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         start_date: data.start_date,
         title: data.title,
-        game_master: data.game_master,
         has_additional_bubble: data.has_additional_bubble,
+        sessions: data.sessions,
         notes: data.notes,
       }
     },
@@ -129,7 +130,7 @@ defineExpose({
 
         <div class="form-control w-full">
           <label class="label cursor-pointer">
-            <span class="label-text">Has an additional bubble?</span>
+            <span class="label-text">Has an additional bubble? <span class="italic text-xs">(Character Quest)</span></span>
             <input
               v-model="form.has_additional_bubble"
               type="checkbox"
@@ -137,6 +138,19 @@ defineExpose({
             >
           </label>
         </div>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">How many sessions did you play? <span class="italic text-xs">(Series)</span></span>
+          </div>
+          <input
+            v-model="form.sessions"
+            type="number"
+            min="0"
+            placeholder="1"
+            class="input input-bordered w-full"
+          >
+        </label>
 
         <label class="form-control w-full">
           <div class="label">

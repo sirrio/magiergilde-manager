@@ -10,6 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $title
  * @property mixed $start_date
  * @property mixed $has_additional_bubble
+ * @property mixed $sessions
  * @property mixed $notes
  */
 class StoreGameRequest extends FormRequest
@@ -33,6 +34,7 @@ class StoreGameRequest extends FormRequest
       'duration' => 'required|integer',
       'start_date' => 'required|date',
       'has_additional_bubble' => 'required|boolean',
+      'sessions' => 'required|integer|min:0',
       'notes' => 'nullable|string',
       'title' => 'nullable|string|max:255',
     ];
