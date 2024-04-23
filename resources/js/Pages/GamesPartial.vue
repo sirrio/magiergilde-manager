@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import CreateGameModal from '@/Modals/Game/CreateGameModal.vue'
-import { ref } from 'vue'
+import { nextTick, Ref, ref } from 'vue'
 import { Character, Game } from '@/types'
 import { calculateBubbleByGames } from '@/helpers/calculateBubble'
 import { calculateCoins } from '@/helpers/calculateCoins'
 import { calculateBubbleSpend } from '@/helpers/calculateBubbleSpend'
 import { calculateCoinsSpend } from '@/helpers/calculateCoinsSpend'
+import UpdateGameModal from '@/Modals/Game/UpdateGameModal.vue'
+import DestroyGameModal from '@/Modals/Game/DestroyGameModal.vue'
 
 defineProps<{
   games: Game[]
@@ -13,9 +15,28 @@ defineProps<{
 }>()
 
 const createGameModal = ref()
+const updateGameModal = ref()
+const updateGameModalKey = ref('updateGameModalKey-1')
+const destroyGameModal = ref()
+const destroyGameModalKey = ref('destroyGameModalKey-1')
+const currentGame: Ref<Game | null> = ref(null)
 
 const clickCreateGameModal = () => {
   createGameModal.value.showModal()
+}
+
+const clickUpdateGameModal = async (game: Game) => {
+  currentGame.value = game
+  updateGameModalKey.value = 'updateGameModalKey-' + Math.random()
+  await nextTick()
+  updateGameModal.value.showModal()
+}
+
+const clickDestroyGameModal = async (game: Game) => {
+  currentGame.value = game
+  destroyGameModalKey.value = 'destroyGameModalKey-' + Math.random()
+  await nextTick()
+  destroyGameModal.value.showModal()
 }
 </script>
 
@@ -155,11 +176,13 @@ const clickCreateGameModal = () => {
           <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
             <button
               class="btn btn-xs btn-square"
+              @click="clickUpdateGameModal(game)"
             >
               <font-awesome-icon :icon="['fas', 'gear']" />
             </button>
             <button
               class="btn btn-xs btn-error btn-square"
+              @click="clickDestroyGameModal(game)"
             >
               <font-awesome-icon :icon="['fas', 'x']" />
             </button>
@@ -188,9 +211,22 @@ const clickCreateGameModal = () => {
               <font-awesome-icon
                 :icon="['fas', 'clock']"
               />
-              You gained {{ calculateBubbleByGames([game]) }}
+              You gained
+              {{ calculateBubbleByGames([game]) }}
               <span v-if="game.has_additional_bubble">(Character Quest)</span>
-              bubbles in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
+              <font-awesome-icon
+                :icon="['fas', 'droplet']"
+                size="xs"
+                fixed-width
+              />
+              and
+              {{ calculateCoins([game]) }}
+              <font-awesome-icon
+                :icon="['fas', 'coins']"
+                size="xs"
+                fixed-width
+              />
+              in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
             </p>
             <p class="italic text-right">
               <font-awesome-icon
@@ -219,5 +255,17 @@ const clickCreateGameModal = () => {
   </div>
   <CreateGameModal
     ref="createGameModal"
+  />
+  <UpdateGameModal
+    v-if="currentGame"
+    ref="updateGameModal"
+    :key="updateGameModalKey"
+    :game="currentGame"
+  />
+  <DestroyGameModal
+    v-if="currentGame"
+    ref="destroyGameModal"
+    :key="destroyGameModalKey"
+    :game="currentGame"
   />
 </template>

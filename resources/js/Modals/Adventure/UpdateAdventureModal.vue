@@ -15,8 +15,6 @@ const form = useForm({
   notes: props.adventure.notes,
 })
 
-console.log(props)
-
 const modalAdventureUpdate = ref()
 
 const showModal = () => {

@@ -2,27 +2,39 @@
 
 namespace App\Http\Requests\Game;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $duration
+ * @property mixed $start_date
+ * @property mixed $has_additional_bubble
+ * @property mixed $title
+ * @property mixed $notes
+ */
 class UpdateGameRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
+  /**
+   * Determine if the user is authorized to make this request.
+   */
+  public function authorize(): bool
+  {
+    return true;
+  }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+  /**
+   * Get the validation rules that apply to the request.
+   *
+   * @return array<string, ValidationRule|array|string>
+   */
+  public function rules(): array
+  {
+    return [
+      'duration' => 'required|integer',
+      'start_date' => 'required|date',
+      'has_additional_bubble' => 'required|boolean',
+      'notes' => 'nullable|string',
+      'title' => 'nullable|string|max:255',
+    ];
+  }
 }

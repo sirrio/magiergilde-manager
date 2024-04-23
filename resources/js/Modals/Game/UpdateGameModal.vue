@@ -14,8 +14,6 @@ const form = useForm({
   notes: props.game.notes,
 })
 
-console.log(props)
-
 const modalGameUpdate = ref()
 
 const showModal = () => {

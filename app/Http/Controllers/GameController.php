@@ -61,16 +61,25 @@ class GameController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateGameRequest $request, Game $game)
+  public function update(UpdateGameRequest $request, Game $game): \Illuminate\Http\RedirectResponse
   {
-    //
+    $game->duration = $request->duration;
+    $game->start_date = $request->start_date;
+    $game->title = $request->title;
+    $game->has_additional_bubble = $request->has_additional_bubble;
+    $game->notes = $request->notes;
+    $game->save();
+
+    return redirect()->back();
   }
 
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Game $game)
+  public function destroy(Game $game): \Illuminate\Http\RedirectResponse
   {
-    //
+    $game->delete();
+
+    return redirect()->back();
   }
 }

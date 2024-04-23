@@ -113,9 +113,15 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
             <font-awesome-icon
               :icon="['fas', 'clock']"
             />
-            You gained {{ calculateBubbleByAdventures([adventure]) }}
+            You gained
+            {{ calculateBubbleByAdventures([adventure]) }}
             <span v-if="adventure.has_additional_bubble">(Character Quest)</span>
-            bubbles in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
+            <font-awesome-icon
+              :icon="['fas', 'droplet']"
+              size="xs"
+              fixed-width
+            />
+            in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
           </p>
           <p class="italic text-right">
             <font-awesome-icon
