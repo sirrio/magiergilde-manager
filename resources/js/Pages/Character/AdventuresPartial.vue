@@ -4,7 +4,7 @@ import DestroyAdventureModal from '@/Modals/Adventure/DestroyAdventureModal.vue'
 import UpdateAdventureModal from '@/Modals/Adventure/UpdateAdventureModal.vue'
 import { Adventure, Character } from '@/types/index.js'
 import { nextTick, Ref, ref } from 'vue'
-import { calculateBubbleByAdventure } from '@/helpers/calculateBubble'
+import { calculateBubbleByAdventures } from '@/helpers/calculateBubble'
 
 defineProps<{
   character: Character
@@ -91,9 +91,7 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
           <div class="card-title">
             <h3>
               <font-awesome-icon
-                v-if="adventure.notes"
                 :icon="['fas', 'hashtag']"
-                fixed-width
                 size="xs"
               />
               {{ key + 1 }}
@@ -115,7 +113,7 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
             <font-awesome-icon
               :icon="['fas', 'clock']"
             />
-            You gained {{ calculateBubbleByAdventure([adventure]) }}
+            You gained {{ calculateBubbleByAdventures([adventure]) }}
             <span v-if="adventure.has_additional_bubble">(Character Quest)</span>
             bubbles in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
           </p>

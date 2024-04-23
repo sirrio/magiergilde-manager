@@ -52,7 +52,7 @@ export interface Downtime {
   character_id: number;
 }
 
-export interface Games {
+export interface Game {
   id: number;
   title: string;
   duration: number;

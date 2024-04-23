@@ -4,6 +4,7 @@ import { nextTick, Ref, ref } from 'vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'
 import DestroyDowntimeModal from '@/Modals/Downtime/DestroyDowntimeModal.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 defineProps<{
   character: Character
@@ -88,7 +89,11 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
         </div>
         <div class="card-title">
           <h3>
-            Downtime {{ key + 1 }}
+            <font-awesome-icon
+              :icon="['fas', 'hashtag']"
+              size="xs"
+            />
+            {{ key + 1 }} Downtime
             <font-awesome-icon
               v-if="downtime.notes"
               :icon="['fas', 'note-sticky']"
