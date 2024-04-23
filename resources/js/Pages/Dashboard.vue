@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, router } from '@inertiajs/vue3'
-import { Character } from '@/types'
+import { Character, Games } from '@/types'
 import { nextTick, Ref, ref } from 'vue'
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { calculateLevel } from '@/helpers/calculateLevel'
@@ -16,11 +16,16 @@ import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
+import CreateGameModal from '@/Modals/Game/CreateGameModal.vue'
 import TierLogo from '@/Components/TierLogo.vue'
 
 defineProps<{
   characters: Character[]
+  games: Games[]
 }>()
+
+const currentCharacterId = ref(0)
+const currentCharacter: Ref<Character | null> = ref(null)
 
 const createCharacterModal = ref()
 const createCharacterModalKey = ref('createCharacterModalKey-1')
@@ -28,10 +33,13 @@ const updateCharacterModal = ref()
 const updateCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyCharacterModal = ref()
 const destroyCharacterModalKey = ref('destroyCharacterModalKey-1')
+
+const createGameModal = ref()
+
 const createAdventureModal = ref()
+
 const createDowntimeModal = ref()
-const currentCharacterId = ref(0)
-const currentCharacter: Ref<Character | null> = ref(null)
+
 
 const clickShowCharacter = (id: number) => {
   router.visit(route('character.show', { character: id }))
@@ -64,6 +72,10 @@ const clickCreateAdventureModal = (id: number) => {
 const clickCreateDowntimeModal = (id: number) => {
   currentCharacterId.value = id
   createDowntimeModal.value.showModal()
+}
+
+const clickCreateGameModal = () => {
+  createGameModal.value.showModal()
 }
 
 function onImgError(event: Event) {
@@ -101,7 +113,7 @@ function onImgError(event: Event) {
 
         <div
           v-if="characters.length === 0"
-          class="card bg-neutral text-neutral-content"
+          class="card bg-base-100 text-base-content"
         >
           <div class="card-body text-center">
             <font-awesome-icon
@@ -299,6 +311,129 @@ function onImgError(event: Event) {
             </div>
           </div>
         </div>
+
+        <div class="flex justify-between items-center mb-6 mt-12">
+          <div>
+            <h2 class="text-2xl font-bold">
+              Your mastered games
+            </h2>
+            <p class="text-xs hidden sm:block">
+              Manage the games in which you were the Dungeon Master.
+            </p>
+          </div>
+          <div>
+            <button
+              class="btn btn-neutral"
+              @click="clickCreateGameModal()"
+            >
+              <font-awesome-icon :icon="['fas', 'plus']" />
+              <span class="hidden sm:inline">Create new game</span>
+            </button>
+          </div>
+        </div>
+
+        <div
+          v-if="games.length === 0"
+          class="card bg-base-100 text-base-content"
+        >
+          <div class="card-body text-center">
+            <font-awesome-icon
+              :icon="['fas', 'circle-exclamation']"
+              size="7x"
+            />
+            <h3 class="font-semibold text-xl">
+              No games in which you were the Dungeon Master yet
+            </h3>
+          </div>
+        </div>
+        <div
+          v-else
+          class="grid sm:grid-cols-2 gap-12 mt-3"
+        >
+          <div>
+            <div class="card bg-base-100">
+              <div class="card-body">
+                gm stuff here
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              v-for="(game, key) of games"
+              :key="key"
+              class="card card-compact bg-base-100 text-base-content group"
+            >
+              <div
+                tabindex="0"
+                class="card-body collapse cursor-pointer"
+              >
+                <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+                  <button
+                    class="btn btn-xs btn-square"
+                  >
+                    <font-awesome-icon :icon="['fas', 'gear']" />
+                  </button>
+                  <button
+                    class="btn btn-xs btn-error btn-square"
+                  >
+                    <font-awesome-icon :icon="['fas', 'x']" />
+                  </button>
+                </div>
+                <div>
+                  <div class="card-title">
+                    <h3>
+                      <font-awesome-icon
+                        v-if="game.notes"
+                        :icon="['fas', 'hashtag']"
+                        fixed-width
+                        size="xs"
+                      />
+                      {{ key + 1 }}
+                      {{ game.title ?? "Games" }}
+                      <font-awesome-icon
+                        v-if="game.notes"
+                        :icon="['fas', 'note-sticky']"
+                        fixed-width
+                        size="xs"
+                      />
+                    </h3>
+                  </div>
+                  <span class="text-xs" />
+                </div>
+                <div class="flex justify-between text-xs">
+                  <p>
+                    <font-awesome-icon
+                      :icon="['fas', 'clock']"
+                    />
+                    You gained {{ 3 }}
+                    <span v-if="game.has_additional_bubble">(Character Quest)</span>
+                    bubbles in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
+                  </p>
+                  <p class="italic text-right">
+                    <font-awesome-icon
+                      :icon="['fas', 'calendar']"
+                    />
+                    {{ new Date(game.start_date).toLocaleDateString() }}
+                  </p>
+                </div>
+                <div class="collapse-content">
+                  <p
+                    v-if="game.notes"
+                    class="whitespace-pre-wrap "
+                  >
+                    {{ game.notes }}
+                  </p>
+                  <p v-else>
+                    <font-awesome-icon
+                      :icon="['fas', 'circle-exclamation']"
+                    />
+                    No notes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <CreateCharacterModal
@@ -316,6 +451,9 @@ function onImgError(event: Event) {
       ref="destroyCharacterModal"
       :key="destroyCharacterModalKey"
       :character="currentCharacter"
+    />
+    <CreateGameModal
+      ref="createGameModal"
     />
     <CreateAdventureModal
       ref="createAdventureModal"

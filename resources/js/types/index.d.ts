@@ -51,3 +51,13 @@ export interface Downtime {
   notes: string;
   character_id: number;
 }
+
+export interface Games {
+  id: number;
+  title: string;
+  duration: number;
+  start_date: string;
+  has_additional_bubble: boolean;
+  notes: string;
+  user_id: number;
+}
