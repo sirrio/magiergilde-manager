@@ -107,7 +107,7 @@ defineExpose({
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text">Who dungeon mastered your game?</span>
+            <span class="label-text">Who game mastered your game?</span>
           </div>
           <input
             v-model="form.game_master"
@@ -130,7 +130,7 @@ defineExpose({
 
         <div class="form-control w-full">
           <label class="label cursor-pointer">
-            <span class="label-text">Has an additional bubble?</span>
+            <span class="label-text">Has an additional bubble? <span class="italic text-xs">(Character Quest)</span></span>
             <input
               v-model="form.has_additional_bubble"
               type="checkbox"

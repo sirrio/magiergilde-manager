@@ -1,40 +1,37 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Adventure } from '@/types'
-
-const props = defineProps<{ adventure: Adventure }>()
 
 const form = useForm({
-  hours: Math.floor(props.adventure.duration / 3600),
-  minutes: (props.adventure.duration / 60) % 60,
-  title: props.adventure.title,
-  game_master: props.adventure.game_master,
-  start_date: props.adventure.start_date,
-  has_additional_bubble: props.adventure.has_additional_bubble,
-  notes: props.adventure.notes,
+  hours: 3,
+  minutes: 0,
+  title: '',
+  start_date: new Date().toISOString().slice(0, 10),
+  has_additional_bubble: false,
+  sessions: 1,
+  notes: '',
 })
 
-const modalAdventureUpdate = ref()
+const modalGameCreate = ref()
 
 const showModal = () => {
-  modalAdventureUpdate.value.showModal()
+  modalGameCreate.value.showModal()
 }
 
-const clickUpdateNewAdventure = () => {
+const clickCreateNewGame = () => {
   form.transform(data => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
-        start_date: data.start_date,
         title: data.title,
-        game_master: data.game_master,
+        start_date: data.start_date,
         has_additional_bubble: data.has_additional_bubble,
+        sessions: data.sessions,
         notes: data.notes,
       }
     },
-  ).patch(route('adventure.update', { adventure: props.adventure.id }), {
+  ).put(route('game.store'), {
     onSuccess: () => {
-      modalAdventureUpdate.value.close()
+      modalGameCreate.value.close()
       form.reset()
     },
   })
@@ -47,7 +44,7 @@ defineExpose({
 
 <template>
   <dialog
-    ref="modalAdventureUpdate"
+    ref="modalGameCreate"
     class="modal"
   >
     <div class="modal-box">
@@ -58,10 +55,10 @@ defineExpose({
       </form>
       <form
         class="flex flex-col gap-3"
-        @submit.prevent="clickUpdateNewAdventure()"
+        @submit.prevent="clickCreateNewGame()"
       >
         <h3 class="font-bold text-lg">
-          Update your adventure
+          Add new game
         </h3>
 
         <div class="flex gap-3">
@@ -99,20 +96,8 @@ defineExpose({
           </div>
           <input
             v-model="form.title"
-            placeholder="Peters greatest adventure"
+            placeholder="Peters greatest game"
             type="text"
-            class="input input-bordered w-full"
-          >
-        </label>
-
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Who game mastered your game?</span>
-          </div>
-          <input
-            v-model="form.game_master"
-            type="text"
-            placeholder="Patt Percer"
             class="input input-bordered w-full"
           >
         </label>
@@ -139,6 +124,19 @@ defineExpose({
           </label>
         </div>
 
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">How many sessions did you play? <span class="italic text-xs">(Series)</span></span>
+          </div>
+          <input
+            v-model="form.sessions"
+            type="number"
+            min="0"
+            placeholder="1"
+            class="input input-bordered w-full"
+          >
+        </label>
+
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text">Your notes</span>
@@ -151,7 +149,7 @@ defineExpose({
         </label>
 
         <button class="btn btn-neutral">
-          Update
+          Create
         </button>
       </form>
     </div>

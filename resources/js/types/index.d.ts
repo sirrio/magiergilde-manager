@@ -27,6 +27,7 @@ export interface Character {
   start_tier: string;
   dm_bubbles: number;
   dm_coins: number;
+  is_filler: boolean;
   bubble_shop_spend: number;
   external_link: string;
   avatar: string;
@@ -50,4 +51,15 @@ export interface Downtime {
   start_date: string;
   notes: string;
   character_id: number;
+}
+
+export interface Game {
+  id: number;
+  title: string;
+  duration: number;
+  start_date: string;
+  has_additional_bubble: boolean;
+  sessions: number;
+  notes: string;
+  user_id: number;
 }

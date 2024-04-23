@@ -80,7 +80,7 @@ const submit = () => {
           </div>
 
           <button
-            class="btn bg-neutral w-full"
+            class="btn bg-neutral text-neutral-content w-full"
             :disabled="form.processing"
             @click="submit"
           >

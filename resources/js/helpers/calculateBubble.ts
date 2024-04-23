@@ -1,4 +1,4 @@
-import { Adventure, Character } from '@/types'
+import { Adventure, Character, Game } from '@/types'
 
 enum Bubble {
   MIN_DURATION = 10800
@@ -6,10 +6,10 @@ enum Bubble {
 
 const calculateBubble = (character: Character): number => {
 
-  return calculateBubbleByAdventure(character.adventures) + character.dm_bubbles
+  return calculateBubbleByAdventures(character.adventures) + character.dm_bubbles
 }
 
-const calculateBubbleByAdventure = (adventures: Adventure[]): number => {
+const calculateBubbleByAdventures = (adventures: Adventure[]): number => {
 
   return adventures.reduce(
     (bubble: number, adventure: Adventure): number => {
@@ -19,4 +19,14 @@ const calculateBubbleByAdventure = (adventures: Adventure[]): number => {
   )
 }
 
-export { calculateBubble, calculateBubbleByAdventure }
+const calculateBubbleByGames = (game: Game[]): number => {
+
+  return game.reduce(
+    (bubble: number, game: Game): number => {
+      return bubble + Math.floor(game.duration / Bubble.MIN_DURATION) + (game.has_additional_bubble ? 1 : 0)
+    },
+    0,
+  )
+}
+
+export { calculateBubble, calculateBubbleByAdventures, calculateBubbleByGames }

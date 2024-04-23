@@ -36,6 +36,7 @@ class UpdateCharacterRequest extends FormRequest
       'external_link' => 'required|url',
       'dm_bubbles' => 'required|integer|min:0',
       'dm_coins' => 'required|integer|min:0',
+      'is_filler' => 'required|boolean',
       'bubble_shop_spend' => 'required|integer|min:0',
       'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
     ];

@@ -10,6 +10,7 @@ const form: InertiaForm<{
   bubble_shop_spend: number
   external_link: string
   start_tier: string
+  is_filler: boolean
   avatar: null | File
 }> = useForm({
   name: '',
@@ -19,6 +20,7 @@ const form: InertiaForm<{
   bubble_shop_spend: 0,
   external_link: '',
   start_tier: '',
+  is_filler: false,
   avatar: null,
 })
 
