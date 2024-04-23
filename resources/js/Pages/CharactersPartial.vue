@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { nextTick, Ref, ref } from 'vue'
-import { Character, Game } from '@/types'
+import { Character } from '@/types'
 import { router } from '@inertiajs/vue3'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
-import { calculateTier } from '../helpers/calculateTier'
-import { calculateLevel } from '../helpers/calculateLevel'
-import { calculateClassString } from '../helpers/calculateClassString'
+import { calculateTier } from '@/helpers/calculateTier'
+import { calculateLevel } from '@/helpers/calculateLevel'
+import { calculateClassString } from '@/helpers/calculateClassString'
 import TierLogo from '@/Components/TierLogo.vue'
 import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
 import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
-import { calculateBubble } from '../helpers/calculateBubble'
-import { secondsToHourMinuteString } from '../helpers/secondsToHourMinuteString'
-import { calculateRemainingDowntime } from '../helpers/calculateRemainingDowntime'
+import { calculateBubble } from '@/helpers/calculateBubble'
+import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
+import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
 
 defineProps<{
   characters: Character[]
@@ -84,9 +84,10 @@ function onImgError(event: Event) {
           class="text-sm tooltip tooltip-bottom"
           data-tip="Your ET and Filler Character are not counted against the limit"
         >
-          ({{ characters.filter(char => !(char.is_filler || calculateTier(char) === "et")).length
-          }} + {{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
-          }}/8)
+          ({{
+            characters.filter(char => !(char.is_filler || calculateTier(char) === "et")).length
+          }}<template v-if="characters.filter(char => (char.is_filler || calculateTier(char) === 'et')).length > 0">+{{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
+          }}</template>/8)
         </span>
       </h2>
       <p class="text-xs hidden sm:block">

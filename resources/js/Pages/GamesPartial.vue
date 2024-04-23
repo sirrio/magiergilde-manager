@@ -8,6 +8,7 @@ import { calculateBubbleSpend } from '@/helpers/calculateBubbleSpend'
 import { calculateCoinsSpend } from '@/helpers/calculateCoinsSpend'
 import UpdateGameModal from '@/Modals/Game/UpdateGameModal.vue'
 import DestroyGameModal from '@/Modals/Game/DestroyGameModal.vue'
+import TierLogo from '@/Components/TierLogo.vue'
 
 defineProps<{
   games: Game[]
@@ -83,7 +84,7 @@ const clickDestroyGameModal = async (game: Game) => {
         <figure class="md:w-1/2 ">
           <img
             class="object-cover h-full w-full"
-            src="/images/gamemaster.png"
+            src="/images/gamemaster.jpg"
             alt="Game Master"
           >
         </figure>
@@ -203,6 +204,10 @@ const clickDestroyGameModal = async (game: Game) => {
                   size="xs"
                 />
               </h3>
+              <TierLogo
+                :size="20"
+                :tier="game.tier"
+              />
             </div>
             <span class="text-xs" />
           </div>

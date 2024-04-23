@@ -6,11 +6,19 @@ const form = useForm({
   hours: 3,
   minutes: 0,
   title: '',
+  tier: '',
   start_date: new Date().toISOString().slice(0, 10),
   has_additional_bubble: false,
   sessions: 1,
   notes: '',
 })
+
+const tiers = [
+  { id: 'bt', name: 'Beginner Tier' },
+  { id: 'lt', name: 'Low Tier' },
+  { id: 'ht', name: 'High Tier' },
+  { id: 'et', name: 'Elite Tier' },
+]
 
 const modalGameCreate = ref()
 
@@ -23,6 +31,7 @@ const clickCreateNewGame = () => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         title: data.title,
+        tier: data.tier,
         start_date: data.start_date,
         has_additional_bubble: data.has_additional_bubble,
         sessions: data.sessions,
@@ -100,6 +109,30 @@ defineExpose({
             type="text"
             class="input input-bordered w-full"
           >
+        </label>
+
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">What tier was the game played at?</span>
+          </div>
+          <select
+            v-model="form.tier"
+            class="select select-bordered w-full"
+          >
+            <option
+              :value="''"
+              disabled
+              selected
+            >Pick one
+            </option>
+            <option
+              v-for="(tier, key) in tiers"
+              :key="key"
+              :value="tier.id"
+            >
+              {{ tier.name }}
+            </option>
+          </select>
         </label>
 
         <label class="form-control w-full">

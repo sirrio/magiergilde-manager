@@ -33,6 +33,7 @@ class GameController extends Controller
     $game = new Game();
     $game->duration = $request->duration;
     $game->title = $request->title;
+    $game->tier = $request->tier;
     $game->user_id = Auth::user()->getAuthIdentifier();
     $game->start_date = $request->start_date;
     $game->has_additional_bubble = $request->has_additional_bubble;
@@ -67,6 +68,7 @@ class GameController extends Controller
     $game->duration = $request->duration;
     $game->start_date = $request->start_date;
     $game->title = $request->title;
+    $game->tier = $request->tier;
     $game->has_additional_bubble = $request->has_additional_bubble;
     $game->sessions = $request->sessions;
     $game->notes = $request->notes;
