@@ -41,7 +41,7 @@ const clickDestroyGameModal = async (game: Game) => {
 </script>
 
 <template>
-  <div class="flex justify-between items-center mb-6 mt-12">
+  <div class="flex justify-between items-center mb-6">
     <div>
       <h2 class="text-2xl font-bold">
         Your mastered games
