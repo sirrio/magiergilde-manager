@@ -56,6 +56,7 @@ export interface Downtime {
 export interface Game {
   id: number;
   title: string;
+  tier: string;
   duration: number;
   start_date: string;
   has_additional_bubble: boolean;

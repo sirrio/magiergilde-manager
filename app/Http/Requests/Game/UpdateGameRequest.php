@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $has_additional_bubble
  * @property mixed $sessions
  * @property mixed $title
+ * @property mixed $tier
  * @property mixed $notes
  */
 class UpdateGameRequest extends FormRequest
@@ -35,6 +36,7 @@ class UpdateGameRequest extends FormRequest
       'start_date' => 'required|date',
       'has_additional_bubble' => 'required|boolean',
       'sessions' => 'required|integer|min:0',
+      'tier' => 'required|string',
       'notes' => 'nullable|string',
       'title' => 'nullable|string|max:255',
     ];
