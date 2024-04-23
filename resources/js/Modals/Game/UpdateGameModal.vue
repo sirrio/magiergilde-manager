@@ -1,29 +1,28 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Adventure } from '@/types'
+import { Game } from '@/types'
 
-const props = defineProps<{ adventure: Adventure }>()
+const props = defineProps<{ game: Game }>()
 
 const form = useForm({
-  hours: Math.floor(props.adventure.duration / 3600),
-  minutes: (props.adventure.duration / 60) % 60,
-  title: props.adventure.title,
-  game_master: props.adventure.game_master,
-  start_date: props.adventure.start_date,
-  has_additional_bubble: props.adventure.has_additional_bubble,
-  notes: props.adventure.notes,
+  hours: Math.floor(props.game.duration / 3600),
+  minutes: (props.game.duration / 60) % 60,
+  title: props.game.title,
+  start_date: props.game.start_date,
+  has_additional_bubble: props.game.has_additional_bubble,
+  notes: props.game.notes,
 })
 
 console.log(props)
 
-const modalAdventureUpdate = ref()
+const modalGameUpdate = ref()
 
 const showModal = () => {
-  modalAdventureUpdate.value.showModal()
+  modalGameUpdate.value.showModal()
 }
 
-const clickUpdateNewAdventure = () => {
+const clickUpdateNewGame = () => {
   form.transform(data => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
@@ -34,9 +33,9 @@ const clickUpdateNewAdventure = () => {
         notes: data.notes,
       }
     },
-  ).patch(route('adventure.update', { adventure: props.adventure.id }), {
+  ).patch(route('game.update', { game: props.game.id }), {
     onSuccess: () => {
-      modalAdventureUpdate.value.close()
+      modalGameUpdate.value.close()
       form.reset()
     },
   })
@@ -49,7 +48,7 @@ defineExpose({
 
 <template>
   <dialog
-    ref="modalAdventureUpdate"
+    ref="modalGameUpdate"
     class="modal"
   >
     <div class="modal-box">
@@ -60,10 +59,10 @@ defineExpose({
       </form>
       <form
         class="flex flex-col gap-3"
-        @submit.prevent="clickUpdateNewAdventure()"
+        @submit.prevent="clickUpdateNewGame()"
       >
         <h3 class="font-bold text-lg">
-          Update your adventure
+          Update your game
         </h3>
 
         <div class="flex gap-3">
@@ -101,7 +100,7 @@ defineExpose({
           </div>
           <input
             v-model="form.title"
-            placeholder="Peters greatest adventure"
+            placeholder="Peters greatest game"
             type="text"
             class="input input-bordered w-full"
           >

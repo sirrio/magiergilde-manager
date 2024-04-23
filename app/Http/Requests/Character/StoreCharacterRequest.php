@@ -38,6 +38,7 @@ class StoreCharacterRequest extends FormRequest
       'start_tier' => 'required|string',
       'dm_bubbles' => 'required|integer|min:0',
       'dm_coins' => 'required|integer|min:0',
+      'is_filler' => 'required|boolean',
       'bubble_shop_spend' => 'required|integer|min:0',
       'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
     ];

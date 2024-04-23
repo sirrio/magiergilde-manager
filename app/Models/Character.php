@@ -27,6 +27,10 @@ class Character extends Model
    */
   protected $with = ['adventures', 'downtimes', 'characterClasses'];
 
+  protected $casts = [
+    'is_filler' => 'boolean'
+  ];
+
   public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
   {
     return $this->hasMany(Adventure::class);

@@ -14,6 +14,7 @@ const form: InertiaForm<{
   dm_coins: number
   bubble_shop_spend: number
   external_link: string
+  is_filler: boolean
   avatar: File | null
 }> = useForm({
   name: props.character.name,
@@ -22,6 +23,7 @@ const form: InertiaForm<{
   dm_coins: props.character.dm_coins,
   bubble_shop_spend: props.character.bubble_shop_spend,
   external_link: props.character.external_link,
+  is_filler: props.character.is_filler,
   avatar: null,
 })
 

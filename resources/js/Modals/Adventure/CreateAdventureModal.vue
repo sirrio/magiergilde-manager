@@ -107,7 +107,7 @@ defineExpose({
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text">Who dungeon mastered your game?</span>
+            <span class="label-text">Who game mastered your game?</span>
           </div>
           <input
             v-model="form.game_master"

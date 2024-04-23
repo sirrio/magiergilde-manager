@@ -88,7 +88,15 @@ function onImgError(event: Event) {
         <div class="flex justify-between items-center mb-6">
           <div>
             <h2 class="text-2xl font-bold">
-              Your characters <span class="text-sm">({{ characters.length }}/8)</span>
+              Your characters
+              <span
+                class="text-sm tooltip tooltip-bottom"
+                data-tip="Your ET and Filler Character are not counted against the limit"
+              >
+                ({{ characters.filter(char => !(char.is_filler || calculateTier(char) === "et")).length
+                }} + {{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
+                }}/8)
+              </span>
             </h2>
             <p class="text-xs hidden sm:block">
               Manage your characters here.
@@ -97,7 +105,7 @@ function onImgError(event: Event) {
           <div>
             <button
               class="btn btn-neutral"
-              :disabled="characters.length >= 8"
+              :disabled="characters.filter(char => !(char.is_filler || calculateTier(char) === 'et') ).length >= 8"
               @click="clickCreateCharacterModal()"
             >
               <font-awesome-icon :icon="['fas', 'plus']" />
