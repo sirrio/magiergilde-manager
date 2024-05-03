@@ -7,17 +7,17 @@ import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
+import DestroyDeletedCharacterModal from '@/Modals/Character/DestroyDeletedCharacterModal.vue'
+import UpdateDeletedCharacterModal from '@/Modals/Character/UpdateDeletedCharacterModal.vue'
+import TierLogo from '@/Components/TierLogo.vue'
 import { calculateTier } from '@/helpers/calculateTier'
 import { calculateLevel } from '@/helpers/calculateLevel'
 import { calculateClassString } from '@/helpers/calculateClassString'
-import TierLogo from '@/Components/TierLogo.vue'
 import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
 import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
 import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
-import DestroyDeletedCharacterModal from '@/Modals/Character/DestroyDeletedCharacterModal.vue'
-import UpdateDeletedCharacterModal from '@/Modals/Character/UpdateDeletedCharacterModal.vue'
 
 defineProps<{
   characters: Character[]
@@ -112,7 +112,7 @@ function onImgError(event: Event) {
             characters.filter(char => !char.deleted_at && !(char.is_filler || calculateTier(char) === "et")).length
           }}<template
             v-if="characters.filter(char => !char.deleted_at && (char.is_filler || calculateTier(char) === 'et')).length > 0"
-          >+{{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
+          >+{{ characters.filter(char => !char.deleted_at && (char.is_filler || calculateTier(char) === "et")).length
           }}</template>/8)
           <span
             v-if="characters.filter(char => !char.deleted_at && !(char.is_filler || calculateTier(char) === 'et')).length > 8"
@@ -124,7 +124,7 @@ function onImgError(event: Event) {
               fixed-width
             />
             You have more then maximum character
-            {{ characters.filter(char => !(!char.is_filler || calculateTier(char) === 'et') ).length }}
+            {{ characters.filter(char => !(!char.is_filler || calculateTier(char) === "et")).length }}
           </span>
         </span>
       </h2>
