@@ -21,6 +21,7 @@ export interface Character {
   character_classes: CharacterClass[];
   adventures: Adventure[];
   downtimes: Downtime[];
+  deleted_at: string;
   id: number;
   name: string;
   class: Array<CharacterClass>;

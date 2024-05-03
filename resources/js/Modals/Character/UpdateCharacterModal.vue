@@ -106,6 +106,7 @@ function inputFile(event: Event) {
           </div>
           <input
             v-model="form.dm_bubbles"
+            :disabled="form.is_filler"
             type="number"
             min="0"
             placeholder="0"
@@ -119,6 +120,7 @@ function inputFile(event: Event) {
           </div>
           <input
             v-model="form.dm_coins"
+            :disabled="form.is_filler"
             type="number"
             min="0"
             placeholder="0"
@@ -133,6 +135,7 @@ function inputFile(event: Event) {
         </div>
         <input
           v-model="form.bubble_shop_spend"
+          :disabled="form.is_filler"
           type="number"
           min="0"
           placeholder="0"

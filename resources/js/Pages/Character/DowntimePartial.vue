@@ -42,6 +42,7 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
         Downtimes
       </h2>
       <button
+        :disabled="character.is_filler"
         class="btn btn-ghost"
         @click="createDowntimeModal.showModal()"
       >
@@ -50,7 +51,21 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
       </button>
     </div>
     <div
-      v-if="character.downtimes.length === 0"
+      v-if="character.is_filler"
+      class="card bg-base-100 text-base-content"
+    >
+      <div class="card-body text-center">
+        <font-awesome-icon
+          :icon="['fas', 'circle-exclamation']"
+          size="7x"
+        />
+        <h3 class="font-semibold text-xl">
+          Filler character cannot spend downtimes
+        </h3>
+      </div>
+    </div>
+    <div
+      v-else-if="character.downtimes.length === 0"
       class="card bg-base-100 text-base-content"
     >
       <div class="card-body text-center">

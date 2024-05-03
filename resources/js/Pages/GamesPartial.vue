@@ -2,7 +2,7 @@
 import CreateGameModal from '@/Modals/Game/CreateGameModal.vue'
 import { nextTick, Ref, ref } from 'vue'
 import { Character, Game } from '@/types'
-import { calculateBubbleByGames } from '@/helpers/calculateBubble'
+import { calculateBubbleByFillerCharacters, calculateBubbleByGames } from '@/helpers/calculateBubble'
 import { calculateCoins } from '@/helpers/calculateCoins'
 import { calculateBubbleSpend } from '@/helpers/calculateBubbleSpend'
 import { calculateCoinsSpend } from '@/helpers/calculateCoinsSpend'
@@ -62,7 +62,7 @@ const clickDestroyGameModal = async (game: Game) => {
     </div>
   </div>
   <div
-    v-if="games.length === 0"
+    v-if="games.length === 0 && calculateBubbleByFillerCharacters(characters) === 0"
     class="card bg-base-100 text-base-content"
   >
     <div class="card-body text-center">
@@ -71,7 +71,7 @@ const clickDestroyGameModal = async (game: Game) => {
         size="7x"
       />
       <h3 class="font-semibold text-xl">
-        No games in which you were the Game Master yet
+        No games in which you were the Game Master or games played with a filler character yet
       </h3>
     </div>
   </div>
@@ -104,7 +104,7 @@ const clickDestroyGameModal = async (game: Game) => {
           <div class="text-xs text-right -mt-1">
             Spend
             {{ calculateBubbleSpend(characters) }}
-            of your {{ calculateBubbleByGames(games) }}
+            of your {{ calculateBubbleByGames(games) + calculateBubbleByFillerCharacters(characters) }}
             <font-awesome-icon
               :icon="['fas', 'droplet']"
               size="sm"
@@ -160,6 +160,14 @@ const clickDestroyGameModal = async (game: Game) => {
           </h3>
           <p>
             You mastered a total of {{ games.length }} games.
+          </p>
+          <p>
+            You gained a total of {{ calculateBubbleByFillerCharacters(characters) }}
+            <font-awesome-icon
+              :icon="['fas', 'droplet']"
+              size="sm"
+            />
+            from your filler characters.
           </p>
         </div>
       </div>

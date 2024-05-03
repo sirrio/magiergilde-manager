@@ -19,9 +19,9 @@ const calculateBubbleByAdventures = (adventures: Adventure[]): number => {
   )
 }
 
-const calculateBubbleByGames = (game: Game[]): number => {
+const calculateBubbleByGames = (games: Game[]): number => {
 
-  return game.reduce(
+  return games.reduce(
     (bubble: number, game: Game): number => {
       return bubble + Math.floor(game.duration / Bubble.MIN_DURATION) + (game.has_additional_bubble ? 1 : 0)
     },
@@ -29,4 +29,14 @@ const calculateBubbleByGames = (game: Game[]): number => {
   )
 }
 
-export { calculateBubble, calculateBubbleByAdventures, calculateBubbleByGames }
+const calculateBubbleByFillerCharacters = (characters: Character[]): number => {
+
+  return characters.reduce(
+    (bubble: number, character: Character): number => {
+      return character.is_filler ? bubble + calculateBubble(character) : bubble
+    },
+    0,
+  )
+}
+
+export { calculateBubble, calculateBubbleByAdventures, calculateBubbleByGames, calculateBubbleByFillerCharacters }
