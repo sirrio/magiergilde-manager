@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\DeletedCharacterController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
@@ -20,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->get();
+  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->withTrashed()->get();
   $games = \App\Models\Game::where('user_id', Auth::user()->getAuthIdentifier())->get();
 
   return Inertia::render('Dashboard', [
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
   Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
   Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
   Route::delete('/character/{character}', [CharacterController::class, 'destroy'])->name('character.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+  Route::patch('/deletedCharacter/{character}', [DeletedCharacterController::class, 'restore'])->withTrashed()->name('deletedCharacter.restore');
+  Route::delete('/deletedCharacter/{character}', [DeletedCharacterController::class, 'destroy'])->withTrashed()->name('deletedCharacter.destroy');
 });
 
 Route::middleware('auth')->group(function () {

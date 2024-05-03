@@ -32,6 +32,7 @@ class CharacterController extends Controller
   {
     $character = new Character();
     $character->name = $request->name;
+    $character->is_filler = $request->is_filler;
     $character->dm_bubbles = $request->dm_bubbles;
     $character->dm_coins = $request->dm_coins;
     $character->bubble_shop_spend = $request->bubble_shop_spend;

@@ -49,6 +49,18 @@ defineExpose({
   showModal,
 })
 
+const changeFiller = () => {
+  if (form.is_filler) {
+    form.is_filler = false
+  } else {
+    form.is_filler = true
+    form.dm_bubbles = 0
+    form.dm_coins = 0
+    form.bubble_shop_spend = 0
+    form.start_tier = 'bt'
+  }
+}
+
 const inputFile = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target?.files) form.avatar = target?.files[0]
@@ -82,30 +94,6 @@ const inputFile = (event: Event) => {
         >
       </label>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">What is your starting tier?</span>
-        </div>
-        <select
-          v-model="form.start_tier"
-          class="select select-bordered w-full"
-        >
-          <option
-            :value="''"
-            disabled
-            selected
-          >Pick one
-          </option>
-          <option
-            v-for="(tier, key) in tiers"
-            :key="key"
-            :value="tier.id"
-          >
-            {{ tier.name }}
-          </option>
-        </select>
-      </label>
-
       <div class="form-control w-full mb-2">
         <span class="px-1 py-2 text-sm">What is your characters class?</span>
         <div class="grid grid-cols-4">
@@ -125,6 +113,43 @@ const inputFile = (event: Event) => {
         </div>
       </div>
 
+      <div class="form-control w-full">
+        <label class="label cursor-pointer">
+          <span class="label-text">Is this a filler character? <span class="italic text-xs">(Cannot be changed later)</span></span>
+          <input
+            :checked="form.is_filler"
+            type="checkbox"
+            class="checkbox"
+            @change="changeFiller()"
+          >
+        </label>
+      </div>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">What is your starting tier?</span>
+        </div>
+        <select
+          v-model="form.start_tier"
+          :disabled="form.is_filler"
+          class="select select-bordered w-full"
+        >
+          <option
+            :value="''"
+            disabled
+            selected
+          >Pick one
+          </option>
+          <option
+            v-for="(tier, key) in tiers"
+            :key="key"
+            :value="tier.id"
+          >
+            {{ tier.name }}
+          </option>
+        </select>
+      </label>
+
       <div class="flex gap-2">
         <label class="form-control w-full mb-2">
           <div class="label">
@@ -132,6 +157,7 @@ const inputFile = (event: Event) => {
           </div>
           <input
             v-model="form.dm_bubbles"
+            :disabled="form.is_filler"
             type="number"
             min="0"
             placeholder="0"
@@ -145,6 +171,7 @@ const inputFile = (event: Event) => {
           </div>
           <input
             v-model="form.dm_coins"
+            :disabled="form.is_filler"
             type="number"
             min="0"
             placeholder="0"
@@ -159,6 +186,7 @@ const inputFile = (event: Event) => {
         </div>
         <input
           v-model="form.bubble_shop_spend"
+          :disabled="form.is_filler"
           type="number"
           min="0"
           placeholder="0"

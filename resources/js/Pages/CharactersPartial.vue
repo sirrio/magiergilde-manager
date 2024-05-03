@@ -16,10 +16,14 @@ import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLev
 import { calculateBubble } from '@/helpers/calculateBubble'
 import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
 import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
+import DestroyDeletedCharacterModal from '@/Modals/Character/DestroyDeletedCharacterModal.vue'
+import UpdateDeletedCharacterModal from '@/Modals/Character/UpdateDeletedCharacterModal.vue'
 
 defineProps<{
   characters: Character[]
 }>()
+
+const trashedMode = ref(false)
 
 const currentCharacterId = ref(0)
 const currentCharacter: Ref<Character | null> = ref(null)
@@ -30,6 +34,12 @@ const updateCharacterModal = ref()
 const updateCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyCharacterModal = ref()
 const destroyCharacterModalKey = ref('destroyCharacterModalKey-1')
+
+
+const updateDeletedCharacterModal = ref()
+const updateDeletedCharacterModalKey = ref('updateCharacterModalKey-1')
+const destroyDeletedCharacterModal = ref()
+const destroyDeletedCharacterModalKey = ref('destroyCharacterModalKey-1')
 
 
 const createAdventureModal = ref()
@@ -51,6 +61,20 @@ const clickDestroyCharacterModal = async (character: Character) => {
   destroyCharacterModalKey.value = 'destroyCharacterModalKey-' + Math.random()
   await nextTick()
   destroyCharacterModal.value.showModal()
+}
+
+const clickUpdateDeletedCharacterModal = async (character: Character) => {
+  currentCharacter.value = character
+  updateDeletedCharacterModalKey.value = 'updateDeletedCharacterModalKey-' + Math.random()
+  await nextTick()
+  updateDeletedCharacterModal.value.showModal()
+}
+
+const clickDestroyDeletedCharacterModal = async (character: Character) => {
+  currentCharacter.value = character
+  destroyDeletedCharacterModalKey.value = 'destroyDeletedCharacterModalKey-' + Math.random()
+  await nextTick()
+  destroyDeletedCharacterModal.value.showModal()
 }
 
 const clickCreateCharacterModal = async () => {
@@ -85,9 +109,23 @@ function onImgError(event: Event) {
           data-tip="Your ET and Filler Character are not counted against the limit"
         >
           ({{
-            characters.filter(char => !(char.is_filler || calculateTier(char) === "et")).length
-          }}<template v-if="characters.filter(char => (char.is_filler || calculateTier(char) === 'et')).length > 0">+{{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
+            characters.filter(char => !char.deleted_at && !(char.is_filler || calculateTier(char) === "et")).length
+          }}<template
+            v-if="characters.filter(char => !char.deleted_at && (char.is_filler || calculateTier(char) === 'et')).length > 0"
+          >+{{ characters.filter(char => (char.is_filler || calculateTier(char) === "et")).length
           }}</template>/8)
+          <span
+            v-if="characters.filter(char => !char.deleted_at && !(char.is_filler || calculateTier(char) === 'et')).length > 8"
+            class="text-xs text-error"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'exclamation-circle']"
+              size="sm"
+              fixed-width
+            />
+            You have more then maximum character
+            {{ characters.filter(char => !(!char.is_filler || calculateTier(char) === 'et') ).length }}
+          </span>
         </span>
       </h2>
       <p class="text-xs hidden sm:block">
@@ -96,17 +134,23 @@ function onImgError(event: Event) {
     </div>
     <div>
       <button
-        class="btn btn-neutral"
-        :disabled="characters.filter(char => !(char.is_filler || calculateTier(char) === 'et') ).length >= 8"
+        class="btn btn-neutral text-neutral-content"
         @click="clickCreateCharacterModal()"
       >
         <font-awesome-icon :icon="['fas', 'plus']" />
         <span class="hidden sm:inline">Create new character</span>
       </button>
+      <button
+        class="btn btn-neutral text-neutral-content ml-1"
+        :class="{'btn-error text-error-content': trashedMode}"
+        @click="trashedMode = !trashedMode"
+      >
+        <font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
+      </button>
     </div>
   </div>
   <div
-    v-if="characters.length === 0"
+    v-if="characters.filter(char => trashedMode ? char.deleted_at : !char.deleted_at).length === 0"
     class="card bg-base-100 text-base-content"
   >
     <div class="card-body text-center">
@@ -115,7 +159,10 @@ function onImgError(event: Event) {
         size="7x"
       />
       <h3 class="font-semibold text-xl">
-        No character yet
+        No <span
+          v-if="trashedMode"
+          class="text-error"
+        >Deleted </span> character yet
       </h3>
     </div>
   </div>
@@ -124,12 +171,18 @@ function onImgError(event: Event) {
     class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
   >
     <div
-      v-for="(character, key) of characters"
+      v-for="(character, key) of characters.filter(char => trashedMode ? char.deleted_at : !char.deleted_at )"
       :key="key"
       class="card bg-base-100 text-base-content"
     >
-      <div class="card-body group">
-        <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+      <div
+        v-if="!character.is_filler"
+        class="card-body group"
+      >
+        <div
+          v-if="!character.deleted_at"
+          class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2"
+        >
           <button
             class="btn btn-xs btn-square"
             @click="clickUpdateCharacterModal(character)"
@@ -143,8 +196,29 @@ function onImgError(event: Event) {
             <font-awesome-icon :icon="['fas', 'x']" />
           </button>
         </div>
+        <div
+          v-else
+          class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2"
+        >
+          <button
+            class="btn btn-xs btn-square"
+            @click="clickUpdateDeletedCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
+          </button>
+          <button
+            class="btn btn-xs btn-error btn-square"
+            @click="clickDestroyDeletedCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'x']" />
+          </button>
+        </div>
         <h3 class="card-title capitalize">
-          <span class="break-all">{{ character.name }}</span>
+          <span class="break-all">
+            <span
+              v-if="character.deleted_at"
+              class="text-error"
+            >(Deleted) </span>{{ character.name }}</span>
           <TierLogo
             :size="20"
             :tier="calculateTier(character)"
@@ -180,16 +254,23 @@ function onImgError(event: Event) {
             :value="calculateBubblesInCurrentLevel(character)"
             :max="calculateBubblesToNextLevel(character)"
           />
-          <div class="text-xs text-right -mt-1">
-            {{
-              calculateBubblesToNextLevel(character) - calculateBubblesInCurrentLevel(character)
-            }}
-            <font-awesome-icon
-              :icon="['fas', 'droplet']"
-              size="sm"
-              fixed-width
-            />
-            to next level
+          <div
+            class="text-xs text-right -mt-1"
+          >
+            <template v-if="calculateBubblesToNextLevel(character) - calculateBubblesInCurrentLevel(character) > 0">
+              {{
+                calculateBubblesToNextLevel(character) - calculateBubblesInCurrentLevel(character)
+              }}
+              <font-awesome-icon
+                :icon="['fas', 'droplet']"
+                size="sm"
+                fixed-width
+              />
+              to next level
+            </template>
+            <template v-else>
+              Max level
+            </template>
           </div>
         </div>
         <div class="mt-3 text-xs grid grid-cols-2 gap-y-1 [&>*:nth-child(even)]:text-right">
@@ -274,7 +355,7 @@ function onImgError(event: Event) {
           </div>
           <div>
             <p>
-              DT Remaining: {{ secondsToHourMinuteString(calculateRemainingDowntime(character)) }}
+              DT Unused: {{ secondsToHourMinuteString(calculateRemainingDowntime(character)) }}
               <font-awesome-icon
                 :icon="['far', 'moon']"
                 fixed-width
@@ -306,6 +387,138 @@ function onImgError(event: Event) {
           </button>
         </div>
       </div>
+      <div
+        v-else
+        class="card-body group"
+      >
+        <div
+          v-if="!character.deleted_at"
+          class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2"
+        >
+          <button
+            class="btn btn-xs btn-square"
+            @click="clickUpdateCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'gear']" />
+          </button>
+          <button
+            class="btn btn-xs btn-error btn-square"
+            @click="clickDestroyCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'x']" />
+          </button>
+        </div>
+        <div
+          v-else
+          class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2"
+        >
+          <button
+            class="btn btn-xs btn-square"
+            @click="clickUpdateDeletedCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
+          </button>
+          <button
+            class="btn btn-xs btn-error btn-square"
+            @click="clickDestroyDeletedCharacterModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'x']" />
+          </button>
+        </div>
+        <h3 class="card-title capitalize">
+          <span class="break-all"><span
+            v-if="character.deleted_at"
+            class="text-error"
+          >(Deleted) </span>{{ character.name }}</span>
+          <font-awesome-icon
+            :icon="['fas', 'plus']"
+            size="2xs"
+            class="-mr-1.5"
+          />
+          <font-awesome-icon
+            :icon="['fas', '1']"
+            size="sm"
+          />
+        </h3>
+        <div class="flex justify-between">
+          <p class="text-xs">
+            Level 3
+            {{ calculateClassString(character) }}
+          </p>
+          <!--                <div>-->
+          <!--                  <img :src="character.character_classes[0].src" height="16" width="16" alt=""/>-->
+          <!--                </div>-->
+        </div>
+        <div class="avatar">
+          <div class="aspect-square rounded-full w-full">
+            <img
+              v-if="character.avatar"
+              :src="'storage/' + character.avatar"
+              alt="Avatar"
+              @error="onImgError($event)"
+            >
+            <img
+              v-else
+              src="/images/placeholder.jpg"
+              alt="Avatar missing"
+            >
+          </div>
+        </div>
+        <div class="mt-3 text-xs grid grid-cols-2 gap-y-1 [&>*:nth-child(even)]:text-right">
+          <div>
+            <p>
+              <font-awesome-icon
+                :icon="['fas', 'person']"
+                fixed-width
+              />
+              Filler Character
+            </p>
+          </div>
+          <div>
+            <p>
+              <a
+                class="underline"
+                :href="character.external_link"
+                target="_blank"
+              >
+                Beyond Link
+                <font-awesome-icon
+                  :icon="['fas', 'arrow-up-right-from-square']"
+                  fixed-width
+                />
+              </a>
+            </p>
+          </div>
+          <div>
+            <p
+              class="tooltip tooltip-accent"
+              data-tip="Adventures played"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'compass']"
+                fixed-width
+              />
+              Adventures: {{ character.adventures.length }}
+            </p>
+          </div>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-1">
+          <button
+            class="btn btn-sm grow"
+            @click="clickShowCharacter(character.id)"
+          >
+            <font-awesome-icon :icon="['fas', 'person']" />
+            Details
+          </button>
+          <button
+            class="btn btn-sm grow"
+            @click="clickCreateAdventureModal(character.id)"
+          >
+            <font-awesome-icon :icon="['fas', 'compass']" />
+            Add
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <CreateCharacterModal
@@ -318,10 +531,22 @@ function onImgError(event: Event) {
     :key="updateCharacterModalKey"
     :character="currentCharacter"
   />
+  <UpdateDeletedCharacterModal
+    v-if="currentCharacter"
+    ref="updateDeletedCharacterModal"
+    :key="updateDeletedCharacterModalKey"
+    :character="currentCharacter"
+  />
   <DestroyCharacterModal
     v-if="currentCharacter"
     ref="destroyCharacterModal"
     :key="destroyCharacterModalKey"
+    :character="currentCharacter"
+  />
+  <DestroyDeletedCharacterModal
+    v-if="currentCharacter"
+    ref="destroyDeletedCharacterModal"
+    :key="destroyDeletedCharacterModalKey"
     :character="currentCharacter"
   />
   <CreateAdventureModal
