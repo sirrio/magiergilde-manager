@@ -9,6 +9,7 @@ const form = useForm({
   hours: Math.floor(props.downtime.duration / 3600),
   minutes: (props.downtime.duration / 60) % 60,
   start_date: props.downtime.start_date,
+  type: props.downtime.type,
   notes: props.downtime.notes,
 })
 
@@ -23,6 +24,7 @@ const clickUpdateNewDowntime = () => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         start_date: data.start_date,
+        type: data.type,
         notes: data.notes,
       }
     },
@@ -96,6 +98,19 @@ defineExpose({
             type="date"
             class="input input-bordered w-full"
           >
+        </label>
+
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">Is this downtime spend on a faction or other activities?</span>
+          </div>
+          <select
+            v-model="form.type"
+            class="select select-bordered w-full capitalize"
+          >
+            <option value="other">Other</option>
+            <option value="faction">Faction</option>
+          </select>
         </label>
 
         <label class="form-control w-full">

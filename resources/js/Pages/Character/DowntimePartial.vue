@@ -121,6 +121,7 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
               :icon="['fas', 'clock']"
             />
             {{ Math.floor(downtime.duration / 3600) }}h {{ (downtime.duration / 60) % 60 }}min
+            <span class="capitalize">- {{ downtime.type }}</span>
           </p>
           <p class="italic text-right">
             <font-awesome-icon

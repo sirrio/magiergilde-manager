@@ -1,10 +1,6 @@
 import { Character, Downtime } from '@/types'
 import { calculateBubble } from '@/helpers/calculateBubble'
 
-enum Bubble {
-  MIN_DURATION = 10800
-}
-
 const calculateRemainingDowntime = (character: Character): number => {
   const bubbles = calculateBubble(character)
 

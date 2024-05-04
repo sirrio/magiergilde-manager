@@ -22,6 +22,8 @@ export interface Character {
   adventures: Adventure[];
   downtimes: Downtime[];
   deleted_at: string;
+  faction: string;
+  notes: string;
   id: number;
   name: string;
   class: Array<CharacterClass>;
@@ -50,6 +52,7 @@ export interface Downtime {
   id: number;
   duration: number;
   start_date: string;
+  type: string;
   notes: string;
   character_id: number;
 }

@@ -8,6 +8,7 @@ const form = useForm({
   hours: 0,
   minutes: 0,
   start_date: new Date().toISOString().slice(0, 10),
+  type: 'other',
   notes: '',
 })
 
@@ -22,6 +23,7 @@ const clickCreateNewDowntime = () => {
       return {
         duration: (data.hours * 60 * 60) + (data.minutes * 60),
         start_date: data.start_date,
+        type: data.type,
         notes: data.notes,
         character_id: props.characterId,
       }
@@ -96,6 +98,19 @@ defineExpose({
             type="date"
             class="input input-bordered w-full"
           >
+        </label>
+
+        <label class="form-control w-full mb-2">
+          <div class="label">
+            <span class="label-text">Does your character belong to a faction?</span>
+          </div>
+          <select
+            v-model="form.type"
+            class="select select-bordered w-full capitalize"
+          >
+            <option value="other">Other</option>
+            <option value="faction">Faction</option>
+          </select>
         </label>
 
         <label class="form-control w-full">

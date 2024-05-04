@@ -55,7 +55,7 @@ const clickLogin = () => {
           <li>
             <hr class="">
             <div class="timeline-middle">
-              <font-awesome-icon :icon="['fas', 'circle']" />
+              <font-awesome-icon :icon="['fas', 'check-circle']" />
             </div>
             <div class="timeline-end timeline-box">
               Fraktionen
@@ -68,7 +68,7 @@ const clickLogin = () => {
               Filler Charactere
             </div>
             <div class="timeline-middle">
-              <font-awesome-icon :icon="['fas', 'circle']" />
+              <font-awesome-icon :icon="['fas', 'check-circle']" />
             </div>
           </li>
         </ul>

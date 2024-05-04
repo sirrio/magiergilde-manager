@@ -12,6 +12,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $dm_bubbles
  * @property mixed $dm_coins
  * @property mixed $bubble_shop_spend
+ * @property mixed $faction
+ * @property mixed $notes
  */
 class UpdateCharacterRequest extends FormRequest
 {
