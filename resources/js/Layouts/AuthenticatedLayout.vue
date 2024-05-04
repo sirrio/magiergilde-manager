@@ -42,6 +42,7 @@ const themes = [
   'dim',
   'nord',
   'sunset',
+  'josi'
 ]
 </script>
 
