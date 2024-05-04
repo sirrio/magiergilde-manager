@@ -102,7 +102,7 @@ defineExpose({
 
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">Does your character belong to a faction?</span>
+            <span class="label-text">Is this downtime spend on a faction or other activities?</span>
           </div>
           <select
             v-model="form.type"
