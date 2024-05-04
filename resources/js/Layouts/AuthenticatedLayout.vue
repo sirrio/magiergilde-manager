@@ -69,7 +69,7 @@ const themes = [
           class="btn btn-ghost text-xl"
         >
           <ApplicationLogo class="h-10 fill-current" />
-          <span class="hidden sm:inline">Character manager</span>
+          <span class="hidden sm:inline">Character Manager</span>
         </a>
       </div>
       <div class="flex-none">
@@ -115,7 +115,7 @@ const themes = [
               <Link
                 :href="route('logout')"
                 method="post"
-                as="button"
+                :as="'button'"
               >
                 Logout
               </Link>
