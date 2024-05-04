@@ -52,7 +52,20 @@ export default {
       'winter',
       'dim',
       'nord',
-      'sunset'
+      'sunset',
+      {
+        josi: {
+          'primary': '#10b981',
+          'secondary': '#10b981',
+          'accent': '#5eead4',
+          'neutral': '#0f766e',
+          'base-100': '#1f2937',
+          'info': '#67e8f9',
+          'success': '#0891b2',
+          'warning': '#7dd3fc',
+          'error': '#7f1d1d',
+        },
+      },
     ],
   },
 }
