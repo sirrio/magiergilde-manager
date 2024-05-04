@@ -9,7 +9,7 @@ const calculateFactionLevel = (character: Character): number => {
   const downtime = calculateFactionDowntime(character)
   const adventures = character.adventures.length
 
-  if (tier === 'bt') return 0
+  if (tier === 'bt' || character.faction === 'none') return 0
 
   if (level >= 18 && downtime >= 1800000) return 5
 
