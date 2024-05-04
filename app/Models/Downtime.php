@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed $character_id
  * @property mixed $start_date
  * @property mixed $notes
+ * @property mixed $type
  */
 class Downtime extends Model
 {

@@ -34,6 +34,7 @@ class DowntimeController extends Controller
     $downtime->duration = $request->duration;
     $downtime->character_id = $request->character_id;
     $downtime->start_date = $request->start_date;
+    $downtime->type = $request->type;
     $downtime->notes = $request->notes;
     $downtime->save();
 
@@ -64,6 +65,7 @@ class DowntimeController extends Controller
     $downtime->duration = $request->duration;
     $downtime->start_date = $request->start_date;
     $downtime->notes = $request->notes;
+    $downtime->type = $request->type;
     $downtime->save();
 
     return redirect()->back();

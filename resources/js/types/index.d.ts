@@ -52,6 +52,7 @@ export interface Downtime {
   id: number;
   duration: number;
   start_date: string;
+  type: string;
   notes: string;
   character_id: number;
 }

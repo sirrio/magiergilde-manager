@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $duration
  * @property mixed $start_date
  * @property mixed $notes
+ * @property mixed $type
  */
 class UpdateDowntimeRequest extends FormRequest
 {

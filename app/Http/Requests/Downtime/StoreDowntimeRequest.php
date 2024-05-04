@@ -10,6 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $character_id
  * @property mixed $start_date
  * @property mixed $notes
+ * @property mixed $type
  */
 class StoreDowntimeRequest extends FormRequest
 {
