@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed $dm_coins
  * @property mixed $bubble_shop_spend
  * @property mixed $is_filler
+ * @property mixed $faction
+ * @property mixed $notes
  */
 class Character extends Model
 {

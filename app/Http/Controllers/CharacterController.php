@@ -32,6 +32,8 @@ class CharacterController extends Controller
   {
     $character = new Character();
     $character->name = $request->name;
+    $character->faction = $request->faction;
+    $character->notes = $request->notes;
     $character->is_filler = $request->is_filler;
     $character->dm_bubbles = $request->dm_bubbles;
     $character->dm_coins = $request->dm_coins;
@@ -71,6 +73,8 @@ class CharacterController extends Controller
   public function update(UpdateCharacterRequest $request, Character $character): \Illuminate\Http\RedirectResponse
   {
     $character->name = $request->name;
+    $character->faction = $request->faction;
+    $character->notes = $request->notes;
     $character->dm_bubbles = $request->dm_bubbles;
     $character->dm_coins = $request->dm_coins;
     $character->bubble_shop_spend = $request->bubble_shop_spend;

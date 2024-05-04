@@ -5,8 +5,10 @@ import { ref } from 'vue'
 const form: InertiaForm<{
   name: string
   class: Array<number>
+  faction: string
   dm_bubbles: number
   dm_coins: number
+  notes: string
   bubble_shop_spend: number
   external_link: string
   start_tier: string
@@ -15,8 +17,10 @@ const form: InertiaForm<{
 }> = useForm({
   name: '',
   class: [],
+  faction: 'none',
   dm_bubbles: 0,
   dm_coins: 0,
+  notes: '',
   bubble_shop_spend: 0,
   external_link: '',
   start_tier: '',
@@ -30,6 +34,19 @@ const tiers = [
   { id: 'bt', name: 'Beginner Tier' },
   { id: 'lt', name: 'Low Tier' },
   { id: 'ht', name: 'High Tier' },
+]
+
+const factions = [
+  'none',
+  'heiler',
+  'handwerker',
+  'feldforscher',
+  'bibliothekare',
+  'diplomaten',
+  'gardisten',
+  'unterhalter',
+  'logistiker',
+  'flora & fauna'
 ]
 
 const showModal = () => {
@@ -58,6 +75,7 @@ const changeFiller = () => {
     form.dm_coins = 0
     form.bubble_shop_spend = 0
     form.start_tier = 'bt'
+    form.faction = 'none'
   }
 }
 
@@ -124,6 +142,25 @@ const inputFile = (event: Event) => {
           >
         </label>
       </div>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">Does your character belong to a faction?</span>
+        </div>
+        <select
+          v-model="form.faction"
+          :disabled="form.is_filler"
+          class="select select-bordered w-full capitalize"
+        >
+          <option
+            v-for="(faction, key) in factions"
+            :key="key"
+            :value="faction"
+          >
+            {{ faction }}
+          </option>
+        </select>
+      </label>
 
       <label class="form-control w-full mb-2">
         <div class="label">
@@ -216,6 +253,17 @@ const inputFile = (event: Event) => {
           accept=".jpeg,.png,.jpg,.gif,.webp"
           @input="inputFile($event)"
         >
+      </label>
+
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Your backstories and notes</span>
+        </div>
+        <textarea
+          v-model="form.notes"
+          class="textarea textarea-bordered h-24"
+          placeholder="Notes"
+        />
       </label>
 
       <button
