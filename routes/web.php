@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdventureController;
+use App\Http\Controllers\AllyController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DeletedCharacterController;
 use App\Http\Controllers\DowntimeController;
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
   Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
   Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
   Route::delete('/character/{character}', [CharacterController::class, 'destroy'])->name('character.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+  Route::put('/ally', [AllyController::class, 'store'])->name('ally.store');
+  Route::delete('/ally/{ally}', [AllyController::class, 'destroy'])->name('ally.destroy');
 });
 
 Route::middleware('auth')->group(function () {

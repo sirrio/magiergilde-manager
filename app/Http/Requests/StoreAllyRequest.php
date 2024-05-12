@@ -5,7 +5,12 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCharacterClassRequest extends FormRequest
+/**
+ * @property mixed $name
+ * @property mixed $character_id
+ * @property mixed $standing
+ */
+class StoreAllyRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.

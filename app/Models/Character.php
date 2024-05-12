@@ -28,11 +28,16 @@ class Character extends Model
    *
    * @var array
    */
-  protected $with = ['adventures', 'downtimes', 'characterClasses'];
+  protected $with = ['adventures', 'allies', 'downtimes', 'characterClasses'];
 
   protected $casts = [
     'is_filler' => 'boolean'
   ];
+
+  public function allies(): \Illuminate\Database\Eloquent\Relations\HasMany
+  {
+    return $this->hasMany(Ally::class);
+  }
 
   public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
   {
