@@ -2,6 +2,7 @@
 import { nextTick, Ref, ref } from 'vue'
 import { Character } from '@/types'
 import { router } from '@inertiajs/vue3'
+import AllyModal from '@/Modals/AllyModal.vue'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
 import UpdateCharacterModal from '@/Modals/Character/UpdateCharacterModal.vue'
 import DestroyCharacterModal from '@/Modals/Character/DestroyCharacterModal.vue'
@@ -30,6 +31,9 @@ const trashedMode = ref(false)
 const currentCharacterId = ref(0)
 const currentCharacter: Ref<Character | null> = ref(null)
 
+const allyModal = ref()
+const allyModalKey = ref('allyModalKey-1')
+
 const createCharacterModal = ref()
 const createCharacterModalKey = ref('createCharacterModalKey-1')
 const updateCharacterModal = ref()
@@ -37,12 +41,10 @@ const updateCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyCharacterModal = ref()
 const destroyCharacterModalKey = ref('destroyCharacterModalKey-1')
 
-
 const updateDeletedCharacterModal = ref()
 const updateDeletedCharacterModalKey = ref('updateCharacterModalKey-1')
 const destroyDeletedCharacterModal = ref()
 const destroyDeletedCharacterModalKey = ref('destroyCharacterModalKey-1')
-
 
 const createAdventureModal = ref()
 
@@ -83,6 +85,13 @@ const clickCreateCharacterModal = async () => {
   createCharacterModalKey.value = 'createCharacterModalKey-' + Math.random()
   await nextTick()
   createCharacterModal.value.showModal()
+}
+
+const clickAllyModal = async (character: Character) => {
+  currentCharacter.value = character
+  allyModalKey.value = 'allyModalKey-' + Math.random()
+  await nextTick()
+  allyModal.value.showModal()
 }
 
 const clickCreateAdventureModal = (id: number) => {
@@ -362,35 +371,43 @@ function onImgError(event: Event) {
             </p>
           </div>
         </div>
-        <div class="mt-3 flex flex-wrap gap-1">
+        <div class="mt-3 flex flex-wrap justify-between gap-1">
           <button
-            class="btn btn-sm grow"
+            class="btn btn-sm w-full"
             @click="clickShowCharacter(character.id)"
           >
             <font-awesome-icon :icon="['fas', 'person']" />
             Details
           </button>
           <button
-            class="btn btn-sm tooltip"
+            class="btn btn-sm tooltip grow"
             data-tip="Add adventure"
             @click="clickCreateAdventureModal(character.id)"
           >
             <font-awesome-icon :icon="['fas', 'compass']" />
           </button>
           <button
-            class="btn btn-sm tooltip"
+            class="btn btn-sm tooltip grow"
             data-tip="Add downtime"
             @click="clickCreateDowntimeModal(character.id)"
           >
             <font-awesome-icon :icon="['fas', 'hourglass']" />
           </button>
+          <button
+            class="btn btn-sm tooltip grow"
+            data-tip="Show allies"
+            @click="clickAllyModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'sitemap']" />
+          </button>
           <a
 
             :href="character.external_link"
             target="_blank"
+            class="grow"
           >
             <button
-              class="btn btn-sm tooltip"
+              class="btn btn-sm tooltip w-full"
               data-tip="DnDBeyond Link"
             >
               <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" />
@@ -517,6 +534,13 @@ function onImgError(event: Event) {
           >
             <font-awesome-icon :icon="['fas', 'compass']" />
           </button>
+          <button
+            class="btn btn-sm tooltip"
+            data-tip="Show allies"
+            @click="clickAllyModal(character)"
+          >
+            <font-awesome-icon :icon="['fas', 'sitemap']" />
+          </button>
           <a
 
             :href="character.external_link"
@@ -533,6 +557,13 @@ function onImgError(event: Event) {
       </div>
     </div>
   </div>
+  <AllyModal
+    v-if="currentCharacter"
+    ref="allyModal"
+    :key="allyModalKey"
+    :character="currentCharacter"
+    @update-key="currentCharacter = (characters.find(c => c.id === currentCharacter?.id) ?? currentCharacter)"
+  />
   <CreateCharacterModal
     ref="createCharacterModal"
     :key="createCharacterModalKey"

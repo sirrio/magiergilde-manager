@@ -21,6 +21,7 @@ export interface Character {
   character_classes: CharacterClass[];
   adventures: Adventure[];
   downtimes: Downtime[];
+  allies: Ally[];
   deleted_at: string;
   faction: string;
   notes: string;
@@ -35,6 +36,13 @@ export interface Character {
   external_link: string;
   avatar: string;
   user_id: number;
+}
+
+export interface Ally {
+  id: number;
+  name: string;
+  standing: string;
+  character_id: number;
 }
 
 export interface Adventure {
