@@ -36,7 +36,7 @@ class Character extends Model
 
   public function allies(): \Illuminate\Database\Eloquent\Relations\HasMany
   {
-    return $this->hasMany(Ally::class);
+    return $this->hasMany(Ally::class)->orderBy('name');
   }
 
   public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
