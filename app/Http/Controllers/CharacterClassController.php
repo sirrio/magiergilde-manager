@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CharacterClass;
 use App\Http\Requests\StoreCharacterClassRequest;
 use App\Http\Requests\UpdateCharacterClassRequest;
+use App\Models\CharacterClass;
 
 class CharacterClassController extends Controller
 {
