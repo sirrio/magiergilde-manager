@@ -36,8 +36,18 @@ function onImgError(event: Event) {
                 >
               </div>
             </div>
-            <p class="text-xs">
+            <p
+              v-if="!character.is_filler"
+              class="text-xs"
+            >
               Level {{ calculateLevel(character) }}
+              {{ calculateClassString(character) }}
+            </p>
+            <p
+              v-else
+              class="text-xs"
+            >
+              Level 3
               {{ calculateClassString(character) }}
             </p>
           </div>
