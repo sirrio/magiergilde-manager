@@ -13,6 +13,8 @@ const emit = defineEmits<{
   (e: 'updateKey'): void
 }>()
 
+const standings = ['best', 'good', 'normal', 'bad']
+
 const form: InertiaForm<{
   name: string
   standing: string
@@ -34,6 +36,21 @@ const clickCreateAlly = () => {
       emit('updateKey')
     },
   })
+}
+
+const getStandingName = (standing: string) => {
+  switch (standing) {
+    case 'best':
+      return 'Favored ❤'
+    case 'good':
+      return 'Friends'
+    case 'normal':
+      return 'Ally'
+    case 'bad':
+      return 'Disfavored'
+    default :
+      return 'Standing does not exists'
+  }
 }
 
 const clickDeleteAlly = (id: number) => {
@@ -82,9 +99,13 @@ defineExpose({
               v-model="form.standing"
               class="select select-bordered select-sm w-32 capitalize"
             >
-              <option value="good">Friend</option>
-              <option value="normal">Ally</option>
-              <option value="bad">Disliked</option>
+              <option
+                v-for="standing in standings"
+                :key="standing"
+                :value="standing"
+              >
+                {{ getStandingName(standing) }}
+              </option>
             </select>
             <button class="btn btn-sm btn-neutral">
               Add
@@ -93,14 +114,14 @@ defineExpose({
         </label>
       </form>
 
-      <template v-for="standing in ['good', 'normal', 'bad']">
+      <template v-for="standing in standings">
         <div
           v-if="character.allies.filter(a => a.standing === standing).length > 0"
           :key="standing"
           class="mt-6 "
         >
           <h3 class="font-bold text-lg">
-            {{ standing === "good" ? "Friends" : standing === "normal" ? "Allies" : "Disliked" }}
+            {{ getStandingName(standing) }}
           </h3>
           <div class="flex flex-wrap gap-1">
             <div

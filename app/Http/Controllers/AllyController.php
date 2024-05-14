@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Ally\StoreAllyRequest;
+use App\Http\Requests\Ally\UpdateAllyRequest;
 use App\Models\Ally;
-use App\Http\Requests\StoreAllyRequest;
-use App\Http\Requests\UpdateAllyRequest;
 use Illuminate\Http\RedirectResponse;
 
 class AllyController extends Controller

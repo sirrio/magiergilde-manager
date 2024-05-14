@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Ally;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * @property mixed $name
- * @property mixed $character_id
- * @property mixed $standing
- */
-class StoreAllyRequest extends FormRequest
+class UpdateAllyRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -28,7 +23,8 @@ class StoreAllyRequest extends FormRequest
   public function rules(): array
   {
     return [
-      //
+      'name' => 'required|string|max:255',
+      'standing' => 'required|string',
     ];
   }
 }
