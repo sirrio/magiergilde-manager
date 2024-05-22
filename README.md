@@ -13,12 +13,6 @@ Welcome to the official repository for the Magiergilde Game and Character Manage
 - **Session Logs**: Document your game sessions with notes, outcomes, and character developments.
 - **Customizable Interface**: Tailor the program's interface to match the theme of your current game or character.
 
-## Getting Started
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Magiergilde/game-character-manager.git
-
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
