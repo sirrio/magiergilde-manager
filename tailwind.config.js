@@ -66,6 +66,17 @@ export default {
           'warning': '#7dd3fc',
           'error': '#7f1d1d',
         },
+        lenas: {
+          'primary': '#b91c1c',
+          'secondary': '#b91c1c',
+          'accent': '#b91c1c',
+          'neutral': '#7f1d1d',
+          'base-100': '#4C1613',
+          'info': '#dc2626',
+          'success': '#dc2626',
+          'warning': '#b91c1c',
+          'error': '#b91c1c',
+        }
       },
     ],
   },
