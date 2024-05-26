@@ -72,6 +72,8 @@ export default {
           'accent': '#b91c1c',
           'neutral': '#7f1d1d',
           'base-100': '#4C1613',
+          'base-200': '#350101',
+          'base-300': '#2b2828',
           'info': '#dc2626',
           'success': '#dc2626',
           'warning': '#b91c1c',
