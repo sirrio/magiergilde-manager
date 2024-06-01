@@ -112,7 +112,7 @@ const clickDestroyGameModal = async (game: Game) => {
             />
           </div>
           <p
-            v-if="calculateBubbleSpend(characters) > calculateBubbleByGames(games)"
+            v-if="calculateBubbleSpend(characters) > calculateBubbleByGames(games) + calculateBubbleByFillerCharacters(characters)"
             class="text-xs text-error"
           >
             <font-awesome-icon
