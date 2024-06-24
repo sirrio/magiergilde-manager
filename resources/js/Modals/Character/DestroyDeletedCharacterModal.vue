@@ -14,7 +14,7 @@ const showModal = () => {
 const deleteConfirm = ref('')
 
 const clickDestroyCharacter = () => {
-  router.delete(route('deletedCharacter.destroy', { character: props.character.id }), { onSuccess: () => modalCharacterDestroy.value.close() })
+  router.delete(route('deletedCharacter.destroy', { character: props.character.id }), { preserveState: false })
 }
 
 defineExpose({
@@ -36,7 +36,10 @@ defineExpose({
       <h3 class="font-bold text-lg mb-6">
         Destroy character
       </h3>
-      <p>Your character <span class="font-bold">"{{ character.name }}"</span> will be permanently deleted and cannot be restored.</p>
+      <p>
+        Your character <span class="font-bold">"{{ character.name }}"</span> will be permanently deleted and cannot be
+        restored.
+      </p>
       <p class="italic text-error my-3">
         Character and Filler with DM Bubbles/ Coins should not be deleted because of calculation.
       </p>

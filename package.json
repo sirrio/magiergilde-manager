@@ -41,6 +41,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "theme-change": "^2.5.0",
     "typescript-eslint": "^7.7.0",
-    "vue-eslint-parser": "^9.4.2"
+    "vue-eslint-parser": "^9.4.2",
+    "vuedraggable": "^4.1.0"
   }
 }
