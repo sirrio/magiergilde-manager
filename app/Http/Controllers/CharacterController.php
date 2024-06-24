@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Character\StoreCharacterRequest;
 use App\Http\Requests\Character\UpdateCharacterRequest;
 use App\Models\Character;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 

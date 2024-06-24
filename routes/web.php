@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\AllyController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\CharacterSortController;
 use App\Http\Controllers\DeletedCharacterController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\GameController;
@@ -22,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->withTrashed()->get();
+  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->withTrashed()->orderBy('position')->get();
   $games = \App\Models\Game::where('user_id', Auth::user()->getAuthIdentifier())->get();
 
   return Inertia::render('Dashboard', [
@@ -36,7 +37,13 @@ Route::middleware('auth')->group(function () {
   Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
   Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
   Route::delete('/character/{character}', [CharacterController::class, 'destroy'])->name('character.destroy');
+  Route::post('/character123/sort123', [CharacterController::class, 'sort'])->name('character.sort');
 });
+
+Route::middleware('auth')->group(function () {
+  Route::post('/characterSort', [CharacterSortController::class, 'update'])->name('character.sort');
+});
+
 
 Route::middleware('auth')->group(function () {
   Route::put('/ally', [AllyController::class, 'store'])->name('ally.store');

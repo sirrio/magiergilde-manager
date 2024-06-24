@@ -46,7 +46,7 @@ const factions = [
   'gardisten',
   'unterhalter',
   'logistiker',
-  'flora & fauna'
+  'flora & fauna',
 ]
 
 const showModal = () => {
@@ -55,10 +55,7 @@ const showModal = () => {
 
 const clickCreateNewCharacter = () => {
   form.post(route('character.store'), {
-    onSuccess: () => {
-      modalCharacterCreate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

@@ -12,7 +12,7 @@ const showModal = () => {
 }
 
 const clickUpdateCharacter = () => {
-  router.patch(route('deletedCharacter.restore', { character: props.character.id }), {}, { onSuccess: () => modalCharacterUpdate.value.close() })
+  router.patch(route('deletedCharacter.restore', { character: props.character.id }), {}, { preserveState: false })
 }
 
 defineExpose({

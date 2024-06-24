@@ -12,7 +12,7 @@ const showModal = () => {
 }
 
 const clickDestroyCharacter = () => {
-  router.delete(route('character.destroy', { character: props.character.id }), { onSuccess: () => modalCharacterDestroy.value.close() })
+  router.delete(route('character.destroy', { character: props.character.id }), { preserveState: false })
 }
 
 defineExpose({
