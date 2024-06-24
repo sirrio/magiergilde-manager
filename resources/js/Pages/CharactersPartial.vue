@@ -117,7 +117,7 @@ const onEnd = () => {
   drag.value = false
   router.post(route('character.sort'), {
     list: filteredCharacters.value,
-  })
+  }, { preserveScroll: true })
 }
 </script>
 
