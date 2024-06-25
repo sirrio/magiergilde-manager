@@ -33,10 +33,7 @@ const clickUpdateNewAdventure = () => {
       }
     },
   ).patch(route('adventure.update', { adventure: props.adventure.id }), {
-    onSuccess: () => {
-      modalAdventureUpdate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

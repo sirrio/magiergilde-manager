@@ -42,10 +42,7 @@ const clickUpdateNewGame = () => {
       }
     },
   ).patch(route('game.update', { game: props.game.id }), {
-    onSuccess: () => {
-      modalGameUpdate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

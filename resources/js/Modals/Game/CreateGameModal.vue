@@ -39,10 +39,7 @@ const clickCreateNewGame = () => {
       }
     },
   ).put(route('game.store'), {
-    onSuccess: () => {
-      modalGameCreate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

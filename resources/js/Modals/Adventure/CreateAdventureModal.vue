@@ -33,10 +33,7 @@ const clickCreateNewAdventure = () => {
       }
     },
   ).put(route('adventure.store'), {
-    onSuccess: () => {
-      modalAdventureCreate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

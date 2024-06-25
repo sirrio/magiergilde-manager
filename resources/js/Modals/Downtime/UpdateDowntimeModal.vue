@@ -29,10 +29,7 @@ const clickUpdateNewDowntime = () => {
       }
     },
   ).patch(route('downtime.update', { downtime: props.downtime.id }), {
-    onSuccess: () => {
-      modalDowntimeUpdate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 
