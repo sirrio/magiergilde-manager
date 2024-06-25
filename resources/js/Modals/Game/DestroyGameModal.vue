@@ -12,7 +12,7 @@ const showModal = () => {
 }
 
 const clickDestroyGame = () => {
-  router.delete(route('game.destroy', { game: props.game.id }), { onSuccess: () => modalGameDestroy.value.close() })
+  router.delete(route('game.destroy', { game: props.game.id }), { preserveState: false })
 }
 
 defineExpose({

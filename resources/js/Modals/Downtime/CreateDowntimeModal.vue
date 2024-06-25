@@ -29,10 +29,7 @@ const clickCreateNewDowntime = () => {
       }
     },
   ).put(route('downtime.store'), {
-    onSuccess: () => {
-      modalDowntimeCreate.value.close()
-      form.reset()
-    },
+    preserveState: false,
   })
 }
 

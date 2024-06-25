@@ -12,7 +12,7 @@ const showModal = () => {
 }
 
 const clickDestroyAdventure = () => {
-  router.delete(route('adventure.destroy', { adventure: props.adventure.id }), { onSuccess: () => modalAdventureDestroy.value.close() })
+  router.delete(route('adventure.destroy', { adventure: props.adventure.id }), { preserveState: false })
 }
 
 defineExpose({

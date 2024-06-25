@@ -12,7 +12,7 @@ const showModal = () => {
 }
 
 const clickDestroyDowntime = () => {
-  router.delete(route('downtime.destroy', { downtime: props.downtime.id }), { onSuccess: () => modalDowntimeDestroy.value.close() })
+  router.delete(route('downtime.destroy', { downtime: props.downtime.id }), { preserveState: false })
 }
 
 defineExpose({
