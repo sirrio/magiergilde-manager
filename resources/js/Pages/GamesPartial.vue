@@ -94,7 +94,7 @@ const clickDestroyGameModal = async (game: Game) => {
               :icon="['fas', 'droplet']"
               size="sm"
             />
-            Bubbles
+            {{ calculateBubbleByGames(games) - calculateBubbleSpend(characters) }} Bubbles
           </h3>
           <progress
             class="progress progress-accent w-full"
@@ -127,7 +127,7 @@ const clickDestroyGameModal = async (game: Game) => {
               :icon="['fas', 'coins']"
               size="sm"
             />
-            Coins
+            {{ calculateCoins(games) - calculateCoinsSpend(characters) }} Coins
           </h3>
           <progress
             class="progress progress-accent w-full"
