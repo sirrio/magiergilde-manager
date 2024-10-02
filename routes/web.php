@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\CharacterExport;
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\AllyController;
 use App\Http\Controllers\CharacterController;
@@ -12,6 +13,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/test', function () {
+  return Excel::download(new CharacterExport, 'char.xlsx');
+});
 
 Route::get('/', function () {
   return Inertia::render('Welcome', [
