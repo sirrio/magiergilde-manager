@@ -29,6 +29,7 @@ export interface Character {
   name: string;
   class: Array<CharacterClass>;
   start_tier: string;
+  version: string;
   dm_bubbles: number;
   dm_coins: number;
   is_filler: boolean;

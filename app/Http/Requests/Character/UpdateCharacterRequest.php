@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $class
  * @property mixed $external_link
  * @property mixed $name
+ * @property mixed $version
  * @property mixed $dm_bubbles
  * @property mixed $dm_coins
  * @property mixed $bubble_shop_spend
@@ -36,6 +37,7 @@ class UpdateCharacterRequest extends FormRequest
       'name' => 'required|string',
       'class' => 'required|exists:character_classes,id',
       'external_link' => 'required|url',
+      'version' => 'required|string',
       'dm_bubbles' => 'required|integer|min:0',
       'dm_coins' => 'required|integer|min:0',
       'is_filler' => 'required|boolean',

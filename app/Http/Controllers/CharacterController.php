@@ -36,6 +36,7 @@ class CharacterController extends Controller
     $character->faction = $request->faction;
     $character->notes = $request->notes;
     $character->is_filler = $request->is_filler;
+    $character->version = $request->version;
     $character->dm_bubbles = $request->dm_bubbles;
     $character->dm_coins = $request->dm_coins;
     $character->bubble_shop_spend = $request->bubble_shop_spend;
@@ -76,6 +77,7 @@ class CharacterController extends Controller
     $character->name = $request->name;
     $character->faction = $request->faction;
     $character->notes = $request->notes;
+    $character->version = $request->version;
     $character->dm_bubbles = $request->dm_bubbles;
     $character->dm_coins = $request->dm_coins;
     $character->bubble_shop_spend = $request->bubble_shop_spend;

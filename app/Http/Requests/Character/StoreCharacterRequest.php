@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $name
  * @property string $class
  * @property mixed $start_tier
+ * @property mixed $version
  * @property mixed $external_link
  * @property mixed $dm_bubbles
  * @property mixed $dm_coins
@@ -39,6 +40,7 @@ class StoreCharacterRequest extends FormRequest
       'class' => 'required|exists:character_classes,id',
       'external_link' => 'required|url',
       'start_tier' => 'required|string',
+      'version' => 'required|string',
       'dm_bubbles' => 'required|integer|min:0',
       'dm_coins' => 'required|integer|min:0',
       'is_filler' => 'required|boolean',
