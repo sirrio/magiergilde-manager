@@ -257,6 +257,7 @@ const onEnd = () => {
             <p class="text-xs">
               Level {{ calculateLevel(element) }}
               {{ calculateClassString(element) }}
+              <span class="italic text-base-content/50">{{ element.version }}</span>
             </p>
             <!--                <div>-->
             <!--                  <img :src="character.character_classes[0].src" height="16" width="16" alt=""/>-->
@@ -493,6 +494,7 @@ const onEnd = () => {
             <p class="text-xs">
               Level 3
               {{ calculateClassString(element) }}
+              <span class="italic text-base-content/50">{{ element.version }}</span>
             </p>
             <!--                <div>-->
             <!--                  <img :src="character.character_classes[0].src" height="16" width="16" alt=""/>-->

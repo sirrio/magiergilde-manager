@@ -9,6 +9,7 @@ const form: InertiaForm<{
   dm_bubbles: number
   dm_coins: number
   notes: string
+  version: string
   bubble_shop_spend: number
   external_link: string
   start_tier: string
@@ -21,6 +22,7 @@ const form: InertiaForm<{
   dm_bubbles: 0,
   dm_coins: 0,
   notes: '',
+  version: '',
   bubble_shop_spend: 0,
   external_link: '',
   start_tier: '',
@@ -34,6 +36,11 @@ const tiers = [
   { id: 'bt', name: 'Beginner Tier' },
   { id: 'lt', name: 'Low Tier' },
   { id: 'ht', name: 'High Tier' },
+]
+
+const versions = [
+  { id: '2024', name: '2024 Rules' },
+  { id: '2014', name: '2014 Rules' },
 ]
 
 const factions = [
@@ -180,6 +187,30 @@ const inputFile = (event: Event) => {
             :value="tier.id"
           >
             {{ tier.name }}
+          </option>
+        </select>
+      </label>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">What version is you character?</span>
+        </div>
+        <select
+          v-model="form.version"
+          class="select select-bordered w-full"
+        >
+          <option
+            :value="''"
+            disabled
+            selected
+          >Pick one
+          </option>
+          <option
+            v-for="(version, key) in versions"
+            :key="key"
+            :value="version.id"
+          >
+            {{ version.name }}
           </option>
         </select>
       </label>

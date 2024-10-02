@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $external_link
  * @property string $start_tier
+ * @property string $version
  * @property integer $user_id
  * @property string $avatar
  * @property mixed $dm_bubbles

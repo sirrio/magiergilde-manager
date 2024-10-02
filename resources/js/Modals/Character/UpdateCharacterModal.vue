@@ -11,6 +11,7 @@ const form: InertiaForm<{
   name: string
   class: Array<number>
   faction: string
+  version: string
   dm_bubbles: number
   dm_coins: number
   notes: string
@@ -22,6 +23,7 @@ const form: InertiaForm<{
   name: props.character.name,
   class: props.character.character_classes.map(cc => cc.id),
   faction: props.character.faction,
+  version: props.character.version,
   dm_bubbles: props.character.dm_bubbles,
   dm_coins: props.character.dm_coins,
   notes: props.character.notes,
@@ -44,6 +46,11 @@ const factions = [
   'unterhalter',
   'logistiker',
   'flora & fauna',
+]
+
+const versions = [
+  { id: '2024', name: '2024 Rules' },
+  { id: '2014', name: '2014 Rules' },
 ]
 
 const showModal = () => {
@@ -128,6 +135,30 @@ function inputFile(event: Event) {
             :value="faction"
           >
             {{ faction }}
+          </option>
+        </select>
+      </label>
+
+      <label class="form-control w-full mb-2">
+        <div class="label">
+          <span class="label-text">What version is you character?</span>
+        </div>
+        <select
+          v-model="form.version"
+          class="select select-bordered w-full"
+        >
+          <option
+            :value="''"
+            disabled
+            selected
+          >Pick one
+          </option>
+          <option
+            v-for="(version, key) in versions"
+            :key="key"
+            :value="version.id"
+          >
+            {{ version.name }}
           </option>
         </select>
       </label>
