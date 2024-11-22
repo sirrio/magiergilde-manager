@@ -66,7 +66,7 @@ defineExpose({
         class="flex flex-col gap-3"
         @submit.prevent="clickUpdateNewGame()"
       >
-        <h3 class="font-bold text-lg">
+        <h3 class="font-bold text-lg mb-6">
           Update your game
         </h3>
 

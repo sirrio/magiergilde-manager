@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\AllyController;
+use App\Http\Controllers\BreakdownController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterSortController;
 use App\Http\Controllers\DeletedCharacterController;
@@ -27,6 +28,7 @@ Route::get('/dashboard', function () {
   $games = \App\Models\Game::where('user_id', Auth::user()->getAuthIdentifier())->get();
 
   return Inertia::render('Dashboard', [
+    'user' => Auth::user(),
     'characters' => $characters,
     'games' => $games,
   ]);
@@ -37,13 +39,15 @@ Route::middleware('auth')->group(function () {
   Route::post('/character', [CharacterController::class, 'store'])->name('character.store');
   Route::post('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
   Route::delete('/character/{character}', [CharacterController::class, 'destroy'])->name('character.destroy');
-  Route::post('/character123/sort123', [CharacterController::class, 'sort'])->name('character.sort');
 });
 
 Route::middleware('auth')->group(function () {
   Route::post('/characterSort', [CharacterSortController::class, 'update'])->name('character.sort');
 });
 
+Route::middleware('auth')->group(function () {
+  Route::patch('/breakdown/{user}', [BreakdownController::class, 'update'])->name('breakdown.update');
+});
 
 Route::middleware('auth')->group(function () {
   Route::put('/ally', [AllyController::class, 'store'])->name('ally.store');
