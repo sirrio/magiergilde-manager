@@ -7,11 +7,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property mixed $event_bubbles
+ * @property mixed $event_coins
+ * @property mixed $bt_bubbles
+ * @property mixed $bt_coins
+ * @property mixed $lt_bubbles
+ * @property mixed $lt_coins
+ * @property mixed $ht_bubbles
+ * @property mixed $ht_coins
+ * @property mixed $et_bubbles
+ * @property mixed $et_coins
+ * @property mixed $other_bubbles
+ * @property mixed $other_coins
+ */
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
+  /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

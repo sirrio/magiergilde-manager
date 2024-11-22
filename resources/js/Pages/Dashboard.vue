@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head } from '@inertiajs/vue3'
-import { Character, Game } from '@/types'
+import { Character, Game, User } from '@/types'
 import GamesPartial from '@/Pages/GamesPartial.vue'
 import CharactersPartial from '@/Pages/CharactersPartial.vue'
 
 defineProps<{
+  user: User
   characters: Character[]
   games: Game[]
 }>()
@@ -50,6 +51,7 @@ defineProps<{
             class="tab-content pt-8"
           >
             <GamesPartial
+              :user="user"
               :games="games"
               :characters="characters"
             />

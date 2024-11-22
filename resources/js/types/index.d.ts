@@ -3,6 +3,18 @@ export interface User {
   name: string;
   email: string;
   email_verified_at: string;
+  event_bubbles: number
+  event_coins: number
+  bt_bubbles: number
+  bt_coins: number
+  lt_bubbles: number
+  lt_coins: number
+  ht_bubbles: number
+  ht_coins: number
+  et_bubbles: number
+  et_coins: number
+  other_bubbles: number
+  other_coins: number
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
