@@ -281,10 +281,7 @@ const calculateTotalCoins = () => {
                 <td>{{ user.event_coins }}</td>
               </tr>
 
-              <tr
-                v-if="false"
-                class="hover"
-              >
+              <tr class="hover">
                 <th>
                   <tier-logo
                     tier="bt"
@@ -296,10 +293,7 @@ const calculateTotalCoins = () => {
                 <td>{{ user.bt_coins }}</td>
               </tr>
 
-              <tr
-                v-if="false"
-                class="hover"
-              >
+              <tr class="hover">
                 <th>
                   <tier-logo
                     tier="lt"
@@ -311,10 +305,7 @@ const calculateTotalCoins = () => {
                 <td>{{ user.lt_coins }}</td>
               </tr>
 
-              <tr
-                v-if="false"
-                class="hover"
-              >
+              <tr class="hover">
                 <th>
                   <tier-logo
                     tier="ht"
