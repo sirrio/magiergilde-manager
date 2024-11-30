@@ -2,6 +2,7 @@
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import { User } from '@/types'
+import TierLogo from '@/Components/TierLogo.vue'
 
 const props = defineProps<{
   user: User
@@ -95,13 +96,13 @@ defineExpose({
         </label>
       </div>
 
-      <div
-        v-if="false"
-        class="flex gap-2"
-      >
+      <div class="flex gap-2">
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">BT Bubble</span>
+            <span class="label-text"><tier-logo
+              tier="bt"
+              :size="14"
+            /> Bubble</span>
           </div>
           <input
             v-model="form.bt_bubbles"
@@ -114,7 +115,10 @@ defineExpose({
 
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">BT Coins</span>
+            <span class="label-text"><tier-logo
+              tier="bt"
+              :size="14"
+            /> Coins</span>
           </div>
           <input
             v-model="form.bt_coins"
@@ -126,13 +130,13 @@ defineExpose({
         </label>
       </div>
 
-      <div
-        v-if="false"
-        class="flex gap-2"
-      >
+      <div class="flex gap-2">
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">LT Bubble</span>
+            <span class="label-text"><tier-logo
+              tier="lt"
+              :size="14"
+            /> Bubble</span>
           </div>
           <input
             v-model="form.lt_bubbles"
@@ -145,7 +149,10 @@ defineExpose({
 
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">Event Coins</span>
+            <span class="label-text"><tier-logo
+              tier="lt"
+              :size="14"
+            /> Coins</span>
           </div>
           <input
             v-model="form.lt_coins"
@@ -157,13 +164,13 @@ defineExpose({
         </label>
       </div>
 
-      <div
-        v-if="false"
-        class="flex gap-2"
-      >
+      <div class="flex gap-2">
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">HT Bubble</span>
+            <span class="label-text"><tier-logo
+              tier="ht"
+              :size="14"
+            /> Bubble</span>
           </div>
           <input
             v-model="form.ht_bubbles"
@@ -176,7 +183,10 @@ defineExpose({
 
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">HT Coins</span>
+            <span class="label-text"><tier-logo
+              tier="ht"
+              :size="14"
+            /> Coins</span>
           </div>
           <input
             v-model="form.ht_coins"
@@ -191,7 +201,10 @@ defineExpose({
       <div class="flex gap-2">
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">ET Bubble</span>
+            <span class="label-text"><tier-logo
+              tier="et"
+              :size="14"
+            /> Bubble</span>
           </div>
           <input
             v-model="form.et_bubbles"
@@ -204,7 +217,10 @@ defineExpose({
 
         <label class="form-control w-full mb-2">
           <div class="label">
-            <span class="label-text">ET Coins</span>
+            <span class="label-text"><tier-logo
+              tier="et"
+              :size="14"
+            /> Coins</span>
           </div>
           <input
             v-model="form.et_coins"
