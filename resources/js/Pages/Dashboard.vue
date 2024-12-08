@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3'
 import { Character, Game, User } from '@/types'
 import GamesPartial from '@/Pages/GamesPartial.vue'
 import CharactersPartial from '@/Pages/CharactersPartial.vue'
-import { computed } from 'vue'
+import { computed, ComputedRef } from 'vue'
 
 defineProps<{
   user: User
@@ -12,7 +12,7 @@ defineProps<{
   games: Game[]
 }>()
 
-const tabName = computed(() => localStorage.getItem('tab'))
+const tabName: ComputedRef<string | null> = computed(() => localStorage.getItem('tab') ?? 'char')
 
 const clickTab = (tabName) => {
   localStorage.setItem('tab', tabName)
