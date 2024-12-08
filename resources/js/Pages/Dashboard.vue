@@ -14,7 +14,7 @@ defineProps<{
 
 const tabName: ComputedRef<string | null> = computed(() => localStorage.getItem('tab') ?? 'char')
 
-const clickTab = (tabName) => {
+const clickTab = (tabName: string) => {
   localStorage.setItem('tab', tabName)
 }
 </script>
