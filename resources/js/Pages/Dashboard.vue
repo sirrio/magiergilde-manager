@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3'
 import { Character, Game, User } from '@/types'
 import GamesPartial from '@/Pages/GamesPartial.vue'
 import CharactersPartial from '@/Pages/CharactersPartial.vue'
+import { computed } from 'vue'
 
 defineProps<{
   user: User
@@ -11,7 +12,11 @@ defineProps<{
   games: Game[]
 }>()
 
+const tabName = computed(() => localStorage.getItem('tab'))
 
+const clickTab = (tabName) => {
+  localStorage.setItem('tab', tabName)
+}
 </script>
 
 <template>
@@ -30,7 +35,8 @@ defineProps<{
             role="tab"
             class="tab"
             aria-label="Character"
-            checked
+            :checked="tabName === 'char'"
+            @click="clickTab('char')"
           >
           <div
             role="tabpanel"
@@ -45,6 +51,8 @@ defineProps<{
             role="tab"
             class="tab"
             aria-label="GameMaster"
+            :checked="tabName === 'gm'"
+            @click="clickTab('gm')"
           >
           <div
             role="tabpanel"
