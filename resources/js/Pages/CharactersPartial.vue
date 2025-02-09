@@ -125,11 +125,11 @@ const copied = ref(false)
 const copyCharactersAsString = () => {
   let result = ''
 
-  const et = []
-  const ht = []
-  const lt = []
-  const bt = []
-  const filler = []
+  const et : Character[] = []
+  const ht : Character[] = []
+  const lt : Character[] = []
+  const bt : Character[] = []
+  const filler : Character[] = []
 
   props.characters.forEach(char => {
     if (char.deleted_at) return
