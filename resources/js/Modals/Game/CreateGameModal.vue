@@ -17,7 +17,7 @@ const tiers = [
   { id: 'bt', name: 'Beginner Tier' },
   { id: 'lt', name: 'Low Tier' },
   { id: 'ht', name: 'High Tier' },
-  { id: 'et', name: 'Elite Tier' },
+  { id: 'et', name: 'Epic Tier' },
 ]
 
 const modalGameCreate = ref()
