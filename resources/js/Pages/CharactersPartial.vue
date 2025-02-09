@@ -22,6 +22,7 @@ import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime
 import { calculateFactionDowntime, calculateOtherDowntime } from '@/helpers/calculateDowntime'
 import { calculateFactionLevel } from '@/helpers/calculateFactionLevel'
 import draggable from 'vuedraggable'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const props = defineProps<{
   characters: Character[]
@@ -119,6 +120,86 @@ const onEnd = () => {
     list: filteredCharacters.value,
   }, { preserveScroll: true })
 }
+
+const copied = ref(false)
+const copyCharactersAsString = () => {
+  let result = ''
+
+  const et = []
+  const ht = []
+  const lt = []
+  const bt = []
+  const filler = []
+
+  props.characters.forEach(char => {
+    if (char.deleted_at) return
+
+    switch (calculateTier(char)) {
+      case 'et':
+        et.push(char)
+        break
+      case 'ht':
+        ht.push(char)
+        break
+      case 'lt':
+        lt.push(char)
+        break
+      case 'bt':
+        char.is_filler ? filler.push(char) : bt.push(char)
+        break
+      default:
+        console.log(calculateTier(char), char.is_filler, 'Error assigning char')
+    }
+  })
+
+  if (et.length > 0) {
+    result += ':MG_ET: Characters:\n'
+    et.forEach(char => {
+      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
+    })
+    result += '\n'
+  }
+
+  if (ht.length > 0) {
+    result += ':MG_HT: Characters:\n'
+    ht.forEach(char => {
+      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
+    })
+    result += '\n'
+  }
+
+  if (lt.length > 0) {
+    result += ':MG_LT: Characters:\n'
+    lt.forEach(char => {
+      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
+    })
+    result += '\n'
+  }
+
+  if (bt.length > 0) {
+    result += ':MG_BT: Characters:\n'
+    bt.forEach(char => {
+      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
+    })
+  }
+  result += '\n'
+
+  if (filler.length > 0) {
+    result += ':Plus1: Filler Character:\n'
+    filler.forEach(char => {
+      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
+    })
+  }
+
+  navigator.clipboard.writeText(result).then(
+    () => {
+      copied.value = true
+      setTimeout(function(){
+        copied.value = false
+      }, 3000)
+    },
+  )
+}
 </script>
 
 <template>
@@ -149,6 +230,22 @@ const onEnd = () => {
             {{ characters.filter(char => !(!char.is_filler || calculateTier(char) === "et")).length }}
           </span>
         </span>
+        <button
+          class=" btn btn-ghost ml-1 btn-xs text-base-content/50 tooltip"
+          data-tip="Copy your characters to share on discord"
+          @click="copyCharactersAsString()"
+        >
+          <font-awesome-icon :icon="['fas', 'copy']" />
+        </button>
+        <div
+          v-if="copied"
+          class="toast z-50 text-base-content text-base"
+        >
+          <div class="alert alert-info">
+            <font-awesome-icon :icon="['fas', 'copy']" />
+            <span>Characters copied to clipboard. Paste in discord.</span>
+          </div>
+        </div>
       </h2>
       <p class="text-xs hidden sm:block">
         Manage your characters here.
@@ -156,14 +253,14 @@ const onEnd = () => {
     </div>
     <div>
       <button
-        class="btn btn-neutral text-neutral-content"
+        class="btn btn-xs md:btn-md btn-neutral text-neutral-content"
         @click="clickCreateCharacterModal()"
       >
         <font-awesome-icon :icon="['fas', 'plus']" />
         <span class="hidden sm:inline">Create new character</span>
       </button>
       <button
-        class="btn btn-neutral text-neutral-content ml-1"
+        class="btn btn-xs md:btn-md btn-neutral text-neutral-content ml-1"
         :class="{'btn-error text-error-content': trashedMode}"
         @click="trashedMode = !trashedMode"
       >
@@ -363,7 +460,10 @@ const onEnd = () => {
               <p>
                 On other: {{ secondsToHourMinuteString(calculateOtherDowntime(element)) }}
               </p>
-              <p class="font-bold">
+              <p
+                class="font-bold tooltip"
+                :data-tip="`Up to ${calculateRemainingDowntime(element)/60/60*15} GP work`"
+              >
                 Remaining: {{ secondsToHourMinuteString(calculateRemainingDowntime(element)) }}
               </p>
             </div>
