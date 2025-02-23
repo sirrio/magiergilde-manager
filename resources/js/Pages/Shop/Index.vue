@@ -9,28 +9,30 @@ defineProps<{
   items: Item[]
 }>()
 
-const sfc32 = (a, b, c, d) => {
+const splitmix32 = (a) => {
   a |= 0
   a = a + 0x9e3779b9 | 0
   let t = a ^ a >>> 16
   t = Math.imul(t, 0x21f0aaad)
   t = t ^ t >>> 15
   t = Math.imul(t, 0x735a2d97)
-  return ((t = t ^ t >>> 15) >>> 0) / 4294967296
+  return ((t ^ t >>> 15) >>> 0) / 4294967296
 }
 
 const seed = ref(new Date().toJSON().slice(0, 10))
 
-function seededRng() {
-  const hashes = cyrb128(seed.value.trim())
-  return sfc32(...hashes)
+function seededRng(seed: string) {
+  const hashes = cyrb128(seed)
+  return splitmix32(...hashes)
 }
 
-function shuffleArray<T>(array: T[]): T[] {
+function shuffleArray<T>(array: T[], seed): T[] {
   const result = [...array]
+  let tmpSeed = cyrb128(seed)[0]
   for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(seededRng() * (i + 1));
+    const j = Math.floor(seededRng(tmpSeed.toString()) * (i + 1));
     [result[i], result[j]] = [result[j], result[i]]
+    tmpSeed = cyrb128(tmpSeed.toString())[0]
   }
   return result
 }
@@ -70,43 +72,43 @@ function cyrb128(str) {
         </label>
         <UniqueItemsTable
           title="⚔️ Common Magic Items (Ab Low Tier):"
-          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'item')).splice(0, 5)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'item'), seed).splice(0, 5)"
         />
         <UniqueItemsTable
           title="Common Consumable"
-          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'consumable')).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'consumable'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="Common Spell Scroll"
-          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'spellscroll')).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'spellscroll'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="⚔️ Uncommon Magic Items (Ab Low Tier):"
-          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'item')).splice(0, 3)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'item'), seed).splice(0, 3)"
         />
         <UniqueItemsTable
           title="Uncommon Consumable"
-          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'consumable')).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'consumable'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="Uncommon Spell Scroll"
-          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'spellscroll')).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'spellscroll'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="⚔️ Rare Magic Items (Ab High Tier):"
-          :items="shuffleArray(items.filter(i => i.rarity === 'rare' && i.type === 'item')).splice(0, 2)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'rare' && i.type === 'item'), seed).splice(0, 2)"
         />
         <UniqueItemsTable
           title="Rare Consumable/Spell Scroll"
-          :items="shuffleArray(items.filter(i => i.rarity === 'rare' && (i.type === 'consumable' || i.type == 'spellscroll'))).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'rare' && (i.type === 'consumable' || i.type == 'spellscroll')), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="⚔️ Very Rare Magic Item (Ab Epic Tier):"
-          :items="shuffleArray(items.filter(i => i.rarity === 'very_rare' && i.type === 'item')).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'very_rare' && i.type === 'item'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
           title="Very Rare Consumable/Spell Scroll"
-          :items="shuffleArray(items.filter(i => i.rarity === 'very_rare' && (i.type === 'consumable' || i.type == 'spellscroll'))).splice(0, 1)"
+          :items="shuffleArray(items.filter(i => i.rarity === 'very_rare' && (i.type === 'consumable' || i.type == 'spellscroll')), seed).splice(0, 1)"
         />
       </div>
     </div>
