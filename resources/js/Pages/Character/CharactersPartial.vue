@@ -119,7 +119,7 @@ const onEnd = () => {
 
   const payload = {
     list: filteredCharacters.value,
-  } as unknown
+  } as never
 
   router.post(route('character.sort'), payload, { preserveScroll: true })
 }
