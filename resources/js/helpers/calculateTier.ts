@@ -2,6 +2,9 @@ import { Character } from '@/types'
 import { calculateLevel } from '@/helpers/calculateLevel'
 
 const calculateTier = (character: Character): string => {
+
+  if (character.is_filler) return 'bt'
+
   switch (calculateLevel(character)) {
     case 1:
     case 2:

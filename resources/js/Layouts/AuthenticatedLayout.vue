@@ -43,7 +43,7 @@ const themes = [
   'nord',
   'sunset',
   'josi',
-  'lenas'
+  'lenas',
 ]
 </script>
 
@@ -64,14 +64,80 @@ const themes = [
       </div>
     </div>
     <div class="navbar bg-base-100">
-      <div class="flex-1">
-        <a
-          :href="route('dashboard')"
-          class="btn btn-ghost text-xl"
-        >
-          <ApplicationLogo class="h-10 fill-current" />
-          <span class="hidden sm:inline">Character Manager</span>
-        </a>
+      <div class="md:inline-block hidden px-4">
+        <ApplicationLogo class="h-10 fill-current" />
+      </div>
+      <div class="flex-1 md:hidden">
+        <div class="dropdown">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost lg:hidden"
+          >
+            <font-awesome-icon
+              icon="bars"
+              size="xl"
+            />
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a
+                :href="route('characters')"
+                :class="{'active': route().current('characters')}"
+              >Characters</a>
+            </li>
+            <li>
+              <a
+                :href="route('games')"
+                :class="{'active': route().current('games')}"
+              >Game Master</a>
+            </li>
+            <li v-if="$page.props.auth.user.is_admin">
+              <a
+                :href="route('items')"
+                :class="{'active': route().current('items')}"
+              >Items</a>
+            </li>
+            <li v-if="$page.props.auth.user.is_admin">
+              <a
+                :href="route('shop')"
+                :class="{'active': route().current('shop')}"
+              >Shop</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex-1 hidden md:inline-block">
+        <ul class="menu menu-horizontal gap-1 px-1">
+          <li>
+            <a
+              :href="route('characters')"
+              :class="{'active': route().current('characters')}"
+            >Characters</a>
+          </li>
+          <li>
+            <a
+              :href="route('games')"
+              :class="{'active': route().current('games')}"
+            >Game Master</a>
+          </li>
+          <li v-if="$page.props.auth.user.is_admin">
+            <a
+              :href="route('items')"
+              :class="{'active': route().current('items')}"
+            >Items</a>
+          </li>
+          <li v-if="$page.props.auth.user.is_admin">
+            <a
+              :href="route('shop')"
+              :class="{'active': route().current('shop')}"
+            >Shop</a>
+          </li>
+        </ul>
       </div>
       <div class="flex-none">
         <div class="flex items-center">

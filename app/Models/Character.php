@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * @property numeric $id
  * @property string $name
  * @property string $external_link
  * @property string $start_tier
@@ -29,7 +30,7 @@ class Character extends Model
    *
    * @var array
    */
-  protected $with = ['adventures', 'allies', 'downtimes', 'characterClasses'];
+  protected $with = ['allies', 'downtimes', 'characterClasses'];
 
   protected $casts = [
     'is_filler' => 'boolean'

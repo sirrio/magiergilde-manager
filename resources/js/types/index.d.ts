@@ -15,6 +15,7 @@ export interface User {
   et_coins: number
   other_bubbles: number
   other_coins: number
+  is_admin: boolean
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -22,6 +23,15 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     user: User;
   };
 };
+
+export interface Item {
+  id: number;
+  name: string;
+  url: string;
+  cost: string;
+  type: string;
+  rarity: string;
+}
 
 export interface CharacterClass {
   id: number;

@@ -52,7 +52,7 @@ const createAdventureModal = ref()
 
 const createDowntimeModal = ref()
 
-const filteredCharacters = ref(props.characters.filter(char => !char.deleted_at))
+const filteredCharacters: Ref<Character[]> = ref(props.characters.filter(char => !char.deleted_at))
 const drag = ref(false)
 
 const clickShowCharacter = (id: number) => {
@@ -116,9 +116,12 @@ function onImgError(event: Event) {
 
 const onEnd = () => {
   drag.value = false
-  router.post(route('character.sort'), {
+
+  const payload = {
     list: filteredCharacters.value,
-  }, { preserveScroll: true })
+  } as unknown
+
+  router.post(route('character.sort'), payload, { preserveScroll: true })
 }
 
 const copied = ref(false)
