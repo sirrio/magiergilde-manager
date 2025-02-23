@@ -65,7 +65,9 @@ const itemsByRarity: Record<string, Record<string, Item[]>> = items.reduce((resu
             <h2 class="text-lg font-bold capitalize flex justify-center sticky top-0 z-20 bg-base-100 rounded-t-xl">
               {{ rarity.replace("_", " ") }}
             </h2>
-            <div class="grid gap-1 px-1 grid-cols-[35px_1fr_30px_100px_20px] font-bold uppercase sticky z-20 bg-base-100 top-6">
+            <div
+              class="grid gap-1 px-1 grid-cols-[35px_1fr_30px_100px_20px] font-bold uppercase sticky z-20 bg-base-100 top-6"
+            >
               <div>id</div>
               <div>name</div>
               <div>url</div>
@@ -75,7 +77,9 @@ const itemsByRarity: Record<string, Record<string, Item[]>> = items.reduce((resu
               v-for="(itemSorted, type) in itemsByType"
               :key="type"
             >
-              <div class="grid gap-1 grid-cols-[35px_1fr_30px_100px_20px] bg-neutral text-neutral-content sticky top-12">
+              <div
+                class="grid gap-1 grid-cols-[35px_1fr_30px_100px_20px] bg-neutral text-neutral-content sticky top-12"
+              >
                 <div class="p-2 font-bold uppercase text-sm tracking-widest col-span-5 flex justify-center">
                   {{ type }}
                 </div>
@@ -84,6 +88,7 @@ const itemsByRarity: Record<string, Record<string, Item[]>> = items.reduce((resu
                 v-for="item in itemSorted"
                 :key="item.id"
                 class="grid px-1 gap-1 grid-cols-[35px_1fr_30px_100px_20px] odd:bg-base-200"
+                :class="{'text-error': !item.url || !item.cost}"
               >
                 <div>
                   {{ item.id }}
