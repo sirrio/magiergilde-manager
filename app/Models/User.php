@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
+ * @property mixed $is_admin
  * @property mixed $event_bubbles
  * @property mixed $event_coins
  * @property mixed $bt_bubbles

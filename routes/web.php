@@ -8,7 +8,11 @@ use App\Http\Controllers\CharacterSortController;
 use App\Http\Controllers\DeletedCharacterController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Character;
+use App\Models\Game;
+use App\Models\Item;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,15 +28,58 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-  $characters = \App\Models\Character::where('user_id', Auth::user()->getAuthIdentifier())->withTrashed()->orderBy('position')->get();
-  $games = \App\Models\Game::where('user_id', Auth::user()->getAuthIdentifier())->get();
+  return redirect()->route('characters');
+})->name('dashboard');
 
-  return Inertia::render('Dashboard', [
+Route::get('/characters', function () {
+  $characters = Character::query()
+    ->where('user_id', Auth::user()->getAuthIdentifier())
+    ->withTrashed()
+    ->with('adventures')
+    ->orderBy('position')
+    ->get();
+  $games = Game::query()
+    ->where('user_id', Auth::user()->getAuthIdentifier())
+    ->get();
+
+  return Inertia::render('Character/Index', [
     'user' => Auth::user(),
     'characters' => $characters,
     'games' => $games,
   ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('characters');
+
+Route::get('/games', function () {
+  $characters = Character::query()
+    ->where('user_id', Auth::user()->getAuthIdentifier())
+    ->with(['adventures' => fn($q) => $q->withTrashed()])
+    ->withTrashed()
+    ->orderBy('position')
+    ->get();
+  $games = Game::query()
+    ->where('user_id', Auth::user()->getAuthIdentifier())
+    ->get();
+
+  return Inertia::render('Game/Index', [
+    'user' => Auth::user(),
+    'characters' => $characters,
+    'games' => $games,
+  ]);
+})->middleware(['auth', 'verified'])->name('games');
+
+Route::get('/shop', function () {
+  return Inertia::render('Shop/Index', [
+    'items' => Item::query()->select(['id', 'name', 'cost', 'url', 'rarity', 'type'])->get(),
+  ]);
+})->middleware(['auth', 'verified'])->name('shop');
+
+Route::get('/items', function () {
+  return Inertia::render('Item/Index', [
+    'items' => Item::query()->select(['id', 'name', 'cost', 'url', 'rarity', 'type'])->get(),
+  ]);
+})->middleware(['auth', 'verified'])->name('items');
+Route::post('/item', [ItemController::class, 'store'])->name('item.store');
+Route::patch('/item/{item}', [ItemController::class, 'update'])->name('item.update');
 
 Route::middleware('auth')->group(function () {
   Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');

@@ -52,7 +52,7 @@ const createAdventureModal = ref()
 
 const createDowntimeModal = ref()
 
-const filteredCharacters = ref(props.characters.filter(char => !char.deleted_at))
+const filteredCharacters: Ref<Character[]> = ref(props.characters.filter(char => !char.deleted_at))
 const drag = ref(false)
 
 const clickShowCharacter = (id: number) => {
@@ -116,89 +116,65 @@ function onImgError(event: Event) {
 
 const onEnd = () => {
   drag.value = false
-  router.post(route('character.sort'), {
+
+  const payload = {
     list: filteredCharacters.value,
-  }, { preserveScroll: true })
+  } as unknown
+
+  router.post(route('character.sort'), payload, { preserveScroll: true })
 }
 
 const copied = ref(false)
+
 const copyCharactersAsString = () => {
-  let result = ''
+  const tiers: Record<string, Character[]> = {
+    et: [],
+    ht: [],
+    lt: [],
+    bt: [],
+  }
+  const filler: Character[] = []
 
-  const et : Character[] = []
-  const ht : Character[] = []
-  const lt : Character[] = []
-  const bt : Character[] = []
-  const filler : Character[] = []
-
-  props.characters.forEach(char => {
+  props.characters.forEach((char) => {
     if (char.deleted_at) return
 
-    switch (calculateTier(char)) {
-      case 'et':
-        et.push(char)
-        break
-      case 'ht':
-        ht.push(char)
-        break
-      case 'lt':
-        lt.push(char)
-        break
-      case 'bt':
-        char.is_filler ? filler.push(char) : bt.push(char)
-        break
-      default:
-        console.log(calculateTier(char), char.is_filler, 'Error assigning char')
+    const tier = calculateTier(char)
+    if (tier === 'bt') {
+      char.is_filler ? filler.push(char) : tiers[tier].push(char)
+    } else {
+      tiers[tier].push(char)
     }
   })
 
-  if (et.length > 0) {
-    result += ':MG_ET: Characters:\n'
-    et.forEach(char => {
-      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
-    })
-    result += '\n'
+  const formatBlock = (
+    label: string,
+    characters: Character[],
+    titleSuffix: string = 'Characters',
+  ): string => {
+    if (!characters.length) return ''
+    const header = `${label} ${titleSuffix}:\n`
+    const body = characters
+      .map((char) => {
+        const classes = char.character_classes.map((cc) => cc.name).join(', ')
+        return `**${char.name}** - ${classes} (${char.external_link})`
+      })
+      .join('\n')
+    return header + body + '\n\n'
   }
 
-  if (ht.length > 0) {
-    result += ':MG_HT: Characters:\n'
-    ht.forEach(char => {
-      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
-    })
-    result += '\n'
-  }
+  let result = ''
+  result += formatBlock(':MG_ET:', tiers.et)
+  result += formatBlock(':MG_HT:', tiers.ht)
+  result += formatBlock(':MG_LT:', tiers.lt)
+  result += formatBlock(':MG_BT:', tiers.bt)
+  result += formatBlock(':Plus1:', filler, 'Filler Character')
 
-  if (lt.length > 0) {
-    result += ':MG_LT: Characters:\n'
-    lt.forEach(char => {
-      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
-    })
-    result += '\n'
-  }
-
-  if (bt.length > 0) {
-    result += ':MG_BT: Characters:\n'
-    bt.forEach(char => {
-      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
-    })
-  }
-  result += '\n'
-
-  if (filler.length > 0) {
-    result += ':Plus1: Filler Character:\n'
-    filler.forEach(char => {
-      result += `**${char.name}** - ${char.character_classes.map(cc => cc.name).join(', ')} (${char.external_link})\n`
-    })
-  }
-
-  navigator.clipboard.writeText(result).then(
-    () => {
-      copied.value = true
-      setTimeout(function(){
-        copied.value = false
-      }, 3000)
-    },
-  )
+  navigator.clipboard.writeText(result).then(() => {
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 3000)
+  })
 }
 </script>
 

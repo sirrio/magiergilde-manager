@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Character\StoreCharacterRequest;
 use App\Http\Requests\Character\UpdateCharacterRequest;
+use App\Models\Adventure;
 use App\Models\Character;
+use App\Models\Downtime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CharacterController extends Controller
 {
@@ -48,16 +51,16 @@ class CharacterController extends Controller
     $character->save();
     $character->characterClasses()->attach($request->class);
 
-    return to_route('dashboard');
+    return to_route('characters');
   }
 
   /**
    * Display the specified resource.
    */
-  public function show(Character $character): \Inertia\Response
+  public function show(Character $character): Response
   {
     return Inertia::render('Character/Show', [
-      'character' => $character
+      'character' => $character->load('adventures')
     ]);
   }
 
@@ -88,7 +91,7 @@ class CharacterController extends Controller
 
     $character->characterClasses()->sync($request->class);
 
-    return to_route('dashboard');
+    return to_route('characters');
   }
 
   /**
@@ -96,6 +99,16 @@ class CharacterController extends Controller
    */
   public function destroy(Character $character): \Illuminate\Http\RedirectResponse
   {
+    Adventure::query()
+      ->where('character_id', $character->id)
+      ->whereNotNull('deleted_at')
+      ->forceDelete();
+
+    Downtime::query()
+      ->where('character_id', $character->id)
+      ->whereNotNull('deleted_at')
+      ->forceDelete();
+
     $character->adventures()->delete();
     $character->downtimes()->delete();
     $character->delete();
