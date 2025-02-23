@@ -9,7 +9,7 @@ defineProps<{
   items: Item[]
 }>()
 
-const splitmix32 = (a) => {
+const splitmix32 = (a: number): number => {
   a |= 0
   a = a + 0x9e3779b9 | 0
   let t = a ^ a >>> 16
@@ -23,10 +23,10 @@ const seed = ref(new Date().toJSON().slice(0, 10))
 
 function seededRng(seed: string) {
   const hashes = cyrb128(seed)
-  return splitmix32(...hashes)
+  return splitmix32(hashes[0])
 }
 
-function shuffleArray<T>(array: T[], seed): T[] {
+function shuffleArray<T>(array: T[], seed: string): T[] {
   const result = [...array]
   let tmpSeed = cyrb128(seed)[0]
   for (let i = result.length - 1; i > 0; i--) {
@@ -37,7 +37,7 @@ function shuffleArray<T>(array: T[], seed): T[] {
   return result
 }
 
-function cyrb128(str) {
+function cyrb128(str: string): [number, number, number, number] {
   let h1 = 1779033703, h2 = 3144134277,
     h3 = 1013904242, h4 = 2773480762
   for (let i = 0, k; i < str.length; i++) {
