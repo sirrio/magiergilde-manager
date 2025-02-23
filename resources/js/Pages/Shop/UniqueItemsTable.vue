@@ -1,18 +1,46 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
 import { Item } from '@/types'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 defineProps<{
   title: string
   items: Item[]
 }>()
+
+const copied = ref(false)
+
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text).then(() => {
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 1000)
+  })
+}
 </script>
 
 <template>
   <div
+    v-if="copied"
+    class="toast z-50 text-base-content text-base"
+  >
+    <div class="alert alert-info">
+      <font-awesome-icon :icon="['fas', 'copy']" />
+      <span>Copied to clipboard.</span>
+    </div>
+  </div>
+  <div
     class="border rounded p-2 bg-base-100"
   >
-    <h2>
+    <h2
+      class="col-span-8 hover:text-accent cursor-pointer"
+      @click="copyToClipboard(`${title}`)"
+    >
+      <font-awesome-icon
+        icon="copy"
+        class="opacity-25 mr-1"
+      />
       {{ title }}
     </h2>
     <div
@@ -37,10 +65,17 @@ defineProps<{
         {{ item.cost }}
       </div>
       <div class="capitalize truncate">
-        {{ item.rarity }} {{ item.type }}
+        {{ item.rarity.replace('_',' ') }} {{ item.type }}
       </div>
-      <div class="col-span-8">
-        {{ `[${item.name}](${item.url})` }}
+      <div
+        class="col-span-8 hover:text-accent cursor-pointer"
+        @click="copyToClipboard(`[${item.name}](${item.url}): ${item.cost}`)"
+      >
+        <font-awesome-icon
+          icon="copy"
+          class="opacity-25 mr-1"
+        />
+        {{ `[${item.name}](${item.url}): ${item.cost}` }}
       </div>
     </div>
   </div>
