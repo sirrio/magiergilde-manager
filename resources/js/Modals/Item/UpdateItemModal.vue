@@ -25,6 +25,7 @@ const showModal = () => {
 const clickUpdateItem = () => {
   form.patch(route('item.update', { item: props.item }), {
     preserveState: false,
+    preserveScroll: true
   })
 }
 
