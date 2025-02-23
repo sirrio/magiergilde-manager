@@ -10,7 +10,7 @@ defineProps<{
 
 const copied = ref(false)
 
-const copyToClipboard = (text) => {
+const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text).then(() => {
     copied.value = true
     setTimeout(() => {
