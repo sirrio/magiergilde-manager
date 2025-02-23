@@ -72,6 +72,7 @@ function cyrb128(str: string): [number, number, number, number] {
         </label>
         <UniqueItemsTable
           title="⚔️ Common Magic Items (Ab Low Tier):"
+          big
           :items="shuffleArray(items.filter(i => i.rarity === 'common' && i.type === 'item'), seed).splice(0, 5)"
         />
         <UniqueItemsTable
@@ -84,6 +85,7 @@ function cyrb128(str: string): [number, number, number, number] {
         />
         <UniqueItemsTable
           title="⚔️ Uncommon Magic Items (Ab Low Tier):"
+          big
           :items="shuffleArray(items.filter(i => i.rarity === 'uncommon' && i.type === 'item'), seed).splice(0, 3)"
         />
         <UniqueItemsTable
@@ -96,6 +98,7 @@ function cyrb128(str: string): [number, number, number, number] {
         />
         <UniqueItemsTable
           title="⚔️ Rare Magic Items (Ab High Tier):"
+          big
           :items="shuffleArray(items.filter(i => i.rarity === 'rare' && i.type === 'item'), seed).splice(0, 2)"
         />
         <UniqueItemsTable
@@ -104,6 +107,7 @@ function cyrb128(str: string): [number, number, number, number] {
         />
         <UniqueItemsTable
           title="⚔️ Very Rare Magic Item (Ab Epic Tier):"
+          big
           :items="shuffleArray(items.filter(i => i.rarity === 'very_rare' && i.type === 'item'), seed).splice(0, 1)"
         />
         <UniqueItemsTable
