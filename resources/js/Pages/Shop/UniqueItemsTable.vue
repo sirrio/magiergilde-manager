@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 defineProps<{
   title: string
   items: Item[]
+  big?: boolean
 }>()
 
 const copied = ref(false)
@@ -35,7 +36,7 @@ const copyToClipboard = (text: string) => {
   >
     <h2
       class="col-span-8 hover:text-accent cursor-pointer"
-      @click="copyToClipboard(`${title}`)"
+      @click="copyToClipboard(big ? `## ***${title}***` :`### ${title}`)"
     >
       <font-awesome-icon
         icon="copy"
@@ -65,17 +66,17 @@ const copyToClipboard = (text: string) => {
         {{ item.cost }}
       </div>
       <div class="capitalize truncate">
-        {{ item.rarity.replace('_',' ') }} {{ item.type }}
+        {{ item.rarity.replace("_", " ") }} {{ item.type }}
       </div>
       <div
         class="col-span-8 hover:text-accent cursor-pointer"
-        @click="copyToClipboard(`[${item.name}](${item.url}): ${item.cost}`)"
+        @click="copyToClipboard(`[${item.name}](<${item.url}>): ${item.cost}`)"
       >
         <font-awesome-icon
           icon="copy"
           class="opacity-25 mr-1"
         />
-        {{ `[${item.name}](${item.url}): ${item.cost}` }}
+        {{ `[${item.name}](<${item.url}>): ${item.cost}` }}
       </div>
     </div>
   </div>
