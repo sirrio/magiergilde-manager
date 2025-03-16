@@ -103,6 +103,12 @@ const themes = [
             </li>
             <li v-if="$page.props.auth.user.is_admin">
               <a
+                :href="route('spells')"
+                :class="{'active': route().current('spells')}"
+              >Spells</a>
+            </li>
+            <li v-if="$page.props.auth.user.is_admin">
+              <a
                 :href="route('shop')"
                 :class="{'active': route().current('shop')}"
               >Shop</a>
@@ -130,6 +136,12 @@ const themes = [
               :href="route('items')"
               :class="{'active': route().current('items')}"
             >Items</a>
+          </li>
+          <li v-if="$page.props.auth.user.is_admin">
+            <a
+              :href="route('spells')"
+              :class="{'active': route().current('spells')}"
+            >Spells</a>
           </li>
           <li v-if="$page.props.auth.user.is_admin">
             <a

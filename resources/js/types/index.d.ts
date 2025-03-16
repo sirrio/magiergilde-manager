@@ -33,6 +33,15 @@ export interface Item {
   rarity: string;
 }
 
+export interface Spell {
+  id: number;
+  name: string;
+  url: string;
+  legacy_url: string;
+  spell_school: string;
+  spell_level: number;
+}
+
 export interface CharacterClass {
   id: number;
   name: string;

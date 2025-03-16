@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Character;
 use App\Models\Game;
 use App\Models\Item;
+use App\Models\Spell;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +81,12 @@ Route::get('/items', function () {
 })->middleware(['auth', 'verified'])->name('items');
 Route::post('/item', [ItemController::class, 'store'])->name('item.store');
 Route::patch('/item/{item}', [ItemController::class, 'update'])->name('item.update');
+
+Route::get('/spells', function () {
+  return Inertia::render('Spell/Index', [
+    'spells' => Spell::query()->select(['id', 'name', 'url', 'legacy_url', 'spell_school', 'spell_level'])->orderBy('spell_level')->get(),
+  ]);
+})->middleware(['auth', 'verified'])->name('spells');
 
 Route::middleware('auth')->group(function () {
   Route::get('/character/{character}', [CharacterController::class, 'show'])->name('character.show');
