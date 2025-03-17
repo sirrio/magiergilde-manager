@@ -77,7 +77,7 @@ defineExpose({
               type="number"
               min="0"
               placeholder="0"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -91,7 +91,7 @@ defineExpose({
               min="0"
               max="59"
               placeholder="0"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
         </div>
@@ -104,7 +104,7 @@ defineExpose({
             v-model="form.title"
             placeholder="Peters greatest game"
             type="text"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -114,7 +114,7 @@ defineExpose({
           </div>
           <select
             v-model="form.tier"
-            class="select select-bordered w-full"
+            class="select"
           >
             <option
               :value="''"
@@ -139,7 +139,7 @@ defineExpose({
           <input
             v-model="form.start_date"
             type="date"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -163,7 +163,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="1"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -173,7 +173,7 @@ defineExpose({
           </div>
           <textarea
             v-model="form.notes"
-            class="textarea textarea-bordered h-24"
+            class="textarea h-24"
             placeholder="Notes"
           />
         </label>

@@ -51,7 +51,7 @@ defineExpose({
           v-model="form.name"
           type="text"
           placeholder="Shortsword +1"
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -63,7 +63,7 @@ defineExpose({
           v-model="form.url"
           type="text"
           placeholder="https://..."
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -75,7 +75,7 @@ defineExpose({
           v-model="form.cost"
           type="text"
           placeholder="1000 GP"
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -85,7 +85,7 @@ defineExpose({
         </div>
         <select
           v-model="form.rarity"
-          class="select select-bordered w-full capitalize"
+          class="select capitalize"
         >
           <option
             v-for="(rarity, key) in ['common', 'uncommon', 'rare', 'very_rare']"
@@ -104,7 +104,7 @@ defineExpose({
         </div>
         <select
           v-model="form.type"
-          class="select select-bordered w-full capitalize"
+          class="select capitalize"
         >
           <option
             v-for="(type, key) in ['item', 'consumable', 'spellscroll']"

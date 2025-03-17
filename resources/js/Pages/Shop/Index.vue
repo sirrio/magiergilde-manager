@@ -66,7 +66,7 @@ function cyrb128(str: string): [number, number, number, number] {
           <span class="mr-3 uppercase font-bold tracking-wide label-text">Seed:</span>
           <input
             v-model="seed"
-            class="input input-bordered input-xs w-full"
+            class="input input-xs"
             type="text"
           >
         </label>

@@ -93,11 +93,11 @@ defineExpose({
               v-model="form.name"
               placeholder="Your allies name"
               type="text"
-              class="input input-sm input-bordered w-full"
+              class="input input-sm"
             >
             <select
               v-model="form.standing"
-              class="select select-bordered select-sm w-32 capitalize"
+              class="select select-sm w-32 capitalize"
             >
               <option
                 v-for="standing in standings"

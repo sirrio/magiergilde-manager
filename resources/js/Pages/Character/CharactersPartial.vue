@@ -377,7 +377,7 @@ const copyCharactersAsString = () => {
             </div>
           </div>
           <div class="mt-3 text-xs grid grid-cols-2 gap-1">
-            <div class="border rounded p-1">
+            <div class="border rounded-sm p-1">
               <h4 class="font-bold">
                 <font-awesome-icon
                   :icon="['fas', 'compass']"
@@ -403,7 +403,7 @@ const copyCharactersAsString = () => {
               </p>
             </div>
 
-            <div class="border rounded p-1">
+            <div class="border rounded-sm p-1">
               <h4 class="font-bold">
                 <font-awesome-icon
                   :icon="['fas', 'users']"
@@ -419,7 +419,7 @@ const copyCharactersAsString = () => {
               </p>
             </div>
 
-            <div class="border rounded p-1">
+            <div class="border rounded-sm p-1">
               <h4 class="font-bold">
                 <font-awesome-icon
                   :icon="['fas', 'hourglass']"
@@ -444,7 +444,7 @@ const copyCharactersAsString = () => {
               </p>
             </div>
 
-            <div class="border rounded p-1">
+            <div class="border rounded-sm p-1">
               <h4 class="font-bold">
                 <font-awesome-icon
                   :icon="['fas', 'hat-wizard']"
@@ -747,7 +747,7 @@ const copyCharactersAsString = () => {
           </div>
         </div>
         <div class="mt-3 text-xs grid grid-cols-2 gap-1">
-          <div class="border rounded p-1">
+          <div class="border rounded-sm p-1">
             <h4 class="font-bold">
               <font-awesome-icon
                 :icon="['fas', 'compass']"
@@ -773,7 +773,7 @@ const copyCharactersAsString = () => {
             </p>
           </div>
 
-          <div class="border rounded p-1">
+          <div class="border rounded-sm p-1">
             <h4 class="font-bold">
               <font-awesome-icon
                 :icon="['fas', 'users']"
@@ -789,7 +789,7 @@ const copyCharactersAsString = () => {
             </p>
           </div>
 
-          <div class="border rounded p-1">
+          <div class="border rounded-sm p-1">
             <h4 class="font-bold">
               <font-awesome-icon
                 :icon="['fas', 'hourglass']"
@@ -811,7 +811,7 @@ const copyCharactersAsString = () => {
             </p>
           </div>
 
-          <div class="border rounded p-1">
+          <div class="border rounded-sm p-1">
             <h4 class="font-bold">
               <font-awesome-icon
                 :icon="['fas', 'hat-wizard']"

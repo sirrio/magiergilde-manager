@@ -32,7 +32,7 @@ const copyToClipboard = (text: string) => {
     </div>
   </div>
   <div
-    class="border rounded p-2 bg-base-100"
+    class="border rounded-sm p-2 bg-base-100"
   >
     <h2
       class="col-span-8 hover:text-accent cursor-pointer"

@@ -36,7 +36,7 @@ const submit = () => {
             required
             autocomplete="current-password"
             autofocus
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 

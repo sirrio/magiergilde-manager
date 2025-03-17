@@ -56,7 +56,7 @@ const updatePassword = () => {
               type="password"
               placeholder="****"
               autocomplete="current-password"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -69,7 +69,7 @@ const updatePassword = () => {
               type="password"
               placeholder="****"
               autocomplete="new-password"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -82,7 +82,7 @@ const updatePassword = () => {
               type="password"
               placeholder="****"
               autocomplete="new-password"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 

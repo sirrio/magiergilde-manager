@@ -80,7 +80,7 @@ const closeModal = () => {
                 placeholder="****"
                 required
                 autocomplete="new-password"
-                class="input input-bordered w-full"
+                class="input"
                 @keyup.enter="deleteUser"
               >
             </label>

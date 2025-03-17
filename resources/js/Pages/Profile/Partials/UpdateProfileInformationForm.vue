@@ -37,7 +37,7 @@ const form = useForm({
               required
               autofocus
               autocomplete="name"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -51,7 +51,7 @@ const form = useForm({
               placeholder="someone@mail.com"
               required
               autocomplete="username"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -62,7 +62,7 @@ const form = useForm({
           <!--                :href="route('verification.send')"-->
           <!--                method="post"-->
           <!--                as="button"-->
-          <!--                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"-->
+          <!--                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"-->
           <!--              >-->
           <!--                Click here to re-send the verification email.-->
           <!--              </Link>-->

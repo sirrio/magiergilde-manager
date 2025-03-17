@@ -344,7 +344,7 @@ const calculateTotalCoins = () => {
       <div
         v-for="(game, key) of games"
         :key="key"
-        class="card card-compact bg-base-100 text-base-content group"
+        class="card card-sm bg-base-100 text-base-content group"
       >
         <div
           tabindex="0"

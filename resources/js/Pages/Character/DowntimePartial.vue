@@ -82,7 +82,7 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
       v-for="(downtime, key) of character.downtimes"
       v-else
       :key="key"
-      class="card card-compact bg-base-100 text-base-content group"
+      class="card card-sm bg-base-100 text-base-content group"
     >
       <div
         tabindex="0"

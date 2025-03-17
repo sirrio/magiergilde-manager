@@ -42,8 +42,6 @@ const themes = [
   'dim',
   'nord',
   'sunset',
-  'josi',
-  'lenas',
 ]
 </script>
 
@@ -81,7 +79,7 @@ const themes = [
           </div>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-sm"
           >
             <li>
               <a
@@ -139,13 +137,13 @@ const themes = [
           </li>
         </ul>
       </div>
-      <div class="flex-none">
+      <div class="flex-none flex mr-4">
         <div class="flex items-center">
           <p class="hidden sm:block">
             Theme:
           </p>
           <select
-            class="select select-bordered select-sm text-xs ml-1 mr-6"
+            class="select select-sm text-xs ml-1 mr-6"
             data-choose-theme
           >
             <option
@@ -175,7 +173,7 @@ const themes = [
           </div>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-sm bg-base-100 rounded-box w-52"
           >
             <li><a :href="route('profile.edit')">Profile</a></li>
             <li>

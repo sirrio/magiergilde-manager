@@ -39,7 +39,7 @@ const submit = () => {
               required
               autofocus
               autocomplete="name"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -53,7 +53,7 @@ const submit = () => {
               placeholder="someone@mail.com"
               required
               autocomplete="username"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -67,7 +67,7 @@ const submit = () => {
               placeholder="****"
               required
               autocomplete="new-password"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
@@ -81,7 +81,7 @@ const submit = () => {
               placeholder="****"
               required
               autocomplete="new-password"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 

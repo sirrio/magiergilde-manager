@@ -52,7 +52,7 @@ defineExpose({
           v-model="deleteConfirm"
           type="text"
           placeholder="DELETE"
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 

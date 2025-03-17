@@ -97,7 +97,7 @@ function inputFile(event: Event) {
           v-model="form.name"
           type="text"
           placeholder="Peter"
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -127,7 +127,7 @@ function inputFile(event: Event) {
         <select
           v-model="form.faction"
           :disabled="form.is_filler"
-          class="select select-bordered w-full capitalize"
+          class="select capitalize"
         >
           <option
             v-for="(faction, key) in factions"
@@ -145,7 +145,7 @@ function inputFile(event: Event) {
         </div>
         <select
           v-model="form.version"
-          class="select select-bordered w-full"
+          class="select"
         >
           <option
             :value="''"
@@ -174,7 +174,7 @@ function inputFile(event: Event) {
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -188,7 +188,7 @@ function inputFile(event: Event) {
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -203,7 +203,7 @@ function inputFile(event: Event) {
           type="number"
           min="0"
           placeholder="0"
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -215,7 +215,7 @@ function inputFile(event: Event) {
           v-model="form.external_link"
           type="text"
           placeholder="https://..."
-          class="input input-bordered w-full"
+          class="input"
         >
       </label>
 
@@ -225,7 +225,7 @@ function inputFile(event: Event) {
         </div>
         <input
           type="file"
-          class="file-input file-input-bordered w-full"
+          class="file-input"
           accept=".jpeg,.png,.jpg,.gif,.webp"
           @input="inputFile($event)"
         >
@@ -237,7 +237,7 @@ function inputFile(event: Event) {
         </div>
         <textarea
           v-model="form.notes"
-          class="textarea textarea-bordered h-24"
+          class="textarea h-24"
           placeholder="Notes"
         />
       </label>

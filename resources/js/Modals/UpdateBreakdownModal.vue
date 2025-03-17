@@ -78,7 +78,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -91,7 +91,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -109,7 +109,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -125,7 +125,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -143,7 +143,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -159,7 +159,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -177,7 +177,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -193,7 +193,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -211,7 +211,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -227,7 +227,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>
@@ -242,7 +242,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
 
@@ -255,7 +255,7 @@ defineExpose({
             type="number"
             min="0"
             placeholder="0"
-            class="input input-bordered w-full"
+            class="input"
           >
         </label>
       </div>

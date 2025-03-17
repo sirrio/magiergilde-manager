@@ -67,7 +67,7 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
       v-for="(adventure, key) of character.adventures"
       v-else
       :key="key"
-      class="card card-compact bg-base-100 text-base-content group"
+      class="card card-sm bg-base-100 text-base-content group"
     >
       <div
         tabindex="0"

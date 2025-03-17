@@ -44,7 +44,7 @@ const submit = () => {
               required
               autofocus
               autocomplete="username"
-              class="input input-bordered w-full"
+              class="input"
             >
           </label>
 
