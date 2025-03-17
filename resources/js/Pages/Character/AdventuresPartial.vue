@@ -2,7 +2,7 @@
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import DestroyAdventureModal from '@/Modals/Adventure/DestroyAdventureModal.vue'
 import UpdateAdventureModal from '@/Modals/Adventure/UpdateAdventureModal.vue'
-import { Adventure, Character } from '@/types/index.js'
+import { Adventure, Character } from "@/types"
 import { nextTick, Ref, ref } from 'vue'
 import { calculateBubbleByAdventures } from '@/helpers/calculateBubble'
 
