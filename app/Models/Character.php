@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -36,22 +38,22 @@ class Character extends Model
     'is_filler' => 'boolean'
   ];
 
-  public function allies(): \Illuminate\Database\Eloquent\Relations\HasMany
+  public function allies(): HasMany
   {
     return $this->hasMany(Ally::class)->orderBy('name');
   }
 
-  public function adventures(): \Illuminate\Database\Eloquent\Relations\HasMany
+  public function adventures(): HasMany
   {
     return $this->hasMany(Adventure::class);
   }
 
-  public function downtimes(): \Illuminate\Database\Eloquent\Relations\HasMany
+  public function downtimes(): HasMany
   {
     return $this->hasMany(Downtime::class);
   }
 
-  public function characterClasses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+  public function characterClasses(): BelongsToMany
   {
     return $this->belongsToMany(CharacterClass::class);
   }

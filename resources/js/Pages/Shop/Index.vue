@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import { Item } from '@/types'
+import { Item } from '../../Types'
 import { ref } from 'vue'
 import UniqueItemsTable from '@/Pages/Shop/UniqueItemsTable.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'

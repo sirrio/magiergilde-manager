@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Game } from '@/types'
+import { Game } from '../../Types'
 
 const props = defineProps<{ game: Game }>()
 

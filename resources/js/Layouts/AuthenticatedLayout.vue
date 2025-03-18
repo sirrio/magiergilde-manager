@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
 import { onMounted } from 'vue'
@@ -8,6 +8,8 @@ import { themeChange } from 'theme-change'
 onMounted(() => {
   themeChange(false)
 })
+
+const page = usePage()
 
 const themes = [
   'light',
@@ -48,11 +50,11 @@ const themes = [
 <template>
   <div class="min-h-screen bg-base-300">
     <div
-      v-if="Object.keys($page.props.errors).length > 0"
+      v-if="Object.keys(page.props.errors).length > 0"
       class="toast z-50"
     >
       <div
-        v-for="(error, key) in $page.props.errors"
+        v-for="(error, key) in page.props.errors"
         :key="key"
         class="alert alert-error"
       >
@@ -83,26 +85,26 @@ const themes = [
           >
             <li>
               <a
-                :href="route('characters')"
-                :class="{'active': route().current('characters')}"
+                :href="route('characters.index')"
+                :class="{'menu-active': route().current('characters.index')}"
               >Characters</a>
             </li>
             <li>
               <a
-                :href="route('games')"
-                :class="{'active': route().current('games')}"
+                :href="route('games.index')"
+                :class="{'menu-active': route().current('games.index')}"
               >Game Master</a>
             </li>
-            <li v-if="$page.props.auth.user.is_admin">
+            <li v-if="page.props.auth.user.is_admin">
               <a
-                :href="route('items')"
-                :class="{'active': route().current('items')}"
+                :href="route('items.index')"
+                :class="{'active': route().current('items.index')}"
               >Items</a>
             </li>
-            <li v-if="$page.props.auth.user.is_admin">
+            <li v-if="page.props.auth.user.is_admin">
               <a
-                :href="route('shop')"
-                :class="{'active': route().current('shop')}"
+                :href="route('items.shop')"
+                :class="{'active': route().current('items.shop')}"
               >Shop</a>
             </li>
           </ul>
@@ -113,26 +115,26 @@ const themes = [
         <ul class="menu menu-horizontal gap-1 px-1">
           <li>
             <a
-              :href="route('characters')"
-              :class="{'active': route().current('characters')}"
+              :href="route('characters.index')"
+              :class="{'menu-active': route().current('characters.index')}"
             >Characters</a>
           </li>
           <li>
             <a
-              :href="route('games')"
-              :class="{'active': route().current('games')}"
+              :href="route('games.index')"
+              :class="{'menu-active': route().current('games.index')}"
             >Game Master</a>
           </li>
-          <li v-if="$page.props.auth.user.is_admin">
+          <li v-if="page.props.auth.user.is_admin">
             <a
-              :href="route('items')"
-              :class="{'active': route().current('items')}"
+              :href="route('items.index')"
+              :class="{'menu-active': route().current('items.index')}"
             >Items</a>
           </li>
-          <li v-if="$page.props.auth.user.is_admin">
+          <li v-if="page.props.auth.user.is_admin">
             <a
-              :href="route('shop')"
-              :class="{'active': route().current('shop')}"
+              :href="route('items.shop')"
+              :class="{'menu-active': route().current('items.shop')}"
             >Shop</a>
           </li>
         </ul>
@@ -158,7 +160,7 @@ const themes = [
           </select>
         </div>
         <div class="dropdown dropdown-end">
-          <span class="mr-3 hidden sm:inline">{{ $page.props.auth.user.name }}</span>
+          <span class="mr-3 hidden sm:inline">{{ page.props.auth.user.name }}</span>
           <div
             tabindex="0"
             role="button"
@@ -175,7 +177,6 @@ const themes = [
             tabindex="0"
             class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-sm bg-base-100 rounded-box w-52"
           >
-            <li><a :href="route('profile.edit')">Profile</a></li>
             <li>
               <Link
                 :href="route('logout')"

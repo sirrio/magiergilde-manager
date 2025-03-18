@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Character } from '@/types'
+import { Character } from '../Types'
 import { InertiaForm, router, useForm } from '@inertiajs/vue3'
 
 const modalAlly = ref()

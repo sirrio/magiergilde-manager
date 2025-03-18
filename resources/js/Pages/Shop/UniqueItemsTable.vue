@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
-import { Item } from '@/types'
+import { Item } from '../../Types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 defineProps<{

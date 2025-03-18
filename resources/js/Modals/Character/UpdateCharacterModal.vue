@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Character } from '@/types'
+import { Character } from '../../Types'
 
 const props = defineProps<{
   character: Character

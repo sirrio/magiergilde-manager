@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Item } from '@/types'
+import { Item } from '../../Types'
 
 const form: InertiaForm<Item> = useForm({
   name: '',

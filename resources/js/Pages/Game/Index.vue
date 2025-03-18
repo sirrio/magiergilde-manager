@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head } from '@inertiajs/vue3'
-import { Character, Game, User } from '@/types'
+import { Character, Game, User } from '../../Types'
 import GamesPartial from '@/Pages/Game/GamesPartial.vue'
 
 defineProps<{

@@ -1,52 +1,52 @@
 <script setup lang="ts">
-import CreateGameModal from '@/Modals/Game/CreateGameModal.vue'
-import { nextTick, Ref, ref } from 'vue'
-import { Character, Game, User } from '@/types'
-import { calculateBubbleByFillerCharacters, calculateBubbleByGames } from '@/helpers/calculateBubble'
-import { calculateCoins } from '@/helpers/calculateCoins'
-import { calculateBubbleSpend } from '@/helpers/calculateBubbleSpend'
-import { calculateCoinsSpend } from '@/helpers/calculateCoinsSpend'
-import UpdateBreakdownModal from '@/Modals/UpdateBreakdownModal.vue'
-import UpdateGameModal from '@/Modals/Game/UpdateGameModal.vue'
-import DestroyGameModal from '@/Modals/Game/DestroyGameModal.vue'
-import TierLogo from '@/Components/TierLogo.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import CreateGameModal from '@/Modals/Game/CreateGameModal.vue';
+import { nextTick, Ref, ref } from 'vue';
+import { Character, Game, User } from '../../Types';
+import { calculateBubbleByFillerCharacters, calculateBubbleByGames } from '@/Helpers/calculateBubble';
+import { calculateCoins } from '@/Helpers/calculateCoins';
+import { calculateBubbleSpend } from '@/Helpers/calculateBubbleSpend';
+import { calculateCoinsSpend } from '@/Helpers/calculateCoinsSpend';
+import UpdateBreakdownModal from '@/Modals/UpdateBreakdownModal.vue';
+import UpdateGameModal from '@/Modals/Game/UpdateGameModal.vue';
+import DestroyGameModal from '@/Modals/Game/DestroyGameModal.vue';
+import TierLogo from '@/Components/TierLogo.vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps<{
   games: Game[]
   user: User
   characters: Character[]
-}>()
+}>();
 
-const updateBreakdownModal = ref()
-const createGameModal = ref()
-const updateGameModal = ref()
-const updateGameModalKey = ref('updateGameModalKey-1')
-const destroyGameModal = ref()
-const destroyGameModalKey = ref('destroyGameModalKey-1')
-const currentGame: Ref<Game | null> = ref(null)
+const updateBreakdownModal = ref();
+const createGameModal = ref();
+const updateGameModal = ref();
+const updateGameModalKey = ref('updateGameModalKey-1');
+const destroyGameModal = ref();
+const destroyGameModalKey = ref('destroyGameModalKey-1');
+const currentGame: Ref<Game | null> = ref(null);
 
 const clickUpdateBreakdownModal = () => {
-  updateBreakdownModal.value.showModal()
-}
+  updateBreakdownModal.value.showModal();
+};
 
 const clickCreateGameModal = () => {
-  createGameModal.value.showModal()
-}
+  createGameModal.value.showModal();
+};
 
 const clickUpdateGameModal = async (game: Game) => {
-  currentGame.value = game
-  updateGameModalKey.value = 'updateGameModalKey-' + Math.random()
-  await nextTick()
-  updateGameModal.value.showModal()
-}
+  currentGame.value = game;
+  updateGameModalKey.value = 'updateGameModalKey-' + Math.random();
+  await nextTick();
+  updateGameModal.value.showModal();
+};
 
 const clickDestroyGameModal = async (game: Game) => {
-  currentGame.value = game
-  destroyGameModalKey.value = 'destroyGameModalKey-' + Math.random()
-  await nextTick()
-  destroyGameModal.value.showModal()
-}
+  currentGame.value = game;
+  destroyGameModalKey.value = 'destroyGameModalKey-' + Math.random();
+  await nextTick();
+  destroyGameModal.value.showModal();
+};
 
 const calculateTotalBubbles = () => {
   return calculateBubbleByGames(props.games)
@@ -56,8 +56,8 @@ const calculateTotalBubbles = () => {
     + props.user.lt_bubbles
     + props.user.ht_bubbles
     + props.user.et_bubbles
-    + props.user.other_bubbles
-}
+    + props.user.other_bubbles;
+};
 
 const calculateTotalCoins = () => {
   return calculateCoins(props.games)
@@ -66,8 +66,8 @@ const calculateTotalCoins = () => {
     + props.user.lt_coins
     + props.user.ht_coins
     + props.user.et_coins
-    + props.user.other_coins
-}
+    + props.user.other_coins;
+};
 </script>
 
 <template>
@@ -214,126 +214,126 @@ const calculateTotalCoins = () => {
 
           <table class="table">
             <thead>
-              <tr>
-                <th />
-                <th>
-                  <font-awesome-icon
-                    :icon="['fas', 'droplet']"
-                    size="sm"
-                  />
-                  Bubbles
-                </th>
-                <th>
-                  <font-awesome-icon
-                    :icon="['fas', 'coins']"
-                    size="sm"
-                  />
-                  Coins
-                </th>
-              </tr>
+            <tr>
+              <th />
+              <th>
+                <font-awesome-icon
+                  :icon="['fas', 'droplet']"
+                  size="sm"
+                />
+                Bubbles
+              </th>
+              <th>
+                <font-awesome-icon
+                  :icon="['fas', 'coins']"
+                  size="sm"
+                />
+                Coins
+              </th>
+            </tr>
             </thead>
             <tbody>
-              <tr class="hover">
-                <th>
-                  <font-awesome-icon
-                    fixed-width
-                    icon="compass"
-                  />
-                  Games
-                </th>
-                <td>{{ calculateBubbleByGames(games) }}</td>
-                <td>{{ calculateCoins(games) }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <font-awesome-icon
+                  fixed-width
+                  icon="compass"
+                />
+                Games
+              </th>
+              <td>{{ calculateBubbleByGames(games) }}</td>
+              <td>{{ calculateCoins(games) }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <font-awesome-icon
-                    :icon="['fas', 'plus']"
-                    size="2xs"
-                    class="-mr-1"
-                  />
-                  <font-awesome-icon
-                    :icon="['fas', '1']"
-                    fixed-width
-                    size="sm"
-                  />
-                  Filler
-                </th>
-                <td>{{ calculateBubbleByFillerCharacters(characters) }}</td>
-                <td>
-                  <font-awesome-icon
-                    :icon="['fas', 'ban']"
-                    size="xs"
-                  />
-                </td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <font-awesome-icon
+                  :icon="['fas', 'plus']"
+                  size="2xs"
+                  class="-mr-1"
+                />
+                <font-awesome-icon
+                  :icon="['fas', '1']"
+                  fixed-width
+                  size="sm"
+                />
+                Filler
+              </th>
+              <td>{{ calculateBubbleByFillerCharacters(characters) }}</td>
+              <td>
+                <font-awesome-icon
+                  :icon="['fas', 'ban']"
+                  size="xs"
+                />
+              </td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <font-awesome-icon
-                    fixed-width
-                    icon="candy-cane"
-                    class="text-red-600"
-                  />
-                  Events
-                </th>
-                <td>{{ user.event_bubbles }}</td>
-                <td>{{ user.event_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <font-awesome-icon
+                  fixed-width
+                  icon="candy-cane"
+                  class="text-red-600"
+                />
+                Events
+              </th>
+              <td>{{ user.event_bubbles }}</td>
+              <td>{{ user.event_coins }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <tier-logo
-                    tier="bt"
-                    :size="17"
-                  />
-                  <span class="ml-1">Bonus</span>
-                </th>
-                <td>{{ user.bt_bubbles }}</td>
-                <td>{{ user.bt_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <tier-logo
+                  tier="bt"
+                  :size="17"
+                />
+                <span class="ml-1">Bonus</span>
+              </th>
+              <td>{{ user.bt_bubbles }}</td>
+              <td>{{ user.bt_coins }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <tier-logo
-                    tier="lt"
-                    :size="17"
-                  />
-                  <span class="ml-1">Bonus</span>
-                </th>
-                <td>{{ user.lt_bubbles }}</td>
-                <td>{{ user.lt_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <tier-logo
+                  tier="lt"
+                  :size="17"
+                />
+                <span class="ml-1">Bonus</span>
+              </th>
+              <td>{{ user.lt_bubbles }}</td>
+              <td>{{ user.lt_coins }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <tier-logo
-                    tier="ht"
-                    :size="17"
-                  />
-                  <span class="ml-1">Bonus</span>
-                </th>
-                <td>{{ user.ht_bubbles }}</td>
-                <td>{{ user.ht_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <tier-logo
+                  tier="ht"
+                  :size="17"
+                />
+                <span class="ml-1">Bonus</span>
+              </th>
+              <td>{{ user.ht_bubbles }}</td>
+              <td>{{ user.ht_coins }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>
-                  <tier-logo
-                    tier="et"
-                    :size="17"
-                  />
-                  <span class="ml-1">Bonus</span>
-                </th>
-                <td>{{ user.et_bubbles }}</td>
-                <td>{{ user.et_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>
+                <tier-logo
+                  tier="et"
+                  :size="17"
+                />
+                <span class="ml-1">Bonus</span>
+              </th>
+              <td>{{ user.et_bubbles }}</td>
+              <td>{{ user.et_coins }}</td>
+            </tr>
 
-              <tr class="hover">
-                <th>Other</th>
-                <td>{{ user.other_bubbles }}</td>
-                <td>{{ user.other_coins }}</td>
-              </tr>
+            <tr class="hover">
+              <th>Other</th>
+              <td>{{ user.other_bubbles }}</td>
+              <td>{{ user.other_coins }}</td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -346,11 +346,8 @@ const calculateTotalCoins = () => {
         :key="key"
         class="card card-sm bg-base-100 text-base-content group"
       >
-        <div
-          tabindex="0"
-          class="card-body collapse cursor-pointer"
-        >
-          <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
+        <div class="card-body cursor-pointer">
+          <div class="group-hover:absolute group-hover:flex z-10 gap-1 hidden top-2 right-2">
             <button
               class="btn btn-xs btn-square"
               @click="clickUpdateGameModal(game)"
@@ -364,72 +361,73 @@ const calculateTotalCoins = () => {
               <font-awesome-icon :icon="['fas', 'x']" />
             </button>
           </div>
-          <div>
-            <div class="card-title">
-              <h3>
-                <font-awesome-icon
-                  :icon="['fas', 'hashtag']"
-                  size="xs"
+          <div class="collapse" tabindex="0">
+            <div class="">
+              <div class="card-title">
+                <h3>
+                  <font-awesome-icon
+                    :icon="['fas', 'hashtag']"
+                    size="xs"
+                  />
+                  {{ key + 1 }}
+                  {{ game.title ?? 'Game' }}
+                  <font-awesome-icon
+                    v-if="game.notes"
+                    :icon="['fas', 'note-sticky']"
+                    fixed-width
+                    size="xs"
+                  />
+                </h3>
+                <TierLogo
+                  :size="20"
+                  :tier="game.tier"
                 />
-                {{ key + 1 }}
-                {{ game.title ?? "Game" }}
-                <font-awesome-icon
-                  v-if="game.notes"
-                  :icon="['fas', 'note-sticky']"
-                  fixed-width
-                  size="xs"
-                />
-              </h3>
-              <TierLogo
-                :size="20"
-                :tier="game.tier"
-              />
+              </div>
             </div>
-            <span class="text-xs" />
-          </div>
-          <div class="flex justify-between text-xs">
-            <p>
-              <font-awesome-icon
-                :icon="['fas', 'clock']"
-              />
-              You gained
-              {{ calculateBubbleByGames([game]) }}
-              <span v-if="game.has_additional_bubble">(Character Quest)</span>
-              <font-awesome-icon
-                :icon="['fas', 'droplet']"
-                size="xs"
-                fixed-width
-              />
-              and
-              {{ calculateCoins([game]) }}
-              <font-awesome-icon
-                :icon="['fas', 'coins']"
-                size="xs"
-                fixed-width
-              />
-              in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
-              and {{ game.sessions }} sessions
-            </p>
-            <p class="italic text-right">
-              <font-awesome-icon
-                :icon="['fas', 'calendar']"
-              />
-              {{ new Date(game.start_date).toLocaleDateString() }}
-            </p>
-          </div>
-          <div class="collapse-content">
-            <p
-              v-if="game.notes"
-              class="whitespace-pre-wrap "
-            >
-              {{ game.notes }}
-            </p>
-            <p v-else>
-              <font-awesome-icon
-                :icon="['fas', 'circle-exclamation']"
-              />
-              No notes
-            </p>
+            <div class="flex justify-between text-xs">
+              <p>
+                <font-awesome-icon
+                  :icon="['fas', 'clock']"
+                />
+                You gained
+                {{ calculateBubbleByGames([game]) }}
+                <span v-if="game.has_additional_bubble">(Character Quest)</span>
+                <font-awesome-icon
+                  :icon="['fas', 'droplet']"
+                  size="xs"
+                  fixed-width
+                />
+                and
+                {{ calculateCoins([game]) }}
+                <font-awesome-icon
+                  :icon="['fas', 'coins']"
+                  size="xs"
+                  fixed-width
+                />
+                in {{ Math.floor(game.duration / 3600) }}h {{ (game.duration / 60) % 60 }}min
+                and {{ game.sessions }} sessions
+              </p>
+              <p class="italic text-right">
+                <font-awesome-icon
+                  :icon="['fas', 'calendar']"
+                />
+                {{ new Date(game.start_date).toLocaleDateString() }}
+              </p>
+            </div>
+            <div class="collapse-content">
+              <p
+                v-if="game.notes"
+                class="whitespace-pre-wrap "
+              >
+                {{ game.notes }}
+              </p>
+              <p v-else>
+                <font-awesome-icon
+                  :icon="['fas', 'circle-exclamation']"
+                />
+                No notes
+              </p>
+            </div>
           </div>
         </div>
       </div>

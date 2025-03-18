@@ -2,9 +2,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import AdventuresPartial from '@/Pages/Character/AdventuresPartial.vue'
 import DowntimePartial from '@/Pages/Character/DowntimePartial.vue'
-import { Character } from '@/types'
-import { calculateClassString } from '@/helpers/calculateClassString'
-import { calculateLevel } from '@/helpers/calculateLevel'
+import { Character } from '../../Types'
+import { calculateClassString } from '@/Helpers/calculateClassString'
+import { calculateLevel } from '@/Helpers/calculateLevel'
 import { Head } from '@inertiajs/vue3'
 
 defineProps<{

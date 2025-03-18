@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Character, Downtime } from "@/types"
+import { Character, Downtime } from "../../Types"
 import { nextTick, Ref, ref } from 'vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'

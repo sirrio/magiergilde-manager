@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { User } from '@/types'
+import { User } from '../Types'
 import TierLogo from '@/Components/TierLogo.vue'
 
 const props = defineProps<{

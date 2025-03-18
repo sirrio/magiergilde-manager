@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import { Item } from '@/types'
+import { Item } from '../../Types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import UpdateItemModal from '@/Modals/Item/UpdateItemModal.vue'
 import CreateItemModal from '@/Modals/Item/CreateItemModal.vue'

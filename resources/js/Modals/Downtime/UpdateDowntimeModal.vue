@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Downtime } from '@/types'
+import { Downtime } from '../../Types'
 
 const props = defineProps<{ downtime: Downtime }>()
 

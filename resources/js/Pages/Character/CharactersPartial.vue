@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, Ref, ref } from 'vue'
-import { Character } from '@/types'
+import { Character } from '../../Types'
 import { router } from '@inertiajs/vue3'
 import AllyModal from '@/Modals/AllyModal.vue'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
@@ -11,16 +11,16 @@ import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
 import DestroyDeletedCharacterModal from '@/Modals/Character/DestroyDeletedCharacterModal.vue'
 import UpdateDeletedCharacterModal from '@/Modals/Character/UpdateDeletedCharacterModal.vue'
 import TierLogo from '@/Components/TierLogo.vue'
-import { calculateTier } from '@/helpers/calculateTier'
-import { calculateLevel } from '@/helpers/calculateLevel'
-import { calculateClassString } from '@/helpers/calculateClassString'
-import { calculateBubblesInCurrentLevel } from '@/helpers/calculateBubblesInCurrentLevel'
-import { calculateBubblesToNextLevel } from '@/helpers/calculateBubblesToNextLevel'
-import { calculateBubble } from '@/helpers/calculateBubble'
-import { secondsToHourMinuteString } from '@/helpers/secondsToHourMinuteString'
-import { calculateRemainingDowntime } from '@/helpers/calculateRemainingDowntime'
-import { calculateFactionDowntime, calculateOtherDowntime } from '@/helpers/calculateDowntime'
-import { calculateFactionLevel } from '@/helpers/calculateFactionLevel'
+import { calculateTier } from '@/Helpers/calculateTier'
+import { calculateLevel } from '@/Helpers/calculateLevel'
+import { calculateClassString } from '@/Helpers/calculateClassString'
+import { calculateBubblesInCurrentLevel } from '@/Helpers/calculateBubblesInCurrentLevel'
+import { calculateBubblesToNextLevel } from '@/Helpers/calculateBubblesToNextLevel'
+import { calculateBubble } from '@/Helpers/calculateBubble'
+import { secondsToHourMinuteString } from '@/Helpers/secondsToHourMinuteString'
+import { calculateRemainingDowntime } from '@/Helpers/calculateRemainingDowntime'
+import { calculateFactionDowntime, calculateOtherDowntime } from '@/Helpers/calculateDowntime'
+import { calculateFactionLevel } from '@/Helpers/calculateFactionLevel'
 import draggable from 'vuedraggable'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -56,7 +56,7 @@ const filteredCharacters: Ref<Character[]> = ref(props.characters.filter(char =>
 const drag = ref(false)
 
 const clickShowCharacter = (id: number) => {
-  router.visit(route('character.show', { character: id }))
+  router.visit(route('characters.show', { character: id }))
 }
 const clickUpdateCharacterModal = async (character: Character) => {
   currentCharacter.value = character
@@ -121,7 +121,7 @@ const onEnd = () => {
     list: filteredCharacters.value,
   } as never
 
-  router.post(route('character.sort'), payload, { preserveScroll: true })
+  router.post(route('characters.sort'), payload, { preserveScroll: true })
 }
 
 const copied = ref(false)

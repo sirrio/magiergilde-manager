@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import { Head } from '@inertiajs/vue3';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
 defineProps<{
   canLogin?: boolean;
   canRegister?: boolean;
   laravelVersion: string;
   phpVersion: string;
-}>()
-
-const clickLogin = () => {
-  router.visit(route('login'))
-}
+}>();
 </script>
 
 <template>
@@ -26,19 +21,32 @@ const clickLogin = () => {
             class="mx-auto mb-10"
           />
           <h1 class="font-bold">
-            Hallo liebe Magiergilde.
+            Blaue Magiergilde
           </h1>
           <p>
-            aufgrund der besseren Organisation meiner Charaktere habe ich in den letzten Tagen ein Tool entwickelt, mit
-            dem man die Charaktere der Magiergilde verfolgen kann. Und zwar vollautomatisch.
+            Hier kannst du deine Charaktere und gespielten Runden speichern. Deine Ressourcen und Level werden
+            automatisch berechnet – so hast du alles im Blick und kannst dich voll und ganz auf dein Spiele
+            konzentrieren!
           </p>
 
-          <button
-            class="btn btn-primary"
-            @click="clickLogin()"
-          >
-            Get Started
-          </button>
+          <div class="flex gap-3 mt-10 justify-center">
+            <a
+              class="btn btn-neutral"
+              :href="route('discord.login')"
+            >
+              <font-awesome-icon :icon="['fas', 'right-to-bracket']" />
+              Einloggen per Discord
+            </a>
+
+            <a
+              class="btn btn-neutral btn-outline"
+              href="https://discord.gg/invite/dd5c"
+              target="_blank"
+            >
+              <font-awesome-icon :icon="['fab', 'discord']" />
+              Discord Community beitreten
+            </a>
+          </div>
         </div>
       </div>
     </div>
