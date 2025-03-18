@@ -61,7 +61,7 @@ const showModal = () => {
 }
 
 const clickCreateNewCharacter = () => {
-  form.post(route('character.store'), {
+  form.post(route('characters.store'), {
     preserveState: false,
   })
 }

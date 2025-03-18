@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { InertiaForm, useForm } from '@inertiajs/vue3'
-import { ref } from 'vue'
-import { Character } from '../../Types'
+import { InertiaForm, useForm, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Character } from '@/Types';
 
 const props = defineProps<{
   character: Character
-}>()
+}>();
+
+const page = usePage();
 
 const form: InertiaForm<{
   name: string
@@ -30,10 +32,10 @@ const form: InertiaForm<{
   bubble_shop_spend: props.character.bubble_shop_spend,
   external_link: props.character.external_link,
   is_filler: props.character.is_filler,
-  avatar: null,
-})
+  avatar: null
+});
 
-const modalCharacterCreate = ref()
+const modalCharacterCreate = ref();
 
 const factions = [
   'none',
@@ -45,32 +47,35 @@ const factions = [
   'gardisten',
   'unterhalter',
   'logistiker',
-  'flora & fauna',
-]
+  'flora & fauna'
+];
 
 const versions = [
   { id: '2024', name: '2024 Rules' },
-  { id: '2014', name: '2014 Rules' },
-]
+  { id: '2014', name: '2014 Rules' }
+];
 
 const showModal = () => {
-  modalCharacterCreate.value.showModal()
-}
+  modalCharacterCreate.value.showModal();
+};
 
 const clickUpdateCharacter = () => {
-  form.post(route('character.update', { character: props.character.id }), {
-    preserveState: false,
-  })
-}
+  form.post(route('characters.update', {
+    character: props.character.id,
+    _method: 'put'
+  }), {
+    preserveState: false
+  });
+};
 
 defineExpose({
-  showModal,
-})
+  showModal
+});
 
 function inputFile(event: Event) {
-  const target = event.target as HTMLInputElement
+  const target = event.target as HTMLInputElement;
   if (target?.files)
-    form.avatar = target?.files[0]
+    form.avatar = target.files[0] ?? null;
 }
 </script>
 
@@ -85,169 +90,139 @@ function inputFile(event: Event) {
           ✕
         </button>
       </form>
-      <h3 class="font-bold text-lg mb-6">
-        Update your character
-      </h3>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">What is your characters name?</span>
-        </div>
-        <input
-          v-model="form.name"
-          type="text"
-          placeholder="Peter"
-          class="input"
-        >
-      </label>
+      <form>
+        <fieldset class="fieldset ">
+          <legend class="fieldset-legend">Update your character</legend>
 
-      <div class="form-control w-full mb-2">
-        <span class="px-1 py-2 text-sm">What is your characters class?</span>
-        <div class="grid grid-cols-4">
-          <label
-            v-for="(characterClass, key) in $page.props.classes"
-            :key="key"
-            class="form-control flex-row gap-1"
+          <label class="fieldset-label">Name</label>
+          <input
+            v-model="form.name"
+            type="text"
+            placeholder="Peter"
+            class="input w-full"
           >
-            <input
-              :checked="form.class.some(cc => cc === characterClass.id)"
-              type="checkbox"
-              class="checkbox checkbox-xs"
-              @change="form.class.includes(characterClass.id) ? form.class.splice(form.class.indexOf(characterClass.id), 1) : form.class.push(characterClass.id)"
+
+          <label class="fieldset-label">Class(es)</label>
+          <div class="grid grid-cols-4 gap-1 rounded-box p-2 border border-base-content/20">
+            <template v-for="(characterClass, key) in page.props.classes" :key="key">
+              <fieldset class="fieldset flex">
+                <input
+                  :id="`$cc-${characterClass.id}`"
+                  :checked="form.class.some(cc => cc === characterClass.id)"
+                  type="checkbox"
+                  class="checkbox checkbox-sm"
+                  @change="form.class.includes(characterClass.id) ? form.class.splice(form.class.indexOf(characterClass.id), 1) : form.class.push(characterClass.id)"
+                >
+                <label :for="`$cc-${characterClass.id}`" class="fieldset-label truncate">
+                  {{ characterClass.name }}
+                </label>
+              </fieldset>
+            </template>
+          </div>
+
+          <label class="fieldset-label">Faction</label>
+          <select
+            v-model="form.faction"
+            :disabled="form.is_filler"
+            class="select capitalize w-full"
+          >
+            <option
+              v-for="(faction, key) in factions"
+              :key="key"
+              :value="faction"
             >
-            <span class="label-text text-sm">{{ characterClass.name }}</span>
-          </label>
-        </div>
-      </div>
+              {{ faction }}
+            </option>
+          </select>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">Does your character belong to a faction?</span>
-        </div>
-        <select
-          v-model="form.faction"
-          :disabled="form.is_filler"
-          class="select capitalize"
-        >
-          <option
-            v-for="(faction, key) in factions"
-            :key="key"
-            :value="faction"
+          <label class="fieldset-label">Rules version</label>
+          <select
+            v-model="form.version"
+            class="select w-full"
           >
-            {{ faction }}
-          </option>
-        </select>
-      </label>
+            <option
+              :value="''"
+              disabled
+              selected
+            >Pick one
+            </option>
+            <option
+              v-for="(version, key) in versions"
+              :key="key"
+              :value="version.id"
+            >
+              {{ version.name }}
+            </option>
+          </select>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">What version is you character?</span>
-        </div>
-        <select
-          v-model="form.version"
-          class="select"
-        >
-          <option
-            :value="''"
-            disabled
-            selected
-          >Pick one
-          </option>
-          <option
-            v-for="(version, key) in versions"
-            :key="key"
-            :value="version.id"
-          >
-            {{ version.name }}
-          </option>
-        </select>
-      </label>
+          <div class="grid grid-cols-2 gap-2">
+            <fieldset class="fieldset">
+              <label class="fieldset-label">Spend Game Master bubbles</label>
+              <input
+                v-model="form.dm_bubbles"
+                :disabled="form.is_filler"
+                type="number"
+                min="0"
+                placeholder="0"
+                class="input w-full"
+              >
+            </fieldset>
 
-      <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
-          <div class="label">
-            <span class="label-text">How many DM bubbles you assign this character?</span>
+            <fieldset class="fieldset">
+              <label class="fieldset-label">Spend Game Master coins</label>
+              <input
+                v-model="form.dm_coins"
+                :disabled="form.is_filler"
+                type="number"
+                min="0"
+                placeholder="0"
+                class="input w-full"
+              >
+            </fieldset>
           </div>
+
+          <label class="fieldset-label">Bubbles spend at bubble shop</label>
           <input
-            v-model="form.dm_bubbles"
+            v-model="form.bubble_shop_spend"
             :disabled="form.is_filler"
             type="number"
             min="0"
             placeholder="0"
-            class="input"
+            class="input w-full"
           >
-        </label>
 
-        <label class="form-control w-full mb-2">
-          <div class="label">
-            <span class="label-text">How many DM coins did you assign this character?</span>
-          </div>
+          <label class="fieldset-label">DnDBeyond link</label>
           <input
-            v-model="form.dm_coins"
-            :disabled="form.is_filler"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
+            v-model="form.external_link"
+            type="text"
+            placeholder="https://..."
+            class="input w-full"
           >
-        </label>
-      </div>
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">How many bubbles did you spend on the Bubble Shop?</span>
-        </div>
-        <input
-          v-model="form.bubble_shop_spend"
-          :disabled="form.is_filler"
-          type="number"
-          min="0"
-          placeholder="0"
-          class="input"
-        >
-      </label>
+          <label class="fieldset-label">Avatar</label>
+          <input
+            type="file"
+            class="file-input w-full"
+            accept=".jpeg,.png,.jpg,.gif,.webp"
+            @input="inputFile($event)"
+          >
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">What is your DnDBeyond Link?</span>
-        </div>
-        <input
-          v-model="form.external_link"
-          type="text"
-          placeholder="https://..."
-          class="input"
-        >
-      </label>
+          <label class="fieldset-label">Backstories and notes</label>
+          <textarea
+            v-model="form.notes"
+            class="textarea h-24 w-full"
+            placeholder="Notes"
+          />
 
-      <label class="form-control w-full mb-2">
-        <div class="label">
-          <span class="label-text">Choose an avatar</span>
-        </div>
-        <input
-          type="file"
-          class="file-input"
-          accept=".jpeg,.png,.jpg,.gif,.webp"
-          @input="inputFile($event)"
-        >
-      </label>
-
-      <label class="form-control w-full">
-        <div class="label">
-          <span class="label-text">Your backstories and notes</span>
-        </div>
-        <textarea
-          v-model="form.notes"
-          class="textarea h-24"
-          placeholder="Notes"
-        />
-      </label>
-
-      <button
-        class="btn btn-neutral mt-6"
-        @click="clickUpdateCharacter()"
-      >
-        Update
-      </button>
+          <button
+            class="btn btn-neutral mt-2"
+            @click.prevent="clickUpdateCharacter()"
+          >
+            Update
+          </button>
+        </fieldset>
+      </form>
     </div>
   </dialog>
 </template>

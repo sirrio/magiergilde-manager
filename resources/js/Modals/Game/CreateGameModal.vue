@@ -38,7 +38,7 @@ const clickCreateNewGame = () => {
         notes: data.notes,
       }
     },
-  ).put(route('game.store'), {
+  ).post(route('games.store'), {
     preserveState: false,
   })
 }
