@@ -32,7 +32,7 @@ const clickUpdateCharacter = () => {
 <template>
   <ModalContainer ref="modalRef">
     <form @submit.prevent="clickUpdateCharacter">
-      <CharacterForm :form="form" />
+      <CharacterForm heading="Update character" :form="form" />
 
       <button type="submit" class="btn btn-neutral mt-2">Update</button>
     </form>

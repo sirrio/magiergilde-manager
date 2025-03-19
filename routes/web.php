@@ -7,10 +7,6 @@ Route::get('/', function () {
   return Inertia::render('Welcome');
 });
 
-Route::get('/dashboard', function () {
-  return redirect()->route('characters.index');
-})->name('dashboard');
-
 require __DIR__ . '/auth.php';
 require __DIR__ . '/web/adventure.php';
 require __DIR__ . '/web/ally.php';

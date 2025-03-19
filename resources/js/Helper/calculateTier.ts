@@ -1,8 +1,7 @@
-import { Character } from '../Types'
-import { calculateLevel } from '@/Helpers/calculateLevel'
+import { calculateLevel } from '@/Helper/calculateLevel'
+import { Character } from '@/Types'
 
 const calculateTier = (character: Character): string => {
-
   if (character.is_filler) return 'bt'
 
   switch (calculateLevel(character)) {

@@ -9,6 +9,7 @@ use App\Models\Adventure;
 use App\Models\Character;
 use App\Models\Downtime;
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;

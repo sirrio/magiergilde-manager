@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { Downtime } from '@/Types'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { Downtime } from '../../Types'
 
 const props = defineProps<{ downtime: Downtime }>()
 
@@ -20,17 +20,18 @@ const showModal = () => {
 }
 
 const clickUpdateNewDowntime = () => {
-  form.transform(data => {
+  form
+    .transform((data) => {
       return {
-        duration: (data.hours * 60 * 60) + (data.minutes * 60),
+        duration: data.hours * 60 * 60 + data.minutes * 60,
         start_date: data.start_date,
         type: data.type,
         notes: data.notes,
       }
-    },
-  ).patch(route('downtime.update', { downtime: props.downtime.id }), {
-    preserveState: false,
-  })
+    })
+    .patch(route('downtime.update', { downtime: props.downtime.id }), {
+      preserveState: false,
+    })
 }
 
 defineExpose({
@@ -39,50 +40,27 @@ defineExpose({
 </script>
 
 <template>
-  <dialog
-    ref="modalDowntimeUpdate"
-    class="modal"
-  >
+  <dialog ref="modalDowntimeUpdate" class="modal">
     <div class="modal-box">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-          ✕
-        </button>
+        <button class="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
       </form>
-      <form
-        class="flex flex-col gap-3"
-        @submit.prevent="clickUpdateNewDowntime()"
-      >
-        <h3 class="font-bold text-lg">
-          Update your downtime
-        </h3>
+      <form class="flex flex-col gap-3" @submit.prevent="clickUpdateNewDowntime()">
+        <h3 class="text-lg font-bold">Update your downtime</h3>
 
         <div class="flex gap-3">
           <label class="form-control w-1/2">
             <div class="label">
               <span class="label-text">How many hours?</span>
             </div>
-            <input
-              v-model="form.hours"
-              type="number"
-              min="0"
-              placeholder="0"
-              class="input"
-            >
+            <input v-model="form.hours" type="number" min="0" placeholder="0" class="input" />
           </label>
 
           <label class="form-control w-1/2">
             <div class="label">
               <span class="label-text">How many minutes?</span>
             </div>
-            <input
-              v-model="form.minutes"
-              type="number"
-              min="0"
-              max="59"
-              placeholder="0"
-              class="input"
-            >
+            <input v-model="form.minutes" type="number" min="0" max="59" placeholder="0" class="input" />
           </label>
         </div>
 
@@ -90,21 +68,14 @@ defineExpose({
           <div class="label">
             <span class="label-text">What date did you spend your downtime?</span>
           </div>
-          <input
-            v-model="form.start_date"
-            type="date"
-            class="input"
-          >
+          <input v-model="form.start_date" type="date" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
             <span class="label-text">Is this downtime spend on a faction or other activities?</span>
           </div>
-          <select
-            v-model="form.type"
-            class="select capitalize"
-          >
+          <select v-model="form.type" class="select capitalize">
             <option value="other">Other</option>
             <option value="faction">Faction</option>
           </select>
@@ -114,16 +85,10 @@ defineExpose({
           <div class="label">
             <span class="label-text">Your notes</span>
           </div>
-          <textarea
-            v-model="form.notes"
-            class="textarea h-24"
-            placeholder="Notes"
-          />
+          <textarea v-model="form.notes" class="textarea h-24" placeholder="Notes" />
         </label>
 
-        <button class="btn btn-neutral">
-          Update
-        </button>
+        <button class="btn btn-neutral">Update</button>
       </form>
     </div>
   </dialog>

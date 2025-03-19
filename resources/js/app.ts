@@ -1,16 +1,15 @@
-import './bootstrap'
 import '../css/app.css'
+import './bootstrap'
 
-import { createApp, h, DefineComponent } from 'vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { ZiggyVue } from '../../vendor/tightenco/ziggy'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-
+import { createApp, DefineComponent, h } from 'vue'
+import { ZiggyVue } from 'ziggy-js'
 
 library.add(fas, far, fab)
 
@@ -22,9 +21,7 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     const VueApp = createApp({ render: () => h(App, props) })
     VueApp.component('FontAwesomeIcon', FontAwesomeIcon)
-    VueApp.use(plugin)
-      .use(ZiggyVue)
-      .mount(el)
+    VueApp.use(plugin).use(ZiggyVue).mount(el)
   },
   progress: {
     color: '#4B5563',

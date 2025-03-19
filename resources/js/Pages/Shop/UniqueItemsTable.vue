@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
-import { Item } from '../../Types'
+import { Item } from '@/Types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { defineProps, ref } from 'vue'
 
 defineProps<{
   title: string
@@ -22,40 +22,20 @@ const copyToClipboard = (text: string) => {
 </script>
 
 <template>
-  <div
-    v-if="copied"
-    class="toast z-50 text-base-content text-base"
-  >
+  <div v-if="copied" class="toast text-base-content z-50 text-base">
     <div class="alert alert-info">
       <font-awesome-icon :icon="['fas', 'copy']" />
       <span>Copied to clipboard.</span>
     </div>
   </div>
-  <div
-    class="border rounded-sm p-2 bg-base-100"
-  >
-    <h2
-      class="col-span-8 hover:text-accent cursor-pointer"
-      @click="copyToClipboard(big ? `## ***${title}***` :`### ${title}`)"
-    >
-      <font-awesome-icon
-        icon="copy"
-        class="opacity-25 mr-1"
-      />
+  <div class="bg-base-100 rounded-sm border p-2">
+    <h2 class="hover:text-accent col-span-8 cursor-pointer" @click="copyToClipboard(big ? `## ***${title}***` : `### ${title}`)">
+      <font-awesome-icon icon="copy" class="mr-1 opacity-25" />
       {{ title }}
     </h2>
-    <div
-      v-for="(item, index) in items"
-      :key="index"
-      class="grid grid-cols-12 text-xs"
-    >
-      <div class="truncate font-semibold col-span-2">
-        <a
-          v-if="item.url"
-          :href="item.url"
-          target="_blank"
-          class="link link-primary"
-        >
+    <div v-for="(item, index) in items" :key="index" class="grid grid-cols-12 text-xs">
+      <div class="col-span-2 truncate font-semibold">
+        <a v-if="item.url" :href="item.url" target="_blank" class="link link-primary">
           {{ item.name }}
         </a>
         <template v-else>
@@ -65,17 +45,9 @@ const copyToClipboard = (text: string) => {
       <div class="truncate">
         {{ item.cost }}
       </div>
-      <div class="capitalize truncate">
-        {{ item.rarity.replace("_", " ") }} {{ item.type }}
-      </div>
-      <div
-        class="col-span-8 hover:text-accent cursor-pointer"
-        @click="copyToClipboard(`[${item.name}](<${item.url}>): ${item.cost}`)"
-      >
-        <font-awesome-icon
-          icon="copy"
-          class="opacity-25 mr-1"
-        />
+      <div class="truncate capitalize">{{ item.rarity.replace('_', ' ') }} {{ item.type }}</div>
+      <div class="hover:text-accent col-span-8 cursor-pointer" @click="copyToClipboard(`[${item.name}](<${item.url}>): ${item.cost}`)">
+        <font-awesome-icon icon="copy" class="mr-1 opacity-25" />
         {{ `[${item.name}](<${item.url}>): ${item.cost}` }}
       </div>
     </div>

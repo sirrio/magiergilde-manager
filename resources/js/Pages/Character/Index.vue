@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head } from '@inertiajs/vue3'
-import { Character, Game, User } from '../../Types'
 import CharactersPartial from '@/Pages/Character/CharactersPartial.vue'
+import { Character, Game, User } from '@/Types'
+import { Head } from '@inertiajs/vue3'
 
 defineProps<{
   user: User
@@ -15,8 +15,8 @@ defineProps<{
   <Head title="Characters" />
 
   <AuthenticatedLayout>
-    <div class="py-6 px-6">
-      <div class="max-w-7xl mx-auto">
+    <div class="px-6 py-6">
+      <div class="mx-auto max-w-7xl">
         <CharactersPartial :characters="characters" />
       </div>
     </div>

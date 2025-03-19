@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Character, Downtime } from "../../Types"
-import { nextTick, Ref, ref } from 'vue'
 import CreateDowntimeModal from '@/Modals/Downtime/CreateDowntimeModal.vue'
-import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'
 import DestroyDowntimeModal from '@/Modals/Downtime/DestroyDowntimeModal.vue'
+import UpdateDowntimeModal from '@/Modals/Downtime/UpdateDowntimeModal.vue'
+import { Character, Downtime } from '@/Types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { nextTick, Ref, ref } from 'vue'
 
 defineProps<{
   character: Character
@@ -36,131 +36,67 @@ const clickDestroyDowntimeModal = async (downtime: Downtime) => {
   <div class="flex flex-col gap-3">
     <div class="flex justify-between">
       <h2 class="card-title">
-        <font-awesome-icon
-          :icon="['fas', 'hourglass']"
-        />
+        <font-awesome-icon :icon="['fas', 'hourglass']" />
         Downtimes
       </h2>
-      <button
-        :disabled="character.is_filler"
-        class="btn btn-ghost"
-        @click="createDowntimeModal.showModal()"
-      >
+      <button :disabled="character.is_filler" class="btn btn-ghost" @click="createDowntimeModal.showModal()">
         <font-awesome-icon :icon="['fas', 'plus']" />
         Add downtime
       </button>
     </div>
-    <div
-      v-if="character.is_filler"
-      class="card bg-base-100 text-base-content"
-    >
+    <div v-if="character.is_filler" class="card bg-base-100 text-base-content">
       <div class="card-body text-center">
-        <font-awesome-icon
-          :icon="['fas', 'circle-exclamation']"
-          size="7x"
-        />
-        <h3 class="font-semibold text-xl">
-          Filler character cannot spend downtimes
-        </h3>
+        <font-awesome-icon :icon="['fas', 'circle-exclamation']" size="7x" />
+        <h3 class="text-xl font-semibold">Filler character cannot spend downtimes</h3>
       </div>
     </div>
-    <div
-      v-else-if="character.downtimes.length === 0"
-      class="card bg-base-100 text-base-content"
-    >
+    <div v-else-if="character.downtimes.length === 0" class="card bg-base-100 text-base-content">
       <div class="card-body text-center">
-        <font-awesome-icon
-          :icon="['fas', 'circle-exclamation']"
-          size="7x"
-        />
-        <h3 class="font-semibold text-xl">
-          No downtimes yet
-        </h3>
+        <font-awesome-icon :icon="['fas', 'circle-exclamation']" size="7x" />
+        <h3 class="text-xl font-semibold">No downtimes yet</h3>
       </div>
     </div>
-    <div
-      v-for="(downtime, key) of character.downtimes"
-      v-else
-      :key="key"
-      class="card card-sm bg-base-100 text-base-content group"
-    >
-      <div
-        tabindex="0"
-        class="card-body collapse cursor-pointer"
-      >
-        <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
-          <button
-            class="btn btn-xs btn-square"
-            @click="clickUpdateDowntimeModal(downtime)"
-          >
+    <div v-for="(downtime, key) of character.downtimes" v-else :key="key" class="card card-sm bg-base-100 text-base-content group">
+      <div tabindex="0" class="card-body collapse cursor-pointer">
+        <div class="top-2 right-2 hidden gap-1 group-hover:absolute group-hover:flex">
+          <button class="btn btn-xs btn-square" @click="clickUpdateDowntimeModal(downtime)">
             <font-awesome-icon :icon="['fas', 'gear']" />
           </button>
-          <button
-            class="btn btn-xs btn-error btn-square"
-            @click="clickDestroyDowntimeModal(downtime)"
-          >
+          <button class="btn btn-xs btn-error btn-square" @click="clickDestroyDowntimeModal(downtime)">
             <font-awesome-icon :icon="['fas', 'x']" />
           </button>
         </div>
         <div class="card-title">
           <h3>
-            <font-awesome-icon
-              :icon="['fas', 'hashtag']"
-              size="xs"
-            />
+            <font-awesome-icon :icon="['fas', 'hashtag']" size="xs" />
             {{ key + 1 }} Downtime
-            <font-awesome-icon
-              v-if="downtime.notes"
-              :icon="['fas', 'note-sticky']"
-            />
+            <font-awesome-icon v-if="downtime.notes" :icon="['fas', 'note-sticky']" />
           </h3>
         </div>
         <div class="flex justify-between text-xs">
           <p>
-            <font-awesome-icon
-              :icon="['fas', 'clock']"
-            />
+            <font-awesome-icon :icon="['fas', 'clock']" />
             {{ Math.floor(downtime.duration / 3600) }}h {{ (downtime.duration / 60) % 60 }}min
             <span class="capitalize">- {{ downtime.type }}</span>
           </p>
-          <p class="italic text-right">
-            <font-awesome-icon
-              :icon="['fas', 'calendar']"
-            />
+          <p class="text-right italic">
+            <font-awesome-icon :icon="['fas', 'calendar']" />
             {{ new Date(downtime.start_date).toLocaleDateString() }}
           </p>
         </div>
         <div class="collapse-content">
-          <p
-            v-if="downtime.notes"
-            class="whitespace-pre-wrap "
-          >
+          <p v-if="downtime.notes" class="whitespace-pre-wrap">
             {{ downtime.notes }}
           </p>
           <p v-else>
-            <font-awesome-icon
-              :icon="['fas', 'circle-exclamation']"
-            />
+            <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
             No notes
           </p>
         </div>
       </div>
     </div>
   </div>
-  <CreateDowntimeModal
-    ref="createDowntimeModal"
-    :character-id="character.id"
-  />
-  <UpdateDowntimeModal
-    v-if="currentDowntime"
-    ref="updateDowntimeModal"
-    :key="updateDowntimeModalKey"
-    :downtime="currentDowntime"
-  />
-  <DestroyDowntimeModal
-    v-if="currentDowntime"
-    ref="destroyDowntimeModal"
-    :key="destroyDowntimeModalKey"
-    :downtime="currentDowntime"
-  />
+  <CreateDowntimeModal ref="createDowntimeModal" :character-id="character.id" />
+  <UpdateDowntimeModal v-if="currentDowntime" ref="updateDowntimeModal" :key="updateDowntimeModalKey" :downtime="currentDowntime" />
+  <DestroyDowntimeModal v-if="currentDowntime" ref="destroyDowntimeModal" :key="destroyDowntimeModalKey" :downtime="currentDowntime" />
 </template>

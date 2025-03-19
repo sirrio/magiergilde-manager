@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import TierLogo from '@/Components/TierLogo.vue'
-import { calculateBubble } from '@/Helpers/calculateBubble'
-import { calculateBubblesInCurrentLevel } from '@/Helpers/calculateBubblesInCurrentLevel'
-import { calculateBubblesToNextLevel } from '@/Helpers/calculateBubblesToNextLevel'
-import { calculateClassString } from '@/Helpers/calculateClassString'
-import { calculateFactionDowntime, calculateOtherDowntime } from '@/Helpers/calculateDowntime'
-import { calculateFactionLevel } from '@/Helpers/calculateFactionLevel'
-import { calculateLevel } from '@/Helpers/calculateLevel'
-import { calculateRemainingDowntime } from '@/Helpers/calculateRemainingDowntime'
-import { calculateTier } from '@/Helpers/calculateTier'
-import { secondsToHourMinuteString } from '@/Helpers/secondsToHourMinuteString'
+import { calculateBubble } from '@/Helper/calculateBubble'
+import { calculateBubblesInCurrentLevel } from '@/Helper/calculateBubblesInCurrentLevel'
+import { calculateBubblesToNextLevel } from '@/Helper/calculateBubblesToNextLevel'
+import { calculateClassString } from '@/Helper/calculateClassString'
+import { calculateFactionDowntime, calculateOtherDowntime } from '@/Helper/calculateDowntime'
+import { calculateFactionLevel } from '@/Helper/calculateFactionLevel'
+import { calculateLevel } from '@/Helper/calculateLevel'
+import { calculateRemainingDowntime } from '@/Helper/calculateRemainingDowntime'
+import { calculateTier } from '@/Helper/calculateTier'
+import { secondsToHourMinuteString } from '@/Helper/secondsToHourMinuteString'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import AllyModal from '@/Modals/AllyModal.vue'
 import CreateCharacterModal from '@/Modals/Character/CreateCharacterModal.vue'
@@ -140,7 +140,11 @@ const copyCharactersAsString = () => {
 
     const tier = calculateTier(char)
     if (tier === 'bt') {
-      char.is_filler ? filler.push(char) : tiers[tier].push(char)
+      if (char.is_filler) {
+        filler.push(char)
+      } else {
+        tiers[tier].push(char)
+      }
     } else {
       tiers[tier].push(char)
     }

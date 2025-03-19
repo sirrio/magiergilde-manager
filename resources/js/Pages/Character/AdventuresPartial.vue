@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { calculateBubbleByAdventures } from '@/Helper/calculateBubble'
 import CreateAdventureModal from '@/Modals/Adventure/CreateAdventureModal.vue'
 import DestroyAdventureModal from '@/Modals/Adventure/DestroyAdventureModal.vue'
 import UpdateAdventureModal from '@/Modals/Adventure/UpdateAdventureModal.vue'
-import { Adventure, Character } from "../../Types"
+import { Adventure, Character } from '@/Types'
 import { nextTick, Ref, ref } from 'vue'
-import { calculateBubbleByAdventures } from '@/Helpers/calculateBubble'
 
 defineProps<{
   character: Character
@@ -36,131 +36,70 @@ const clickDestroyAdventureModal = async (adventure: Adventure) => {
   <div class="flex flex-col gap-3">
     <div class="flex justify-between">
       <h2 class="card-title">
-        <font-awesome-icon
-          :icon="['fas', 'compass']"
-        />
+        <font-awesome-icon :icon="['fas', 'compass']" />
         Adventures
       </h2>
-      <button
-        class="btn btn-ghost"
-        @click="createAdventureModal.showModal()"
-      >
+      <button class="btn btn-ghost" @click="createAdventureModal.showModal()">
         <font-awesome-icon :icon="['fas', 'plus']" />
         Add adventure
       </button>
     </div>
-    <div
-      v-if="character.adventures.length === 0"
-      class="card bg-base-100 text-base-content"
-    >
+    <div v-if="character.adventures.length === 0" class="card bg-base-100 text-base-content">
       <div class="card-body text-center">
-        <font-awesome-icon
-          :icon="['fas', 'circle-exclamation']"
-          size="7x"
-        />
-        <h3 class="font-semibold text-xl">
-          No adventures yet
-        </h3>
+        <font-awesome-icon :icon="['fas', 'circle-exclamation']" size="7x" />
+        <h3 class="text-xl font-semibold">No adventures yet</h3>
       </div>
     </div>
-    <div
-      v-for="(adventure, key) of character.adventures"
-      v-else
-      :key="key"
-      class="card card-sm bg-base-100 text-base-content group"
-    >
-      <div
-        tabindex="0"
-        class="card-body collapse cursor-pointer"
-      >
-        <div class="group-hover:absolute group-hover:flex gap-1 hidden top-2 right-2">
-          <button
-            class="btn btn-xs btn-square"
-            @click="clickUpdateAdventureModal(adventure)"
-          >
+    <div v-for="(adventure, key) of character.adventures" v-else :key="key" class="card card-sm bg-base-100 text-base-content group">
+      <div tabindex="0" class="card-body collapse cursor-pointer">
+        <div class="top-2 right-2 hidden gap-1 group-hover:absolute group-hover:flex">
+          <button class="btn btn-xs btn-square" @click="clickUpdateAdventureModal(adventure)">
             <font-awesome-icon :icon="['fas', 'gear']" />
           </button>
-          <button
-            class="btn btn-xs btn-error btn-square"
-            @click="clickDestroyAdventureModal(adventure)"
-          >
+          <button class="btn btn-xs btn-error btn-square" @click="clickDestroyAdventureModal(adventure)">
             <font-awesome-icon :icon="['fas', 'x']" />
           </button>
         </div>
         <div>
           <div class="card-title">
             <h3>
-              <font-awesome-icon
-                :icon="['fas', 'hashtag']"
-                size="xs"
-              />
+              <font-awesome-icon :icon="['fas', 'hashtag']" size="xs" />
               {{ key + 1 }}
-              {{ adventure.title ?? "Adventure" }}
-              <font-awesome-icon
-                v-if="adventure.notes"
-                :icon="['fas', 'note-sticky']"
-                fixed-width
-                size="xs"
-              />
+              {{ adventure.title ?? 'Adventure' }}
+              <font-awesome-icon v-if="adventure.notes" :icon="['fas', 'note-sticky']" fixed-width size="xs" />
             </h3>
           </div>
           <span class="text-xs">
-            {{ adventure.game_master ? `Mastered by ${adventure.game_master} ` : "No game master" }}
+            {{ adventure.game_master ? `Mastered by ${adventure.game_master} ` : 'No game master' }}
           </span>
         </div>
         <div class="flex justify-between text-xs">
           <p>
-            <font-awesome-icon
-              :icon="['fas', 'clock']"
-            />
+            <font-awesome-icon :icon="['fas', 'clock']" />
             You gained
             {{ calculateBubbleByAdventures([adventure]) }}
             <span v-if="adventure.has_additional_bubble">(Character Quest)</span>
-            <font-awesome-icon
-              :icon="['fas', 'droplet']"
-              size="xs"
-              fixed-width
-            />
+            <font-awesome-icon :icon="['fas', 'droplet']" size="xs" fixed-width />
             in {{ Math.floor(adventure.duration / 3600) }}h {{ (adventure.duration / 60) % 60 }}min
           </p>
-          <p class="italic text-right">
-            <font-awesome-icon
-              :icon="['fas', 'calendar']"
-            />
+          <p class="text-right italic">
+            <font-awesome-icon :icon="['fas', 'calendar']" />
             {{ new Date(adventure.start_date).toLocaleDateString() }}
           </p>
         </div>
         <div class="collapse-content">
-          <p
-            v-if="adventure.notes"
-            class="whitespace-pre-wrap "
-          >
+          <p v-if="adventure.notes" class="whitespace-pre-wrap">
             {{ adventure.notes }}
           </p>
           <p v-else>
-            <font-awesome-icon
-              :icon="['fas', 'circle-exclamation']"
-            />
+            <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
             No notes
           </p>
         </div>
       </div>
     </div>
   </div>
-  <CreateAdventureModal
-    ref="createAdventureModal"
-    :character-id="character.id"
-  />
-  <UpdateAdventureModal
-    v-if="currentAdventure"
-    ref="updateAdventureModal"
-    :key="updateAdventureModalKey"
-    :adventure="currentAdventure"
-  />
-  <DestroyAdventureModal
-    v-if="currentAdventure"
-    ref="destroyAdventureModal"
-    :key="destroyAdventureModalKey"
-    :adventure="currentAdventure"
-  />
+  <CreateAdventureModal ref="createAdventureModal" :character-id="character.id" />
+  <UpdateAdventureModal v-if="currentAdventure" ref="updateAdventureModal" :key="updateAdventureModalKey" :adventure="currentAdventure" />
+  <DestroyAdventureModal v-if="currentAdventure" ref="destroyAdventureModal" :key="destroyAdventureModalKey" :adventure="currentAdventure" />
 </template>

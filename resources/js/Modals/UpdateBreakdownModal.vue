@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import TierLogo from '@/Components/TierLogo.vue'
+import { User } from '@/Types'
 import { InertiaForm, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import { User } from '../Types'
-import TierLogo from '@/Components/TierLogo.vue'
 
 const props = defineProps<{
   user: User
@@ -54,218 +54,110 @@ defineExpose({
 </script>
 
 <template>
-  <dialog
-    ref="modalBreakdownUpdate"
-    class="modal"
-  >
+  <dialog ref="modalBreakdownUpdate" class="modal">
     <div class="modal-box">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-          ✕
-        </button>
+        <button class="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
       </form>
-      <h3 class="font-bold text-lg mb-6">
-        Update your coins and bubbles
-      </h3>
+      <h3 class="mb-6 text-lg font-bold">Update your coins and bubbles</h3>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
             <span class="label-text">Event Bubble</span>
           </div>
-          <input
-            v-model="form.event_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.event_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
             <span class="label-text">Event Coins</span>
           </div>
-          <input
-            v-model="form.event_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.event_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="bt"
-              :size="14"
-            /> Bubble</span>
+            <span class="label-text"><tier-logo tier="bt" :size="14" /> Bubble</span>
           </div>
-          <input
-            v-model="form.bt_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.bt_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="bt"
-              :size="14"
-            /> Coins</span>
+            <span class="label-text"><tier-logo tier="bt" :size="14" /> Coins</span>
           </div>
-          <input
-            v-model="form.bt_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.bt_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="lt"
-              :size="14"
-            /> Bubble</span>
+            <span class="label-text"><tier-logo tier="lt" :size="14" /> Bubble</span>
           </div>
-          <input
-            v-model="form.lt_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.lt_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="lt"
-              :size="14"
-            /> Coins</span>
+            <span class="label-text"><tier-logo tier="lt" :size="14" /> Coins</span>
           </div>
-          <input
-            v-model="form.lt_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.lt_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="ht"
-              :size="14"
-            /> Bubble</span>
+            <span class="label-text"><tier-logo tier="ht" :size="14" /> Bubble</span>
           </div>
-          <input
-            v-model="form.ht_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.ht_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="ht"
-              :size="14"
-            /> Coins</span>
+            <span class="label-text"><tier-logo tier="ht" :size="14" /> Coins</span>
           </div>
-          <input
-            v-model="form.ht_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.ht_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="et"
-              :size="14"
-            /> Bubble</span>
+            <span class="label-text"><tier-logo tier="et" :size="14" /> Bubble</span>
           </div>
-          <input
-            v-model="form.et_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.et_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
-            <span class="label-text"><tier-logo
-              tier="et"
-              :size="14"
-            /> Coins</span>
+            <span class="label-text"><tier-logo tier="et" :size="14" /> Coins</span>
           </div>
-          <input
-            v-model="form.et_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.et_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
       <div class="flex gap-2">
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
             <span class="label-text">Other Bubble</span>
           </div>
-          <input
-            v-model="form.other_bubbles"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.other_bubbles" type="number" min="0" placeholder="0" class="input" />
         </label>
 
-        <label class="form-control w-full mb-2">
+        <label class="form-control mb-2 w-full">
           <div class="label">
             <span class="label-text">Other Coins</span>
           </div>
-          <input
-            v-model="form.other_coins"
-            type="number"
-            min="0"
-            placeholder="0"
-            class="input"
-          >
+          <input v-model="form.other_coins" type="number" min="0" placeholder="0" class="input" />
         </label>
       </div>
 
-      <button
-        class="btn btn-neutral mt-6"
-        @click="clickUpdateBreakdown()"
-      >
-        Update
-      </button>
+      <button class="btn btn-neutral mt-6" @click="clickUpdateBreakdown()">Update</button>
     </div>
   </dialog>
 </template>

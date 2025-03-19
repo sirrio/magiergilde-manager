@@ -1,7 +1,7 @@
-import { Character } from '../Types'
-import { calculateTier } from '@/Helpers/calculateTier'
-import { calculateLevel } from '@/Helpers/calculateLevel'
-import { calculateFactionDowntime } from '@/Helpers/calculateDowntime'
+import { calculateFactionDowntime } from '@/Helper/calculateDowntime'
+import { calculateLevel } from '@/Helper/calculateLevel'
+import { calculateTier } from '@/Helper/calculateTier'
+import { Character } from '@/Types'
 
 const calculateFactionLevel = (character: Character): number => {
   const tier = calculateTier(character)

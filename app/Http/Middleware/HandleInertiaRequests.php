@@ -35,7 +35,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'classes' => CharacterClass::select(['id', 'name'])->get()
+            'classes' => CharacterClass::query()->select(['id', 'name'])->get()
         ];
     }
 }

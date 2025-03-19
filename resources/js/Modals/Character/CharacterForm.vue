@@ -4,6 +4,9 @@ import { defineProps, ref } from 'vue'
 
 const props = defineProps<{
   form: InertiaForm<any>
+  heading: string
+  canEditFiller?: boolean
+  canEditStartingTier?: boolean
 }>()
 
 const page = usePage()
@@ -41,11 +44,30 @@ function toggleClass(classId: number) {
     localForm.value.class.push(classId)
   }
 }
+
+const tiers = [
+  { id: 'bt', name: 'Beginner Tier' },
+  { id: 'lt', name: 'Low Tier' },
+  { id: 'ht', name: 'High Tier' },
+]
+
+const changeFiller = () => {
+  if (localForm.value.is_filler) {
+    localForm.value.is_filler = false
+  } else {
+    localForm.value.is_filler = true
+    localForm.value.dm_bubbles = 0
+    localForm.value.dm_coins = 0
+    localForm.value.bubble_shop_spend = 0
+    localForm.value.start_tier = 'bt'
+    localForm.value.faction = 'none'
+  }
+}
 </script>
 
 <template>
   <fieldset class="fieldset">
-    <legend class="fieldset-legend">Update your character</legend>
+    <legend class="fieldset-legend">{{ heading }}</legend>
 
     <label class="fieldset-label">Name</label>
     <input v-model="localForm.name" type="text" placeholder="Peter" class="input w-full" />
@@ -68,8 +90,25 @@ function toggleClass(classId: number) {
       </template>
     </div>
 
+    <template v-if="canEditFiller">
+      <div class="my-2 flex justify-between">
+        <label class="fieldset-label">Filler character<span class="italic">(cannot be changed later)</span></label>
+        <input :checked="form.is_filler" type="checkbox" class="toggle" @change="changeFiller()" />
+      </div>
+    </template>
+
+    <template v-if="canEditStartingTier">
+      <label class="fieldset-label">Starting tier<span class="italic">(cannot be changed later)</span></label>
+      <select v-model="localForm.start_tier" :disabled="localForm.is_filler" class="select w-full">
+        <option :value="''" disabled selected>Pick one</option>
+        <option v-for="(tier, key) in tiers" :key="key" :value="tier.id">
+          {{ tier.name }}
+        </option>
+      </select>
+    </template>
+
     <label class="fieldset-label">Faction</label>
-    <select v-model="localForm.faction" :disabled="form.is_filler" class="select w-full capitalize">
+    <select v-model="localForm.faction" :disabled="localForm.is_filler" class="select w-full capitalize">
       <option v-for="(faction, key) in factions" :key="key" :value="faction">
         {{ faction }}
       </option>

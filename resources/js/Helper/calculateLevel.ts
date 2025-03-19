@@ -1,5 +1,5 @@
-import { Character } from '../Types'
-import { calculateBubble } from '@/Helpers/calculateBubble'
+import { calculateBubble } from '@/Helper/calculateBubble'
+import { Character } from '@/Types'
 
 const calculateLevel = (character: Character): number => {
   const bubbles = calculateBubble(character)
@@ -19,7 +19,7 @@ const calculateLevel = (character: Character): number => {
       additional_bubbles = 0
   }
 
-  return Math.min(20, Math.floor(1 + (Math.sqrt(((8 * (bubbles + additional_bubbles - character.bubble_shop_spend)) + 1)) - 1) / 2))
+  return Math.min(20, Math.floor(1 + (Math.sqrt(8 * (bubbles + additional_bubbles - character.bubble_shop_spend) + 1) - 1) / 2))
 }
 
 export { calculateLevel }

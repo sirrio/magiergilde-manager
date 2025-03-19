@@ -1,5 +1,5 @@
-import { Character } from '../Types'
-import { calculateLevel } from '@/Helpers/calculateLevel'
+import { calculateLevel } from '@/Helper/calculateLevel'
+import { Character } from '@/Types'
 
 const calculateBubblesToNextLevel = (character: Character): number => {
   const level = calculateLevel(character)
@@ -20,8 +20,8 @@ const calculateBubblesToNextLevel = (character: Character): number => {
       additional_bubbles = 0
   }
 
-  const current_level_bubble_total = ((level - 1) * ((level - 1) + 1) / 2) - additional_bubbles
-  const next_level_bubble_total = (level * (level + 1) / 2) - additional_bubbles
+  const current_level_bubble_total = ((level - 1) * (level - 1 + 1)) / 2 - additional_bubbles
+  const next_level_bubble_total = (level * (level + 1)) / 2 - additional_bubbles
 
   return next_level_bubble_total - current_level_bubble_total
 }

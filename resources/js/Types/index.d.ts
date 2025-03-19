@@ -1,8 +1,15 @@
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+  auth: {
+    user: User
+  }
+}
+
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  email_verified_at: string;
+  id: number
+  discord_id: number
+  name: string
+  email: string
+  email_verified_at: string
   event_bubbles: number
   event_coins: number
   bt_bubbles: number
@@ -16,86 +23,81 @@ export interface User {
   other_bubbles: number
   other_coins: number
   is_admin: boolean
+  avatar: string
 }
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-  auth: {
-    user: User;
-  };
-};
-
 export interface Item {
-  id: number;
-  name: string;
-  url: string;
-  cost: string;
-  type: string;
-  rarity: string;
+  id: number
+  name: string
+  url: string
+  cost: string
+  type: string
+  rarity: string
 }
 
 export interface CharacterClass {
-  id: number;
-  name: string;
-  src: string;
+  id: number
+  name: string
+  src: string
 }
 
 export interface Character {
-  character_classes: CharacterClass[];
-  adventures: Adventure[];
-  downtimes: Downtime[];
-  allies: Ally[];
-  deleted_at: string;
-  faction: string;
-  notes: string;
-  id: number;
-  name: string;
-  class: Array<CharacterClass>;
-  start_tier: string;
-  version: string;
-  dm_bubbles: number;
-  dm_coins: number;
-  is_filler: boolean;
-  bubble_shop_spend: number;
-  external_link: string;
-  avatar: string;
-  user_id: number;
+  character_classes: CharacterClass[]
+  adventures: Adventure[]
+  downtimes: Downtime[]
+  allies: Ally[]
+  deleted_at: string
+  faction: string
+  notes: string
+  id: number
+  name: string
+  class: Array<CharacterClass>
+  start_tier: string
+  version: string
+  dm_bubbles: number
+  dm_coins: number
+  is_filler: boolean
+  bubble_shop_spend: number
+  external_link: string
+  avatar: string
+  user_id: number
 }
 
 export interface Ally {
-  id: number;
-  name: string;
-  standing: string;
-  character_id: number;
+  id: number
+  name: string
+  standing: string
+  character_id: number
 }
 
 export interface Adventure {
-  id: number;
-  title: string;
-  duration: number;
-  start_date: string;
-  has_additional_bubble: boolean;
-  notes: string;
-  game_master: string;
-  character_id: number;
+  id: number
+  title: string
+  duration: number
+  start_date: string
+  has_additional_bubble: boolean
+  notes: string
+  game_master: string
+  character_id: number
 }
 
 export interface Downtime {
-  id: number;
-  duration: number;
-  start_date: string;
-  type: string;
-  notes: string;
-  character_id: number;
+  id: number
+  duration: number
+  start_date: string
+  type: string
+  notes: string
+  character_id: number
 }
 
 export interface Game {
-  id: number;
-  title: string;
-  tier: string;
-  duration: number;
-  start_date: string;
-  has_additional_bubble: boolean;
-  sessions: number;
-  notes: string;
-  user_id: number;
+  id: number
+  title: string
+  tier: string
+  duration: number
+  start_date: string
+  has_additional_bubble: boolean
+  sessions: number
+  notes: string
+  user_id: number
 }
