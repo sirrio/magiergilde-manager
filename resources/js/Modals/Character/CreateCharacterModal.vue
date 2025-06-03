@@ -45,15 +45,18 @@ const versions = [
 
 const factions = [
   'none',
-  'heiler',
-  'handwerker',
-  'feldforscher',
-  'bibliothekare',
-  'diplomaten',
   'gardisten',
-  'unterhalter',
+  'waffenmeister',
+  'handwerker',
+  'ermittler',
+  'feldforscher',
   'logistiker',
+  'arkanisten',
+  'bibliothekare',
   'flora & fauna',
+  'heiler',
+  'diplomaten',
+  'unterhalter',
 ]
 
 const showModal = () => {
